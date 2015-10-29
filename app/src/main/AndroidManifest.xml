@@ -8,32 +8,31 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".WelcomeActivity"
-            android:label="Welcome to PocketTeam">
+            android:label="@string/title_activity_welcome"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
 
 
         <activity
             android:name=".AddTeamActivity"
-            android:label="@string/add_team">
-
-        </activity>
+            android:label="@string/add_team"></activity>
         <activity
             android:name=".AddPlayerActivity"
             android:label="@string/title_activity_add_player"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RosterActivity"
             android:label="@string/title_activity_roster"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>
