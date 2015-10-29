@@ -24,7 +24,6 @@ public class AddTeamActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "OnCreate");
 
 
-
     }
 
     public void AddTeamClickEventHandler(View view) {
@@ -34,30 +33,21 @@ public class AddTeamActivity extends AppCompatActivity {
         final EditText teamName;
 
 
-
         mAddButton = (Button) findViewById(R.id.add_team_button);
         teamName = (EditText) findViewById(R.id.team_text);
 
 
-
-            newTeam = new Team(teamName.getText().toString()); //creates a new team
-
+        newTeam = new Team(teamName.getText().toString()); //creates a new team
 
 
+        TeamList.getInstance().addTeam(newTeam); //add to team list
 
 
+        Log.d(LOG_TAG, newTeam.getTeamName());
+        Log.d(LOG_TAG, TeamList.getInstance().getTeam(newTeam.getTeamName()).getTeamName());
 
-
-               TeamList.getInstance().addTeam(newTeam); //add to team list
-
-
-
-
-            Log.d(LOG_TAG, newTeam.getTeamName());
-
-            Intent addplayerIntent = new Intent(this, AddPlayerActivity.class);
-            startActivity(addplayerIntent);
-
+        Intent addplayerIntent = new Intent(this, AddPlayerActivity.class);
+        startActivity(addplayerIntent);
 
 
     }

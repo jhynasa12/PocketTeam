@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class TeamList {
 
-    private ArrayList<Team> m_Teams;
+    public static ArrayList<Team> m_Teams;
     private static TeamList uniqueInstance;
 
     public TeamList(){
@@ -63,7 +63,7 @@ public class TeamList {
 
     public Team getTeam(String name){
         for(Team team: m_Teams){
-            if(team.getTeamName() == name) return team;
+            if(team.getTeamName().equals(name)) return team;
         }
         return null;
     }

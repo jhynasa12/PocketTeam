@@ -43,10 +43,14 @@ public class AddPlayerActivity extends AppCompatActivity {
 
         Log.d(LOG_TAG, player.getFirstName() + " " + player.getLastName() + " " + player.getPosition() + " " + player.getPlayerNumber() + " " + player.getTeamName());
 
-        //add player to the Team
-        TeamList.getInstance().getTeam(team.getText().toString()).addPlayer(player);
+        Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.m_Teams.size() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
 
-        Log.d(LOG_TAG, player.getFirstName() + "'s team is " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
+        Team currentTeam = TeamList.getInstance().getTeam(player.getTeamName());
+
+        //add player to the Team
+        currentTeam.addPlayer(player);
+
+        Log.d(LOG_TAG, player.getFirstName() + "'s team is " + currentTeam.getTeamName());
 
         //Go to the Roster Screen
         Intent rosterIntent = new Intent(this,RosterActivity.class);
