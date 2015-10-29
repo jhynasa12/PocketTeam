@@ -20,7 +20,8 @@
         </activity>
         <activity
             android:name=".AddTeamActivity"
-            android:label="@string/add_team" />
+            android:label="@string/add_team"
+            android:parentActivityName=".TeamListActivity"/>
         <activity
             android:name=".AddPlayerActivity"
             android:label="@string/title_activity_add_player"
