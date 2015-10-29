@@ -61,7 +61,7 @@ public class TeamList {
 
     /**
      * Adds team to the list
-     * @param team a player object
+     * @param team a Team object
      */
     public void addTeam(Team team){
         m_Teams.add(team);

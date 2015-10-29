@@ -90,6 +90,6 @@
         android:layout_alignTop="@+id/imagePlayer"
         android:layout_alignRight="@+id/button4"
         android:layout_alignEnd="@+id/button4"
-        android:onClick="SprayChartOnClickEventHandler" />
+        android:onClick="SprayChartOnClickEventHandler"/>
 
 </RelativeLayout>
