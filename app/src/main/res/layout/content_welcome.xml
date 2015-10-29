@@ -31,7 +31,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="125dp"
         android:textSize="16pt"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent"
+        android:onClick="TeamsOnClickEventHandler"/>
 
     <Button
         android:layout_width="wrap_content"

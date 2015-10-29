@@ -8,15 +8,19 @@ import java.util.ArrayList;
  */
 public class TeamList {
 
-    public static ArrayList<Team> m_Teams;
+    private static ArrayList<Team> m_Teams;
     private static TeamList uniqueInstance;
 
     public TeamList(){
 
 
-        m_Teams = new ArrayList<>();
+        m_Teams = new ArrayList<>(); //create TeamList
     }
 
+    /**
+     * Singleton Pattern - only need one instance of TeamList
+     * @return uniqueInstance
+     */
     public static TeamList getInstance(){
 
         if(uniqueInstance == null){
@@ -27,7 +31,18 @@ public class TeamList {
 
     }
 
+    /**
+     * Returns the size of the TeamList
+     * @return
+     */
+    public int getSize(){
+        return m_Teams.size();
+    }
 
+    /**
+     * Checks to see if there are any teams in the list
+     * @return true or false
+     */
     public boolean noTeams(){
         if(m_Teams.isEmpty())
             return true;
@@ -37,7 +52,7 @@ public class TeamList {
 
 
     /**
-     * Returns the roster of players
+     * Returns list of teams
      * @return roster
      */
     public ArrayList<Team> getTeams(){
@@ -45,7 +60,7 @@ public class TeamList {
     }
 
     /**
-     * Adds team to the roster
+     * Adds team to the list
      * @param team a player object
      */
     public void addTeam(Team team){
@@ -53,8 +68,8 @@ public class TeamList {
     }
 
     /**
-     * removes player from roster 
-     * @param team - a player object
+     * removes team from list
+     * @param team - a Team object
      */
     public void removeTeam(Team team){
         m_Teams.remove(team);

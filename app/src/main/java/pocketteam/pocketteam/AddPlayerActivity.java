@@ -43,7 +43,7 @@ public class AddPlayerActivity extends AppCompatActivity {
 
         Log.d(LOG_TAG, player.getFirstName() + " " + player.getLastName() + " " + player.getPosition() + " " + player.getPlayerNumber() + " " + player.getTeamName());
 
-        Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.m_Teams.size() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
+        Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.getInstance().getSize() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
 
         Team currentTeam = TeamList.getInstance().getTeam(player.getTeamName());
 
