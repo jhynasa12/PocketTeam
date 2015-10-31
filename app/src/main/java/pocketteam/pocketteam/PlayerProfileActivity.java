@@ -24,4 +24,10 @@ public class PlayerProfileActivity extends AppCompatActivity {
         startActivity(sprayChartIntent);
 
     }
+
+    public void ProfilePictureOnClickEventHandler(View view) {
+        Intent cameraIntent = new Intent(Intent.CATEGORY_APP_GALLERY);
+        startActivity(cameraIntent);
+
+    }
 }
