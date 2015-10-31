@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".WelcomeActivity"
-            android:label="@string/title_activity_welcome"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,28 +25,22 @@
         <activity
             android:name=".AddPlayerActivity"
             android:label="@string/title_activity_add_player"
-            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".RosterActivity"/>
         <activity
             android:name=".RosterActivity"
             android:label="@string/title_activity_roster"
-            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".TeamListActivity"/>
         <activity
             android:name=".TeamListActivity"
             android:label="@string/title_activity_team_list"
-            android:parentActivityName=".WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:parentActivityName=".WelcomeActivity"/>
+
         <activity
             android:name=".PlayerProfileActivity"
             android:label="@string/title_activity_player_profile"
-            android:parentActivityName=".RosterActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="pocketteam.pocketteam.RosterActivity" />
-        </activity>
+            android:parentActivityName=".RosterActivity"/>
+
+
         <activity
             android:name=".SprayChartActivity"
             android:label="@string/title_activity_spray_chart"

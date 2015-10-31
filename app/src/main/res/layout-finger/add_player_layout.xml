@@ -74,17 +74,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/first_name"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_alignLeft="@+id/add_player_button"
-        android:layout_alignStart="@+id/add_player_button" />
+        android:layout_below="@+id/textView6"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/last_name"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
+        android:layout_above="@+id/position" />
 
     <EditText
         android:layout_width="match_parent"

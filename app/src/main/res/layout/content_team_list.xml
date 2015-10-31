@@ -30,4 +30,29 @@
         android:layout_marginBottom="49dp"
         android:onClick="AddTeamOnClickEventHandler"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove Team"
+        android:id="@+id/button5"
+        android:layout_alignBottom="@+id/add_team"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ScrollView
+        android:layout_width=""
+        android:layout_height="">
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView2"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/add_team"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    </ScrollView>
+
 </RelativeLayout>
