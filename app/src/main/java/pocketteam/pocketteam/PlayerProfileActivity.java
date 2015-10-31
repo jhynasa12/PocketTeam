@@ -15,6 +15,11 @@ public class PlayerProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
 
+
+        //Player currentPlayer = TeamList.getInstance().getTeam()
+
+
+
     }
 
 
