@@ -46,8 +46,8 @@ public class AddTeamActivity extends AppCompatActivity {
         Log.d(LOG_TAG, newTeam.getTeamName());
         Log.d(LOG_TAG, TeamList.getInstance().getTeam(newTeam.getTeamName()).getTeamName());
 
-        Intent addplayerIntent = new Intent(this, RosterActivity.class);
-        startActivity(addplayerIntent);
+        Intent teamListIntent = new Intent(this, TeamListActivity.class);
+        startActivity(teamListIntent);
 
 
     }

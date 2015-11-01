@@ -68,6 +68,11 @@ public class Team {
         }
         return null;
     }//end findPlayerByLastName
+
+    @Override
+    public String toString(){
+        return m_TeamName;
+    }
     
     
 }//end Team
