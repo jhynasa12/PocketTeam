@@ -9,8 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".AddTeamActivity"
-            android:label="@string/add_team" >
+            android:name=".WelcomeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,19 +19,36 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AddTeamActivity"
+            android:label="@string/add_team"
+            android:parentActivityName=".TeamListActivity" />
+        <activity
             android:name=".AddPlayerActivity"
             android:label="@string/title_activity_add_player"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".MainScreenActivity"
-            android:label="@string/title_activity_main_screen"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:parentActivityName=".RosterActivity"/>
         <activity
             android:name=".RosterActivity"
             android:label="@string/title_activity_roster"
+            android:parentActivityName=".TeamListActivity"/>
+        <activity
+            android:name=".TeamListActivity"
+            android:label="@string/title_activity_team_list"
+            android:parentActivityName=".WelcomeActivity"/>
+
+        <activity
+            android:name=".PlayerProfileActivity"
+            android:label="@string/title_activity_player_profile"
+            android:parentActivityName=".RosterActivity"/>
+
+
+        <activity
+            android:name=".SprayChartActivity"
+            android:label="@string/title_activity_spray_chart"
+            android:parentActivityName=".PlayerProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pocketteam.pocketteam.PlayerProfileActivity" />
         </activity>
     </application>
 

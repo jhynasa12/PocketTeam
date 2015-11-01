@@ -10,4 +10,8 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_roster">RosterActivity</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_team_list">TeamListActivity</string>
+    <string name="title_activity_player_profile">PlayerProfileActivity</string>
+    <string name="title_activity_spray_chart">SprayChartActivity</string>
 </resources>

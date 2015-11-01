@@ -74,17 +74,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/first_name"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_alignLeft="@+id/add_player_button"
-        android:layout_alignStart="@+id/add_player_button" />
+        android:layout_below="@+id/textView6"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/last_name"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
+        android:layout_above="@+id/position" />
 
     <EditText
         android:layout_width="match_parent"
@@ -111,25 +109,6 @@
         android:layout_alignLeft="@+id/jersey_number"
         android:layout_alignStart="@+id/jersey_number"
         android:textSize="24pt"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Team: "
-        android:id="@+id/textView11"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/team_name"
-        android:layout_alignBottom="@+id/textView11"
-        android:layout_toRightOf="@+id/textView11"
-        android:layout_toEndOf="@+id/textView11" />
 
 
 </RelativeLayout>

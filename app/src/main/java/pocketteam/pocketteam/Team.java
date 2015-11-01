@@ -56,6 +56,23 @@ public class Team {
     public void removePlayer(Player player){
         roster.remove(player);
     }
+
+
+    public Player findPlayerByLastName(String lastName){
+
+        for(Player player: roster){
+            if(player.getLastName().equals(lastName)){
+                return player;
+            }
+
+        }
+        return null;
+    }//end findPlayerByLastName
+
+    @Override
+    public String toString(){
+        return m_TeamName;
+    }
     
     
 }//end Team
