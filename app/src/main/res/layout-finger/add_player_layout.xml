@@ -110,24 +110,5 @@
         android:layout_alignStart="@+id/jersey_number"
         android:textSize="24pt"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Team: "
-        android:id="@+id/textView11"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/team_name"
-        android:layout_alignBottom="@+id/textView11"
-        android:layout_toRightOf="@+id/textView11"
-        android:layout_toEndOf="@+id/textView11" />
-
 
 </RelativeLayout>
