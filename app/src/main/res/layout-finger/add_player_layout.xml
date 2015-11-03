@@ -82,7 +82,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/last_name"
-        android:layout_above="@+id/position" />
+        android:layout_above="@+id/position"
+        android:layout_alignLeft="@+id/add_player_button"
+        android:layout_alignStart="@+id/add_player_button" />
 
     <EditText
         android:layout_width="match_parent"
