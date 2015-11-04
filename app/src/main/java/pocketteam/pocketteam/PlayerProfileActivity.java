@@ -14,6 +14,9 @@ import java.util.List;
 
 public class PlayerProfileActivity extends AppCompatActivity {
 
+    public static String stats;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
