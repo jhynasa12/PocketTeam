@@ -17,6 +17,7 @@ public class AddPlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_player_layout);
+        Log.d(LOG_TAG, "OnCreate");
 
     }
 
@@ -55,6 +56,7 @@ public class AddPlayerActivity extends AppCompatActivity {
         //Go to the Roster Screen
         Intent rosterIntent = new Intent(this,RosterActivity.class);
         startActivity(rosterIntent);
+
 
 
 

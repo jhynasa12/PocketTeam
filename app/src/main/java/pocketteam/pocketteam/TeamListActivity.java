@@ -39,7 +39,7 @@ public class TeamListActivity extends AppCompatActivity {
 
     }
 
-    private void displayTeamDetail(Team team) {
+    public void displayTeamDetail(Team team) {
         Log.d("TeamListActivity", "Displaying Team: " + team.getTeamName());
 
         Intent intent = new Intent(this, RosterActivity.class);

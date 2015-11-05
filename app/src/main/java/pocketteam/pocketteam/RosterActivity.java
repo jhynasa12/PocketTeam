@@ -41,12 +41,7 @@ public class RosterActivity extends AppCompatActivity {
                 displayRosterDetail(player);
             }
         });
-
-
-
-
     }
-
 
 
 
@@ -54,6 +49,7 @@ public class RosterActivity extends AppCompatActivity {
 
         Intent addPlayerIntent = new Intent(this, AddPlayerActivity.class);
         startActivity(addPlayerIntent);
+        finishActivity(DETAIL_REQUEST_CODE);
 
     }
 
