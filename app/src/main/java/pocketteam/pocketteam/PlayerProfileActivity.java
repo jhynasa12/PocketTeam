@@ -21,14 +21,14 @@ public class PlayerProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
-        List<Stat> stat = StatDataProvider.getData();
+ //       List<Stat> stat = StatDataProvider.getData();
 
         //Player currentPlayer = TeamList.getInstance().getTeam()
 
-        ArrayAdapter<Stat> statArrayAdapter =
-                new ArrayAdapter<Stat>(this, android.R.layout.simple_list_item_1, stat);
-        ListView listView = (ListView) findViewById(android.R.id.list);
-        listView.setAdapter(statArrayAdapter);
+//        ArrayAdapter<Stat> statArrayAdapter =
+//                new ArrayAdapter<Stat>(this, android.R.layout.simple_list_item_1, stat);
+//        ListView listView = (ListView) findViewById(android.R.id.list);
+//        listView.setAdapter(statArrayAdapter);
     }
 
 
