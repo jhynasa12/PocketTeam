@@ -14,4 +14,18 @@
     <string name="title_activity_team_list">TeamListActivity</string>
     <string name="title_activity_player_profile">PlayerProfileActivity</string>
     <string name="title_activity_spray_chart">SprayChartActivity</string>
+
+    <string name="test">This is a test to see if the stat list works</string>
+    <string-array name="Stat">
+        <item >At Bat</item>
+        <item >Home Runs</item>
+        <item >Strikeouts</item>
+        <item >Errors</item>
+        <item >On Base</item>
+
+    </string-array>
+
+
+
+
 </resources>

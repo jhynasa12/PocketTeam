@@ -17,6 +17,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
     public static String stats;
     public static String playerName;
+    public static final String test = "TEST";
 
 
     @Override
@@ -40,17 +41,14 @@ public class PlayerProfileActivity extends AppCompatActivity {
     }
 
 
-
-    public void SprayChartOnClickEventHandler(View view) {
-
-        Intent sprayChartIntent = new Intent(this, SprayChartActivity.class);
-        startActivity(sprayChartIntent);
-
-    }
-
     public void ProfilePictureOnClickEventHandler(View view) {
         Intent cameraIntent = new Intent(Intent.CATEGORY_APP_GALLERY);
         startActivity(cameraIntent);
+
+    }
+    public void SprayChartOnClickEventHandler(View view) {
+        Intent sprayChartIntent = new Intent(this, SprayChartActivity.class);
+        startActivity(sprayChartIntent);
 
     }
 }
