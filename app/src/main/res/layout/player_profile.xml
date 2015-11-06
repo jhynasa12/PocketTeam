@@ -26,8 +26,8 @@
         android:id="@+id/imagePlayer"
         android:src="@drawable/spiderman"
         android:layout_below="@+id/textView7"
-        android:layout_centerInParent="true"/>
-
+        android:layout_centerInParent="true"
+        android:onClick="ProfilePictureOnClickEventHandler"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,25 +71,9 @@
 
         />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText7"
-        android:layout_alignBottom="@+id/textView9"
-        android:layout_toRightOf="@+id/textView8"
-        android:layout_toEndOf="@+id/textView8"
 
-        />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText9"
-        android:layout_alignBottom="@+id/textView9"
-        android:layout_toRightOf="@+id/textView8"
-        android:layout_toEndOf="@+id/textView8"
 
-        />
 
     <ListView
         android:layout_width="match_parent"

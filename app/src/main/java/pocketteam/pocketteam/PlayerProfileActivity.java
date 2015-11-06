@@ -1,7 +1,9 @@
 package pocketteam.pocketteam;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import java.util.List;
 
 public class PlayerProfileActivity extends AppCompatActivity {
 
+    private static int IMAGE_GALLERY = 10;
     public static String stats;
     public static String playerName;
     public static final String test = "TEST";
@@ -42,10 +45,25 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
 
     public void ProfilePictureOnClickEventHandler(View view) {
-        Intent cameraIntent = new Intent(Intent.CATEGORY_APP_GALLERY);
-        startActivity(cameraIntent);
+        //we want to pick an image from a gallery, specify action pic
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
+        //
+        //give me the file path to the directory
+      String path =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath();
+
+        //convert to URI
+        Uri picturesDirectory = Uri.parse(path);
+
+        //set data and look for files
+        galleryIntent.setDataAndType(picturesDirectory, "image/*");
+        //
+
+        //startActivity
+        startActivityForResult(galleryIntent, IMAGE_GALLERY );
 
     }
+
+
     public void SprayChartOnClickEventHandler(View view) {
         Intent sprayChartIntent = new Intent(this, SprayChartActivity.class);
         startActivity(sprayChartIntent);
