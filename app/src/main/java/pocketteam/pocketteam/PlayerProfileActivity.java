@@ -9,18 +9,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
 public class PlayerProfileActivity extends AppCompatActivity {
 
     public static String stats;
+    public static String playerName;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
+
+        playerName = getIntent().getStringExtra(RosterActivity.PLAYER_NAME);
+        TextView rosterText = (TextView) findViewById(R.id.player_profile_name);
+        rosterText.setText(playerName);
+
+
  //       List<Stat> stat = StatDataProvider.getData();
 
         //Player currentPlayer = TeamList.getInstance().getTeam()

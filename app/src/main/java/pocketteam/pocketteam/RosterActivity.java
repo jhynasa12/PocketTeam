@@ -56,7 +56,9 @@ public class RosterActivity extends AppCompatActivity {
     private void displayRosterDetail(Player player) {
         Log.d("RosterActivity", "Displaying player: " + player.getLastName());
         Intent playerProfileIntent = new Intent(this, PlayerProfileActivity.class);
-        startActivity(playerProfileIntent);
+        playerProfileIntent.putExtra(PLAYER_NAME, player.getFirstName() + " " + player.getLastName());
+        startActivityForResult(playerProfileIntent, DETAIL_REQUEST_CODE);
+
 
     }
 }
