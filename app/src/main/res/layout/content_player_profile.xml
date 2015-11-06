@@ -25,9 +25,9 @@
         android:layout_height="150dp"
         android:id="@+id/imagePlayer"
         android:src="@drawable/spiderman"
-        android:layout_below="@+id/textView7"
-        android:layout_alignRight="@+id/textView7"
-        android:layout_alignEnd="@+id/textView7" />
+        android:layout_below="@+id/player_profile_name"
+        android:layout_alignRight="@+id/player_profile_name"
+        android:layout_alignEnd="@+id/player_profile_name" />
 
     <TextView
         android:layout_width="wrap_content"
