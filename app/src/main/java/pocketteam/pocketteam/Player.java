@@ -52,6 +52,12 @@ public class Player {
         
       
     }
+
+
+    @Override
+    public String toString(){
+        return m_FirstName + " " + m_LastName;
+    }
     
     /**
      * Sets first name of player

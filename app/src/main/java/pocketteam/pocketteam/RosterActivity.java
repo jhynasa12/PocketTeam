@@ -41,12 +41,7 @@ public class RosterActivity extends AppCompatActivity {
                 displayRosterDetail(player);
             }
         });
-
-
-
-
     }
-
 
 
 
@@ -54,11 +49,16 @@ public class RosterActivity extends AppCompatActivity {
 
         Intent addPlayerIntent = new Intent(this, AddPlayerActivity.class);
         startActivity(addPlayerIntent);
+        finishActivity(DETAIL_REQUEST_CODE);
 
     }
 
     private void displayRosterDetail(Player player) {
         Log.d("RosterActivity", "Displaying player: " + player.getLastName());
+        Intent playerProfileIntent = new Intent(this, PlayerProfileActivity.class);
+        playerProfileIntent.putExtra(PLAYER_NAME, player.getFirstName() + " " + player.getLastName());
+        startActivityForResult(playerProfileIntent, DETAIL_REQUEST_CODE);
+
 
     }
 }

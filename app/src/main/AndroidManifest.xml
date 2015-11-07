@@ -44,11 +44,7 @@
         <activity
             android:name=".SprayChartActivity"
             android:label="@string/title_activity_spray_chart"
-            android:parentActivityName=".PlayerProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="pocketteam.pocketteam.PlayerProfileActivity" />
+            android:parentActivityName=".PlayerProfileActivity">
         </activity>
     </application>
 
