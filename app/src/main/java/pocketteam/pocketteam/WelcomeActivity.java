@@ -6,11 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 public class WelcomeActivity extends AppCompatActivity {
-
+    DataHelper myDb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        myDb = new DataHelper(this);
 
     }
 

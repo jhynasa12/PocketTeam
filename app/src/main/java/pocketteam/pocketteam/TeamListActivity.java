@@ -17,10 +17,13 @@ public class TeamListActivity extends AppCompatActivity {
     public static final int DETAIL_REQUEST_CODE = 1001;
     protected ArrayList<Team> teams;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_list);
+
 
 
         teams = TeamList.getInstance().getTeams();
