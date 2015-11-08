@@ -1,5 +1,6 @@
 package pocketteam.pocketteam;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,7 @@ public class RosterActivity extends AppCompatActivity {
     public static final String PLAYER_NAME = "playerName";
     public static final int DETAIL_REQUEST_CODE = 1001;
     protected ArrayList<Player> players;
+    public static ArrayAdapter<Player> playerArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,7 @@ public class RosterActivity extends AppCompatActivity {
 
         players = TeamList.getInstance().getTeam(teamName).getRoster();
 
-        ArrayAdapter<Player> playerArrayAdapter = new ArrayAdapter<Player>(this, android.R.layout.simple_expandable_list_item_1, players);
+        playerArrayAdapter = new ArrayAdapter<Player>(this, android.R.layout.simple_expandable_list_item_1, players);
         ListView listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(playerArrayAdapter);
 
@@ -61,4 +64,18 @@ public class RosterActivity extends AppCompatActivity {
 
 
     }
-}
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        playerArrayAdapter.notifyDataSetChanged();
+
+        Context context = getApplicationContext();
+        CharSequence text = "This runs.... ";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+
+    }
+}//end Activiy

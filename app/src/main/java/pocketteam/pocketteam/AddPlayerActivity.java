@@ -53,6 +53,8 @@ public class AddPlayerActivity extends AppCompatActivity {
 
         Log.d(LOG_TAG, player.getFirstName() + "'s team is " + currentTeam.getTeamName());
 
+        RosterActivity.playerArrayAdapter.notifyDataSetChanged();
+
         //Go to the Roster Screen
         finish();
 
