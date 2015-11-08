@@ -22,7 +22,7 @@ public class TeamListActivity extends AppCompatActivity {
     public static final int DETAIL_REQUEST_CODE = 1001;
     protected ArrayList<Team> teams;
     private ListView listView;
-
+    private ArrayAdapter<Team> teamArrayAdapter;
 
 
     @Override
@@ -31,10 +31,9 @@ public class TeamListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_team_list);
 
 
-
         teams = TeamList.getInstance().getTeams();
 
-        ArrayAdapter<Team> teamArrayAdapter = new ArrayAdapter<Team>(this, android.R.layout.simple_expandable_list_item_1, teams);
+        teamArrayAdapter = new ArrayAdapter<Team>(this, android.R.layout.simple_expandable_list_item_1, teams);
         listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(teamArrayAdapter);
 
@@ -63,7 +62,7 @@ public class TeamListActivity extends AppCompatActivity {
     }
 
 
-    public void RemoveTeamOnClickEventHandler(View view){
+    public void RemoveTeamOnClickEventHandler(View view) {
 
 
         Context context = getApplicationContext();
@@ -80,6 +79,8 @@ public class TeamListActivity extends AppCompatActivity {
                 Team team = teams.get(position);
                 teams.remove(team);
 
+
+                teamArrayAdapter.notifyDataSetChanged();
 
                 Context context = getApplicationContext();
                 CharSequence text = "You removed the team... ";

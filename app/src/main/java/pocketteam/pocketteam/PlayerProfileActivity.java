@@ -1,5 +1,6 @@
 package pocketteam.pocketteam;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -44,12 +45,11 @@ public class PlayerProfileActivity extends AppCompatActivity {
         rosterText.setText(playerName);
 
 
-        //       List<Stat> stat = StatDataProvider.getData();
+       //        List<Stat> stat = StatDataProvider.getData();
 
-        //Player currentPlayer = TeamList.getInstance().getTeam()
+       // Player currentPlayer = TeamList.getInstance().getTeam().
 
-//        ArrayAdapter<Stat> statArrayAdapter =
-//                new ArrayAdapter<Stat>(this, android.R.layout.simple_list_item_1, stat);
+//        ArrayAdapter<Stat> statArrayAdapter = new ArrayAdapter<Stat>(this, android.R.layout.simple_list_item_1, stat);
 //        ListView listView = (ListView) findViewById(android.R.id.list);
 //        listView.setAdapter(statArrayAdapter);
     }
@@ -100,5 +100,48 @@ public class PlayerProfileActivity extends AppCompatActivity {
             }
         };
     }
+
+
+
+
+//    Button more = (Button) findViewById(R.id.more);
+//    more.setOnClickListener(new View.OnClickListener() {
+//        public void onClick(View view) {
+//            //Intent myIntent = new Intent(view.getContext(), agones.class);
+//            //startActivityForResult(myIntent, 0);
+//
+//
+//            AlertDialog alertDialog = new AlertDialog.Builder(<YourActivityName>this).create(); //Read Update
+//            alertDialog.setTitle("hi");
+//            alertDialog.setMessage("this is my app");
+//
+//            alertDialog.setButton("Continue..", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    // here you can add functions
+//                }
+//            });
+//
+//            alertDialog.show();  //<-- See This!
+//        }
+//
+//    }
+
+    public void OnClickDialogEventHandler(View view) {
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity)this).create(); //Read Update
+        alertDialog.setTitle("This is a dialog box");
+        alertDialog.setMessage("this is my app");
+
+        alertDialog.setButton("Continue..", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // here you can add functions
+            }
+        });
+
+        alertDialog.show();  //<-- See This!
+    }
+
+
 
 }// end Activity

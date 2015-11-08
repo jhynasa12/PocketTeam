@@ -16,6 +16,16 @@ public class Team {
 
         roster = new ArrayList<>();
     }
+
+
+    public Player findPlayerOnTeamByLastName(String lastname){
+        for(Player x: roster){
+            if(x.getLastName().equals(lastname)){
+                return x;
+            }
+        }
+        return null;
+    }
     
     /**
      * Sets the Team name
