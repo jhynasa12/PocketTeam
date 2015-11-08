@@ -20,7 +20,7 @@ public class RosterActivity extends AppCompatActivity {
     public static final String PLAYER_NAME = "playerName";
     public static final int DETAIL_REQUEST_CODE = 1001;
     protected ArrayList<Player> players;
-    private ArrayAdapter<Player> playerArrayAdapter;
+    public static ArrayAdapter<Player> playerArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
