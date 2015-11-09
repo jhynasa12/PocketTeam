@@ -54,7 +54,7 @@ public class SprayChartView extends View
         }
     }
 
-    ArrayList<Point> sprayPoints = new ArrayList<Point>();
+    private ArrayList<Point> sprayPoints = new ArrayList<Point>();
 
     public SprayChartView(Context context, AttributeSet attrs)
     {
@@ -66,7 +66,7 @@ public class SprayChartView extends View
     {
         super.onDraw(canvas);
         Context ctx = getContext();
-        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.chart);
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.chart2);
         canvas.drawBitmap(b, 0, 0, null);
 
         Paint paint = new Paint();
