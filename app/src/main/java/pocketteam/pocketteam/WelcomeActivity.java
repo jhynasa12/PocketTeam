@@ -11,20 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class WelcomeActivity extends AppCompatActivity {
-    DataHelper myDb;
-    EditText editFirstName, editLastName, editPosition;
-    Button btnAddData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-//        myDb = new DataHelper(this);
-//
-//        editPosition = (EditText) findViewById(R.id.editPlayerPosition);
-//        editFirstName = (EditText) findViewById(R.id.editPlayerPosition);
-//        editLastName = (EditText) findViewById(R.id.editPlayerPosition);
-//        btnAddData = (Button) findViewById(R.id.add_player_button);
-//        AddData();
+
 
         String fontPath = "fonts/varsity_regular.ttf";
 
@@ -40,21 +32,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
-    public void AddData(){
-        btnAddData.setOnClickListener(
-                new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        boolean isInserted = myDb.insertData(editFirstName.getText().toString(), editLastName.getText().toString(), editPosition.getText().toString() );
-                        if (isInserted = true)
-                            Toast.makeText(WelcomeActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(WelcomeActivity.this, "Data not Inserted", Toast.LENGTH_LONG).show();
 
-                    }
-                }
-        );
-    }
 
     public void ScoutModeOnClickEventHandler(View view) {
 

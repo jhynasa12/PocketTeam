@@ -20,16 +20,15 @@ public class DataHelper extends SQLiteOpenHelper {
     public DataHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
 
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        try{
-            db.execSQL("create table"+TABLE_NAME+"(NUMBER INTEGER PRIMARY KEY AUTOINCREMENT, FIRSTNAME TEXT, LASTNAME TEXT,POSITION TEXT);");
-        }
-        catch (Exception e) {
 
-        }
+            db.execSQL("CREATE TABLE "+TABLE_NAME+" (NUMBER INTEGER, FIRSTNAME TEXT, LASTNAME TEXT,POSITION TEXT);");
+
+
     }
 
 
@@ -39,9 +38,11 @@ public class DataHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String firstName, String lastName, String position) {
+    public boolean insertData(String number, String firstName, String lastName, String position) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_1,number);
         contentValues.put(COL_2,firstName);
         contentValues.put(COL_3,lastName);
         contentValues.put(COL_4,position);
