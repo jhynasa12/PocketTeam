@@ -106,12 +106,6 @@ public class TeamListActivity extends AppCompatActivity {
 
         alertDialog.setCanceledOnTouchOutside(true);
 
-//        alertDialog.setButton("Cancel",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.cancel();
-//                    }
-//                });
 
 
         alertDialog.show();  //<-- See This!

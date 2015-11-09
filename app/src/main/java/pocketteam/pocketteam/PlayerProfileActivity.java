@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
     public static String stats;
     public static String playerName;
     public static final String test = "TEST";
+    private Bitmap yourSelectedImage;
 
 
     @Override
@@ -76,9 +78,10 @@ public class PlayerProfileActivity extends AppCompatActivity {
                     String filePath = cursor.getString(columnIndex);
                     cursor.close();
 
+                    ImageView image = (ImageView) findViewById(R.id.imagePlayer);
+                     yourSelectedImage = BitmapFactory.decodeFile(filePath);
+                    image.setImageBitmap(yourSelectedImage);
 
-                    Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
-            /* Now you have choosen image in Bitmap format in object "yourSelectedImage". You can use it in way you want! */
                 }
         }
 
@@ -86,17 +89,12 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
     ;
 
-    public void btnChoosePhotoPressed(View view) {
-
-        View.OnClickListener btnChoosePhotoPressedHelper = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                final int ACTIVITY_SELECT_IMAGE = 1234;
-                startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
-            }
-        };
+    public void btnChoosePhotoPressed(View view)
+    {
+        Intent i = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        final int ACTIVITY_SELECT_IMAGE = 1234;
+        startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
     }
 
 

@@ -1,6 +1,8 @@
 package pocketteam.pocketteam;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +49,57 @@ public class RosterActivity extends AppCompatActivity {
                 displayRosterDetail(player);
             }
         });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Player player = players.get(position);
+                openDialogForEdit(player);
+                playerArrayAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
+
     }
+
+
+
+
+    /**
+     * Opens a dialog box so a User can edit the Team name
+     * @param player - selected team
+     */
+    public void openDialogForEdit(final Player player){
+
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder((RosterActivity)this).create(); //Read Update
+        alertDialog.setTitle("Edit Team Name");
+        alertDialog.setMessage("Edit your player name: ");
+
+        final EditText input = new EditText(RosterActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+
+        alertDialog.setButton("Confirm",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String name = input.getText().toString();
+                        player.setTeamName(name);
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+
+        alertDialog.show();  //<-- See This!
+    }//end OpenDialogForEdit
 
 
 
