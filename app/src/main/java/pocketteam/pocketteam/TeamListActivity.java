@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -46,13 +48,15 @@ public class TeamListActivity extends AppCompatActivity {
         });
 
 
-//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                return false;
-//            }
-//        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Team team = teams.get(position);
+                openDialogForEdit(team);
+                teamArrayAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
 
     }
 
@@ -71,6 +75,47 @@ public class TeamListActivity extends AppCompatActivity {
         startActivity(addTeamIntent);
 
     }
+
+    /**
+     * Opens a dialog box so a User can edit the Team name
+     * @param team - selected team
+     */
+    public void openDialogForEdit(final Team team){
+
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder((TeamListActivity)this).create(); //Read Update
+        alertDialog.setTitle("Edit Team Name");
+        alertDialog.setMessage("Edit your team name: ");
+
+        final EditText input = new EditText(TeamListActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+
+        alertDialog.setButton("Confirm",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String name = input.getText().toString();
+                        team.setTeamName(name);
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+//        alertDialog.setButton("Cancel",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.cancel();
+//                    }
+//                });
+
+
+        alertDialog.show();  //<-- See This!
+    }//end OpenDialogForEdit
 
 
     public void RemoveTeamOnClickEventHandler(View view) {

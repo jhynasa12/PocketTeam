@@ -25,20 +25,18 @@ public class AddPlayerActivity extends AppCompatActivity {
 
     public void AddPlayerEventClickHandler(View view) {
 
-        Button mButton;
-
         final EditText firstName;
         final EditText lastName;
         final EditText position;
         final EditText number;
         final EditText team;
 
-        mButton = (Button) findViewById(R.id.add_player_button);
         firstName = (EditText) findViewById(R.id.first_name);
         lastName = (EditText) findViewById(R.id.last_name);
         position = (EditText) findViewById(R.id.position);
         number = (EditText) findViewById(R.id.jersey_number);
 
+        // if any of the fields are empty show message that the fields are missing
         if (isEmpty(firstName) || isEmpty(lastName) || isEmpty(position) || isEmpty(number) == true) {
 
             Context context = getApplicationContext();
@@ -77,6 +75,11 @@ public class AddPlayerActivity extends AppCompatActivity {
         return etText.getText().toString().trim().length() == 0;
     }
 
+    /**
+     * Finishes the activity when Cancel button is clicked
+     *
+     * @param view
+     */
     public void btnOnClickCancelEventHandler(View view) {
 
         finish();
