@@ -21,6 +21,7 @@ public class RosterActivity extends AppCompatActivity {
     public static final int DETAIL_REQUEST_CODE = 1001;
     protected ArrayList<Player> players;
     public static ArrayAdapter<Player> playerArrayAdapter;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class RosterActivity extends AppCompatActivity {
         players = TeamList.getInstance().getTeam(teamName).getRoster();
 
         playerArrayAdapter = new ArrayAdapter<Player>(this, android.R.layout.simple_expandable_list_item_1, players);
-        ListView listView = (ListView) findViewById(android.R.id.list);
+        listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(playerArrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,6 +76,37 @@ public class RosterActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+
+
+    }
+
+    public void RemovePlayerOnClickEventHandler(View view) {
+
+        Context context = getApplicationContext();
+        CharSequence text = "Please select a player to remove...";
+        int duration = Toast.LENGTH_SHORT;
+
+        final Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                Player player = players.get(position);
+                players.remove(player);
+
+
+                playerArrayAdapter.notifyDataSetChanged();
+
+                Context context = getApplicationContext();
+                CharSequence text = "You removed the player... ";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
 
 
     }

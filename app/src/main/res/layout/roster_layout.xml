@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/baseball_field"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent"
     android:weightSum="1">
 
@@ -36,7 +36,8 @@
         android:id="@+id/remove_player_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="RemovePlayerOnClickEventHandler"/>
 
     <ListView
         android:layout_width="wrap_content"

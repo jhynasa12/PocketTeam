@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:fitsSystemWindows="true"
-    android:background="@drawable/baseball_field"
+    android:background="@color/colorPrimary"
     tools:context="pocketteam.pocketteam.TeamListActivity">
 
     <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
