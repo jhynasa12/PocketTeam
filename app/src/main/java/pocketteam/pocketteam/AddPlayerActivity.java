@@ -71,6 +71,11 @@ public class AddPlayerActivity extends AppCompatActivity {
     }
 
 
+    public void btnOnClickCancelEventHandler(View view) {
+
+        finish();
+
+    }
 }
 
 

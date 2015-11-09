@@ -24,8 +24,7 @@
             android:parentActivityName=".TeamListActivity" />
         <activity
             android:name=".AddPlayerActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".RosterActivity"/>
+            android:label="@string/app_name" />
         <activity
             android:name=".RosterActivity"
             android:label="@string/app_name"
@@ -37,8 +36,7 @@
 
         <activity
             android:name=".PlayerProfileActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".RosterActivity"/>
+            android:label="@string/app_name" />
 
 
         <activity

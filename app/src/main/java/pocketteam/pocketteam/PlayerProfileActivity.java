@@ -141,5 +141,8 @@ public class PlayerProfileActivity extends AppCompatActivity {
     }
 
 
+    public void btnRosterOnClickEventHandler(View view) {
 
+        finish();
+    }
 }// end Activity

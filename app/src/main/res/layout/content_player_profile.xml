@@ -72,5 +72,16 @@
         android:layout_alignParentStart="true"
         android:onClick="OnClickDialogEventHandler"/>
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back To Roster"
+        android:id="@+id/roster_backto"
+        android:layout_below="@+id/player_profile_name"
+        android:layout_toRightOf="@+id/imagePlayer"
+        android:layout_toEndOf="@+id/imagePlayer"
+        android:onClick="btnRosterOnClickEventHandler"/>
+
 
 </RelativeLayout>
