@@ -15,13 +15,21 @@
     <string name="title_activity_player_profile">PlayerProfileActivity</string>
     <string name="title_activity_spray_chart">SprayChartActivity</string>
 
+    <string name="pocketTeam">Pocket Team</string>
+
     <string name="test">This is a test to see if the stat list works</string>
     <string-array name="Stat">
-        <item >At Bat</item>
-        <item >Home Runs</item>
-        <item >Strikeouts</item>
-        <item >Errors</item>
-        <item >On Base</item>
+        <item >Batting Average</item>
+        <item >Slugging Percentage</item>
+        <item >RBI</item>
+        <item >ERA</item>
+        <item >Wins</item>
+        <item >Losses</item>
+        <item >Saves</item>
+        <item >Hits</item>
+        <item >Srikeouts</item>
+        <item >Walks</item>
+        <item >Wins</item>
 
     </string-array>
 
