@@ -88,14 +88,14 @@ public class TeamList {
         return null;
     }
 
-    public Player findPlayerByLastName(String lastname) {
+    public Player findPlayerByName(String firstname, String lastname) {
 
         ArrayList<Player> roster = Team.roster;
 
         for (Team team : m_Teams) {
 
             for (Player player : roster) {
-                if (player.getLastName().equals(lastname)) {
+                if (player.getFirstName().equals(firstname) && player.getLastName().equals(lastname)) {
                     return player;
                 }
 

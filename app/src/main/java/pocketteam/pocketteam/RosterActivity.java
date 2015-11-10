@@ -22,6 +22,7 @@ public class RosterActivity extends AppCompatActivity {
 
     public static final String LAST_NAME = "lastName";
     public static final String TEAM_NAME = "teamName";
+    public static final String FIRST_NAME = "firstName";
     public static String teamName;
     public static final String PLAYER_NAME = "playerName";
     public static final int DETAIL_REQUEST_CODE = 1001;
@@ -119,6 +120,7 @@ public class RosterActivity extends AppCompatActivity {
         playerProfileIntent.putExtra(PLAYER_NAME, player.getFirstName() + " " + player.getLastName());
         playerProfileIntent.putExtra(LAST_NAME, player.getLastName());
         playerProfileIntent.putExtra(TEAM_NAME, player.getTeamName());
+        playerProfileIntent.putExtra(FIRST_NAME, player.getFirstName());
         startActivityForResult(playerProfileIntent, DETAIL_REQUEST_CODE);
 
 

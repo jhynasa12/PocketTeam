@@ -32,6 +32,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
     public static String playerName;
     public static String lastName;
     public static String teamName;
+    public static String firstName;
     public static final String test = "TEST";
     private Bitmap yourSelectedImage;
     private Player currentPlayer;
@@ -45,12 +46,13 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
 
         playerName = getIntent().getStringExtra(RosterActivity.PLAYER_NAME);
+        firstName = getIntent().getStringExtra(RosterActivity.FIRST_NAME);
         lastName = getIntent().getStringExtra(RosterActivity.LAST_NAME);
         teamName = getIntent().getStringExtra(RosterActivity.TEAM_NAME);
         TextView rosterText = (TextView) findViewById(R.id.player_profile_name);
         rosterText.setText(playerName);
 
-        currentPlayer = TeamList.getInstance().findPlayerByLastName(lastName);
+        currentPlayer = TeamList.getInstance().findPlayerByName(firstName,lastName);
 
 
         //        List<Stat> stat = StatDataProvider.getData();
