@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Team {
     
-    private ArrayList<Player> roster;
+    public static ArrayList<Player> roster;
     private String m_TeamName;
     
     public Team(String name){
@@ -73,6 +73,8 @@ public class Team {
     public String toString(){
         return m_TeamName;
     }
+
+
     
     
 }//end Team

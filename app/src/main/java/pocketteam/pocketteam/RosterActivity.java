@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 public class RosterActivity extends AppCompatActivity {
 
+    public static final String LAST_NAME = "lastName";
+    public static final String TEAM_NAME = "teamName";
     public static String teamName;
     public static final String PLAYER_NAME = "playerName";
     public static final int DETAIL_REQUEST_CODE = 1001;
@@ -115,6 +117,8 @@ public class RosterActivity extends AppCompatActivity {
         Log.d("RosterActivity", "Displaying player: " + player.getLastName());
         Intent playerProfileIntent = new Intent(this, PlayerProfileActivity.class);
         playerProfileIntent.putExtra(PLAYER_NAME, player.getFirstName() + " " + player.getLastName());
+        playerProfileIntent.putExtra(LAST_NAME, player.getLastName());
+        playerProfileIntent.putExtra(TEAM_NAME, player.getTeamName());
         startActivityForResult(playerProfileIntent, DETAIL_REQUEST_CODE);
 
 

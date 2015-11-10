@@ -30,8 +30,11 @@ public class PlayerProfileActivity extends AppCompatActivity {
     private static int IMAGE_GALLERY = 10;
     public static String stats;
     public static String playerName;
+    public static String lastName;
+    public static String teamName;
     public static final String test = "TEST";
     private Bitmap yourSelectedImage;
+    private Player currentPlayer;
 
 
     @Override
@@ -40,14 +43,19 @@ public class PlayerProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player_profile);
 
 
+
         playerName = getIntent().getStringExtra(RosterActivity.PLAYER_NAME);
+        lastName = getIntent().getStringExtra(RosterActivity.LAST_NAME);
+        teamName = getIntent().getStringExtra(RosterActivity.TEAM_NAME);
         TextView rosterText = (TextView) findViewById(R.id.player_profile_name);
         rosterText.setText(playerName);
+
+        currentPlayer = TeamList.getInstance().findPlayerByLastName(lastName);
 
 
         //        List<Stat> stat = StatDataProvider.getData();
 
-        // Player currentPlayer = TeamList.getInstance().getTeam().
+
 
 //        ArrayAdapter<Stat> statArrayAdapter = new ArrayAdapter<Stat>(this, android.R.layout.simple_list_item_1, stat);
 //        ListView listView = (ListView) findViewById(android.R.id.list);
@@ -98,29 +106,6 @@ public class PlayerProfileActivity extends AppCompatActivity {
     }
 
 
-
-
-//    Button more = (Button) findViewById(R.id.more);
-//    more.setOnClickListener(new View.OnClickListener() {
-//        public void onClick(View view) {
-//            //Intent myIntent = new Intent(view.getContext(), agones.class);
-//            //startActivityForResult(myIntent, 0);
-//
-//
-//            AlertDialog alertDialog = new AlertDialog.Builder(<YourActivityName>this).create(); //Read Update
-//            alertDialog.setTitle("hi");
-//            alertDialog.setMessage("this is my app");
-//
-//            alertDialog.setButton("Continue..", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int which) {
-//                    // here you can add functions
-//                }
-//            });
-//
-//            alertDialog.show();  //<-- See This!
-//        }
-//
-//    }
 
     public void OnClickDialogEventHandler(View view) {
 

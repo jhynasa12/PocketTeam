@@ -24,20 +24,22 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:id="@+id/imagePlayer"
-        android:src="@drawable/spiderman"
+        android:src="@drawable/defaultprofilepicture"
         android:layout_below="@+id/player_profile_name"
-        android:layout_alignRight="@+id/player_profile_name"
-        android:layout_alignEnd="@+id/player_profile_name" />
+        android:layout_alignLeft="@+id/player_profile_name"
+        android:layout_alignStart="@+id/player_profile_name"
+        android:layout_toLeftOf="@+id/roster_backto"
+        android:layout_toStartOf="@+id/roster_backto" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Spray Chart"
         android:id="@+id/spray_chart"
-        android:layout_alignTop="@+id/imagePlayer"
-        android:layout_alignRight="@+id/button4"
-        android:layout_alignEnd="@+id/button4"
-        android:onClick="SprayChartOnClickEventHandler"/>
+        android:onClick="SprayChartOnClickEventHandler"
+        android:layout_alignBottom="@+id/imagePlayer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_width="match_parent"
@@ -56,21 +58,10 @@
         android:layout_height="wrap_content"
         android:text="Upload Image"
         android:id="@+id/player_image_btn"
-        android:layout_alignBottom="@+id/imagePlayer"
-        android:layout_toRightOf="@+id/player_profile_name"
-        android:layout_toEndOf="@+id/player_profile_name"
-        android:onClick="btnChoosePhotoPressed"/>
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dialog"
-        android:id="@+id/dialog_btn"
-        android:layout_alignTop="@+id/player_image_btn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="OnClickDialogEventHandler"/>
+        android:onClick="btnChoosePhotoPressed"
+        android:layout_alignTop="@+id/imagePlayer"
+        android:layout_toLeftOf="@+id/imagePlayer"
+        android:layout_toStartOf="@+id/imagePlayer" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -78,10 +69,10 @@
         android:layout_height="wrap_content"
         android:text="Back To Roster"
         android:id="@+id/roster_backto"
-        android:layout_below="@+id/player_profile_name"
-        android:layout_toRightOf="@+id/imagePlayer"
-        android:layout_toEndOf="@+id/imagePlayer"
-        android:onClick="btnRosterOnClickEventHandler"/>
+        android:onClick="btnRosterOnClickEventHandler"
+        android:layout_alignTop="@+id/imagePlayer"
+        android:layout_alignLeft="@+id/editButton"
+        android:layout_alignStart="@+id/editButton" />
 
 
 </RelativeLayout>
