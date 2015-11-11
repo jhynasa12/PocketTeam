@@ -61,11 +61,11 @@ public class PlayerProfileActivity extends AppCompatActivity {
         }
 
 
-//        ArrayList<String> statList = StatList.getInstance().getStats();
-//
-//        ArrayAdapter<String> statArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,statList);
-//        ListView listView = (ListView) findViewById(android.R.id.list);
-//        listView.setAdapter(statArrayAdapter);
+        ArrayList<String> statList = StatList.getInstance().getStats();
+
+        ArrayAdapter<String> statArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,statList);
+        ListView listView = (ListView) findViewById(R.id.statlist);
+        listView.setAdapter(statArrayAdapter);
     }
 
 

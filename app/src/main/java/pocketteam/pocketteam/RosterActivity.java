@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -77,22 +78,39 @@ public class RosterActivity extends AppCompatActivity {
 
 
 
-        AlertDialog alertDialog = new AlertDialog.Builder((RosterActivity)this).create(); //Read Update
-        alertDialog.setTitle("Edit Team Name");
-        alertDialog.setMessage("Edit your player name: ");
+        final AlertDialog alertDialog = new AlertDialog.Builder((RosterActivity)this).create(); //Read Update
+        alertDialog.setTitle("Edit your Player Name");
+        alertDialog.setMessage("First Name and Last Name: ");
 
-        final EditText input = new EditText(RosterActivity.this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        input.setLayoutParams(lp);
-        alertDialog.setView(input);
+//        final EditText input = new EditText(RosterActivity.this);
+//        final EditText lasName = new EditText(RosterActivity.this);
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.MATCH_PARENT);
+//        input.setLayoutParams(lp);
+//        alertDialog.setView(input);
 
-        alertDialog.setButton("Confirm",
+        LayoutInflater inflater = getLayoutInflater();
+
+        alertDialog.setView(inflater.inflate(R.layout.namedialog, null));
+
+        final EditText firstNameInput = (EditText) findViewById(R.id.fname);
+        final EditText lastNameInput = (EditText) findViewById(R.id.lname);
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        String name = input.getText().toString();
-                        player.setTeamName(name);
+                       String firstname = firstNameInput.getText().toString();
+                       String lastname = lastNameInput.getText().toString();
+                        player.setFirstName(firstname);
+                        player.setLastName(lastname);
+                    }
+                });
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        alertDialog.cancel();
                     }
                 });
 
