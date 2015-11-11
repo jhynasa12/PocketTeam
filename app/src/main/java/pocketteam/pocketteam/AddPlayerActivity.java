@@ -1,6 +1,5 @@
 package pocketteam.pocketteam;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddPlayerActivity extends AppCompatActivity {
-
+    DataHelper myDb;
+    EditText editFirstName, editLastName, editPosition, editNumber;
+    Button btnAddData;
 
     public static final String LOG_TAG = "AddPlayerActivity";
 
@@ -19,11 +20,24 @@ public class AddPlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_player_layout);
+        myDb = new DataHelper(this);
+
+
+        editPosition = (EditText) findViewById(R.id.position);
+        editFirstName = (EditText) findViewById(R.id.first_name);
+        editLastName = (EditText) findViewById(R.id.last_name);
+        editNumber = (EditText) findViewById(R.id.jersey_number);
+        btnAddData = (Button) findViewById(R.id.add_player_button);
+
         Log.d(LOG_TAG, "OnCreate");
 
     }
 
+
+
     public void AddPlayerEventClickHandler(View view) {
+
+        Button mButton;
 
         final EditText firstName;
         final EditText lastName;
@@ -31,55 +45,34 @@ public class AddPlayerActivity extends AppCompatActivity {
         final EditText number;
         final EditText team;
 
-        firstName = (EditText) findViewById(R.id.first_name);
-        lastName = (EditText) findViewById(R.id.last_name);
-        position = (EditText) findViewById(R.id.position);
-        number = (EditText) findViewById(R.id.jersey_number);
 
-        // if any of the fields are empty show message that the fields are missing
-        if (isEmpty(firstName) || isEmpty(lastName) || isEmpty(position) || isEmpty(number) == true) {
 
-            Context context = getApplicationContext();
-            CharSequence text = "You are missing a field...";
-            int duration = Toast.LENGTH_SHORT;
 
-            final Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+        //create Player
 
-        } else {
+        Player player = new Player(editNumber.getText().toString(), editFirstName.getText().toString(), editLastName.getText().toString(), editPosition.getText().toString(), RosterActivity.teamName); //creates player
+        myDb.addPlayer(player);
+        Log.d(LOG_TAG, player.getFirstName() + " " + player.getLastName() + " " + player.getPosition() + " " + player.getPlayerNumber() + " " + player.getTeamName());
 
-            //create Player
-            Player player = new Player(firstName.getText().toString(), lastName.getText().toString(), position.getText().toString(), number.getText().toString(), RosterActivity.teamName); //creates player
+        Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.getInstance().getSize() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
 
-            Log.d(LOG_TAG, player.getFirstName() + " " + player.getLastName() + " " + player.getPosition() + " " + player.getPlayerNumber() + " " + player.getTeamName());
+        Team currentTeam = TeamList.getInstance().getTeam(player.getTeamName());
 
-            Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.getInstance().getSize() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
+        //add player to the Team
+        currentTeam.addPlayer(player);
 
-            Team currentTeam = TeamList.getInstance().getTeam(player.getTeamName());
+        Log.d(LOG_TAG, player.getFirstName() + "'s team is " + currentTeam.getTeamName());
 
-            //add player to the Team
-            currentTeam.addPlayer(player);
+        RosterActivity.playerArrayAdapter.notifyDataSetChanged();
 
-            Log.d(LOG_TAG, player.getFirstName() + "'s team is " + currentTeam.getTeamName());
-
-            RosterActivity.playerArrayAdapter.notifyDataSetChanged();
-
-            //Go to the Roster Screen
-            finish();
-        }
-
+        //Go to the Roster Screen
+        finish();
     }
 
 
-    private boolean isEmpty(EditText etText) {
-        return etText.getText().toString().trim().length() == 0;
-    }
 
-    /**
-     * Finishes the activity when Cancel button is clicked
-     *
-     * @param view
-     */
+
+
     public void btnOnClickCancelEventHandler(View view) {
 
         finish();
