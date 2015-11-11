@@ -26,7 +26,7 @@ public class DataHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-            db.execSQL("CREATE TABLE "+TABLE_NAME+" (NUMBER INTEGER, FIRSTNAME TEXT, LASTNAME TEXT,POSITION TEXT);");
+            db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + COL_1 + " INTEGER PRIMARY KEY," + COL_2 + " TEXT," + COL_3 + " TEXT," + COL_4 + " TEXT" + ")");
 
 
     }
@@ -38,18 +38,34 @@ public class DataHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String number, String firstName, String lastName, String position) {
 
+    void addPlayer(Player player){
         SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,number);
-        contentValues.put(COL_2,firstName);
-        contentValues.put(COL_3,lastName);
-        contentValues.put(COL_4,position);
-        long result = db.insert(TABLE_NAME,null ,contentValues);
-        if(result == -1)
-            return false;
-        else
-            return  true;
+
+        contentValues.put(COL_1,player.getFirstName());
+        contentValues.put(COL_2,player.getLastName());
+        contentValues.put(COL_3,player.getPosition());
+        contentValues.put(COL_4,player.getPlayerNumber());
+
+        db.insert(TABLE_NAME, null ,contentValues);
+        db.close();
     }
+
+//    public boolean insertData(String number, String firstName, String lastName, String position) {
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        onCreate(db);
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(COL_1,number);
+//        contentValues.put(COL_2,firstName);
+//        contentValues.put(COL_3,lastName);
+//        contentValues.put(COL_4,position);
+//        long result = db.insert(TABLE_NAME,null ,contentValues);
+//        if(result == -1)
+//            return false;
+//        else
+//            return  true;
+//    }
 }
