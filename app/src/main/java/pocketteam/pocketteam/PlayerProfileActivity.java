@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.PendingIntent.getActivity;
@@ -36,6 +37,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
     public static final String test = "TEST";
     private Bitmap yourSelectedImage;
     private Player currentPlayer;
+    private ImageView image;
 
 
     @Override
@@ -43,7 +45,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
 
-
+        image = (ImageView) findViewById(R.id.imagePlayer);
 
         playerName = getIntent().getStringExtra(RosterActivity.PLAYER_NAME);
         firstName = getIntent().getStringExtra(RosterActivity.FIRST_NAME);
@@ -54,12 +56,14 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
         currentPlayer = TeamList.getInstance().findPlayerByName(firstName,lastName);
 
+        if(currentPlayer.getProfilePicture() != null){
+            image.setImageBitmap(currentPlayer.getProfilePicture());
+        }
 
-        //        List<Stat> stat = StatDataProvider.getData();
 
-
-
-//        ArrayAdapter<Stat> statArrayAdapter = new ArrayAdapter<Stat>(this, android.R.layout.simple_list_item_1, stat);
+//        ArrayList<String> statList = StatList.getInstance().getStats();
+//
+//        ArrayAdapter<String> statArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,statList);
 //        ListView listView = (ListView) findViewById(android.R.id.list);
 //        listView.setAdapter(statArrayAdapter);
     }
@@ -88,8 +92,9 @@ public class PlayerProfileActivity extends AppCompatActivity {
                     String filePath = cursor.getString(columnIndex);
                     cursor.close();
 
-                    ImageView image = (ImageView) findViewById(R.id.imagePlayer);
-                     yourSelectedImage = BitmapFactory.decodeFile(filePath);
+
+                    yourSelectedImage = BitmapFactory.decodeFile(filePath);
+                    currentPlayer.setProfilePicture(yourSelectedImage);
                     image.setImageBitmap(yourSelectedImage);
 
                 }

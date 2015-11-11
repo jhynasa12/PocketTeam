@@ -7,6 +7,8 @@
  */
 package pocketteam.pocketteam;
 
+import android.graphics.Bitmap;
+
 /**
  *
  * @author Justin Hyland
@@ -30,7 +32,8 @@ public class Player {
     private int m_Strikeouts_Pitcher;
     private int m_Strikeouts_Batter;
     private int m_Walks_Pitching;
-    private int m_Walks_Batter; 
+    private int m_Walks_Batter;
+    private Bitmap m_ProfilePicture;
    
     
     
@@ -375,5 +378,13 @@ public class Player {
          
          
      }
+
+    public void setProfilePicture(Bitmap image){
+        m_ProfilePicture = image;
+    }
+
+    public Bitmap getProfilePicture(){
+        return m_ProfilePicture;
+    }
     
 }//end Player
