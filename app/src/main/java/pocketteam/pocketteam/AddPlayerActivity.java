@@ -15,8 +15,6 @@ public class AddPlayerActivity extends AppCompatActivity {
     EditText editFirstName, editLastName, editPosition, editNumber, editPhoneNumber, editParentContact;
     public static String teamName;
 
-
-    EditText editFirstName, editLastName, editPosition, editNumber;
     Button btnAddData;
 
     public static final String LOG_TAG = "AddPlayerActivity";
@@ -46,14 +44,8 @@ public class AddPlayerActivity extends AppCompatActivity {
 
     public void AddPlayerEventClickHandler(View view) {
 
-
-        Button mButton;
         DataHelper myDb = new DataHelper(this);
-        final EditText firstName;
-        final EditText lastName;
-        final EditText position;
-        final EditText number;
-        final EditText team;
+
 
         if (isEmpty(editFirstName) || isEmpty(editLastName) || isEmpty(editPosition) || isEmpty(editNumber) || isEmpty(editPhoneNumber) || isEmpty(editParentContact) == true ) {
 
@@ -75,7 +67,6 @@ public class AddPlayerActivity extends AppCompatActivity {
             player.setParentName(editParentContact.getText().toString());
 
             //      myDb.addPlayer(player);
-            Player player = new Player(editFirstName.getText().toString(), editLastName.getText().toString(), editPosition.getText().toString(), editNumber.getText().toString(), RosterActivity.teamName); //creates player
 
             Log.d(LOG_TAG, player.getFirstName() + " " + player.getLastName() + " " + player.getPosition() + " " + player.getPlayerNumber() + " " + player.getTeamName());
 
