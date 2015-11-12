@@ -11,17 +11,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddPlayerActivity extends AppCompatActivity {
-    DataHelper myDb;
+
     EditText editFirstName, editLastName, editPosition, editNumber;
     Button btnAddData;
 
     public static final String LOG_TAG = "AddPlayerActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_player_layout);
-        myDb = new DataHelper(this);
 
 
         editPosition = (EditText) findViewById(R.id.position);
@@ -39,7 +38,7 @@ public class AddPlayerActivity extends AppCompatActivity {
     public void AddPlayerEventClickHandler(View view) {
 
         Button mButton;
-
+        DataHelper myDb = new DataHelper(this);
         final EditText firstName;
         final EditText lastName;
         final EditText position;
@@ -62,7 +61,7 @@ public class AddPlayerActivity extends AppCompatActivity {
             //create Player
 
             Player player = new Player(editFirstName.getText().toString(), editLastName.getText().toString(), editPosition.getText().toString(), editNumber.getText().toString(), RosterActivity.teamName); //creates player
-            //      myDb.addPlayer(player);
+
             Log.d(LOG_TAG, player.getFirstName() + " " + player.getLastName() + " " + player.getPosition() + " " + player.getPlayerNumber() + " " + player.getTeamName());
 
             Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.getInstance().getSize() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
@@ -71,6 +70,8 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             //add player to the Team
             currentTeam.addPlayer(player);
+            //myDb.addPlayer(player);
+            myDb.insertData(player.getPlayerNumber(), player.getFirstName(), player.getLastName(), player.getPosition());
 
             Log.d(LOG_TAG, player.getFirstName() + "'s team is " + currentTeam.getTeamName());
 
