@@ -12,9 +12,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +40,10 @@ public class PlayerProfileActivity extends AppCompatActivity {
     public static String firstName;
     public static final String test = "TEST";
     private Bitmap yourSelectedImage;
-    private Player currentPlayer;
+    public static Player currentPlayer;
     private ImageView image;
+    private ArrayList<String> statList;
+    ArrayAdapter<String> statArrayAdapter;
 
 
     @Override
@@ -61,11 +67,34 @@ public class PlayerProfileActivity extends AppCompatActivity {
         }
 
 
-        ArrayList<String> statList = StatList.getInstance().getStats();
+        statList = StatList.getInstance().getStats();
 
-        ArrayAdapter<String> statArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,statList);
+       statArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,statList);
         ListView listView = (ListView) findViewById(R.id.statlist);
         listView.setAdapter(statArrayAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String stat = statList.get(position);
+                statDetail(stat,position);
+            }
+        });
+
+
+    }
+
+    private void statDetail(String stat, int position) {
+
+        if(stat.equals(StatList.Stat.Batting_Average.name())){
+            Intent batAvgIntent = new Intent(this,BattingAvgActivity.class);
+            startActivity(batAvgIntent);
+
+            openStatDialogBox("Batting Average", currentPlayer.getBatAvg());
+
+
+        }
+
     }
 
 
@@ -135,4 +164,35 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
         finish();
     }
+
+
+    public void openStatDialogBox(String stat,float number)
+    {
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle(stat);
+        alertDialog.setMessage("Your " + stat + " is " + number);
+
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
+
+        alertDialog.setButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+
+    }
+
+
 }// end Activity

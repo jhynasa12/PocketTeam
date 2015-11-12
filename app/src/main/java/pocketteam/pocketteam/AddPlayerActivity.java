@@ -47,7 +47,7 @@ public class AddPlayerActivity extends AppCompatActivity {
         final EditText team;
 
 
-        if (isEmpty(editFirstName) && isEmpty(editLastName) && isEmpty(editPosition) && isEmpty(editNumber) == true ) {
+        if (isEmpty(editFirstName) || isEmpty(editLastName) || isEmpty(editPosition) || isEmpty(editNumber) == true ) {
 
             Context context = getApplicationContext();
             CharSequence text = "You're missing the fields...";

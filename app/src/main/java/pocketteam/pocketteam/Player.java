@@ -8,12 +8,13 @@
 package pocketteam.pocketteam;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 /**
  *
  * @author Justin Hyland
  */
-public class Player {
+public class Player implements Comparable<Player>{
     
     private String m_FirstName; 
     private String m_LastName;
@@ -21,7 +22,7 @@ public class Player {
     private String m_PhoneNumber;
     private String m_PlayerNumber;
     private String m_TeamName;
-    private double m_BatAverage;
+    private float m_BatAverage;
     private double m_SluggingPercentage;
     private double m_ERA;
     private int m_RBIs;
@@ -168,18 +169,16 @@ public class Player {
      * @param atBats - number of at bats
      * @return m_BatAverage
      */
-    public void calcBatAvg(int hits, int atBats){
+    public void calcBatAvg(Float hits, Float atBats){
       m_BatAverage = Stat.getInstance().battingAverage(hits, atBats);
-      
+        Log.d("calcBatAvg()", "" + m_BatAverage);
     }
     
     /**
      * Returns the batting average of the player
      * @return 
      */
-    public double getBatAvg(){
-        return m_BatAverage;
-    }
+    public float getBatAvg(){ return m_BatAverage; }
     
     /**
      * Calculates the slugging percentage of a player
@@ -386,5 +385,21 @@ public class Player {
     public Bitmap getProfilePicture(){
         return m_ProfilePicture;
     }
-    
+
+    @Override
+    public int compareTo(Player another)
+    {
+        if(m_BatAverage < another.m_BatAverage)
+        {
+            return -1;
+        }
+        else if(m_BatAverage == another.m_BatAverage)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
 }//end Player

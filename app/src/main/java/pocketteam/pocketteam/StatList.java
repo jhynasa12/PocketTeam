@@ -57,6 +57,11 @@ public class StatList {
     }
 
 
+    public HashMap<Stat,Float> getMap(){
+        return m_MapList;
+    }
+
+
     public void addStat(Stat stat, float value){
         m_MapList.put(stat, value);
     }
@@ -65,14 +70,25 @@ public class StatList {
         m_StatList.remove(stat);
     }*/
 
-    public ArrayList<String> getStats() {
+
+    public Stat getBattingAvgStat(Stat stat){
+        return Stat.Batting_Average;
+    }
+
+    public ArrayList<String> getStats()
+    {
         ArrayList<String> tmp = new ArrayList<>();
         Iterator<Stat> it = m_MapList.keySet().iterator();
 
         while (it.hasNext()) {
             Stat curr = it.next();
-            tmp.add(curr.name().replace("_", " ") + ":  " + m_MapList.get(curr));
+            tmp.add(curr.name());
         }
         return tmp;
+    }
+
+    public Map<StatList.Stat, Float> getStatsMap()
+    {
+        return m_MapList;
     }
 }//end StatList

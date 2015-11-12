@@ -3,6 +3,8 @@
  */
 package pocketteam.pocketteam;
 
+import android.util.Log;
+
 import java.text.DecimalFormat;
 
 /**
@@ -35,12 +37,9 @@ public class Stat {
      * @param atBats - number of atBats
      * @return 
      */
-    public double battingAverage(double hits, double atBats) {
+    public float battingAverage(float hits, float atBats) {
 
-        double avg = (double) (hits / atBats);
-
-       String.format("%.3g%n", avg);
-
+        float avg = (hits / atBats);
         
         return avg;
     }//end battingAverage

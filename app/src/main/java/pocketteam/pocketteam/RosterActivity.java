@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RosterActivity extends AppCompatActivity {
 
@@ -41,6 +42,7 @@ public class RosterActivity extends AppCompatActivity {
         rosterText.setText(teamName);
 
         players = TeamList.getInstance().getTeam(teamName).getRoster();
+        // Collections.sort(players);
 
         playerArrayAdapter = new ArrayAdapter<Player>(this, android.R.layout.simple_expandable_list_item_1, players);
         listView = (ListView) findViewById(android.R.id.list);
@@ -92,10 +94,11 @@ public class RosterActivity extends AppCompatActivity {
 
         LayoutInflater inflater = getLayoutInflater();
 
-        alertDialog.setView(inflater.inflate(R.layout.namedialog, null));
+        View diagLayout = inflater.inflate(R.layout.namedialog, null);
+        alertDialog.setView(diagLayout);
 
-        final EditText firstNameInput = (EditText) findViewById(R.id.fname);
-        final EditText lastNameInput = (EditText) findViewById(R.id.lname);
+        final EditText firstNameInput = (EditText) diagLayout.findViewById(R.id.fname);
+        final EditText lastNameInput = (EditText) diagLayout.findViewById(R.id.lname);
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

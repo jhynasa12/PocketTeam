@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/atBats"
+        android:layout_gravity="center_horizontal"
+        android:hint="At Bats"
+        android:inputType="number" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hits"
+        android:hint="Hits"
+        android:inputType="number"
+        android:editable="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:id="@+id/ok_btn_batavg"
+        android:layout_gravity="center_horizontal"
+        android:onClick="batAvgOkBtn"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/cancel_batavg"
+        android:layout_gravity="center_horizontal"
+        android:onClick="batAvgeCanceBtn"/>
+</LinearLayout>

@@ -33,6 +33,13 @@
 
     </string-array>
 
+    <string name="bat_avg">Batting Average</string>
+    <string name="era">ERA</string>
+    <string name="hits">Hits</string>
+    <string name="slugging_perc">Slugging Percentage</string>
+    <string name="rbi">RBI</string>
+
+
 
 
 

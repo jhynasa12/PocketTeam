@@ -100,6 +100,11 @@ public class TeamListActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String name = input.getText().toString();
                         team.setTeamName(name);
+                        for(Player player: team.getRoster())
+                        {
+                            player.setTeamName(name);
+                        }
+
                     }
                 });
 
