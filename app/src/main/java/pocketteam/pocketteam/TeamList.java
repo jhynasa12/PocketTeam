@@ -108,4 +108,27 @@ public class TeamList {
     }
 
 
+
+    public boolean findTeamByName(String name){
+
+        for(Team team: m_Teams){
+            if(name.equals(team.getTeamName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public Team returnTeamByName(String name){
+
+        for(Team team: m_Teams){
+            if(name.equals(team.getTeamName())){
+                return team;
+            }
+        }
+        return null;
+    }
+
+
 }//end Team

@@ -4,17 +4,18 @@
 
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item
-        android:id="@+id/sortByBatAvgHighest"
-        android:orderInCategory="1"
-        app:showAsAction="never"
-        android:title="@string/sortByBatAvgHigh"
-        android:onClick="SortByBatAvgHighestOnClick"/>
 
     <item
-        android:id="@+id/sortByBatAvgLowest"
+        android:id="@+id/spray_chart_roster"
+        android:orderInCategory="1"
+        app:showAsAction="never"
+        android:title="@string/backToRoster"
+        android:onClick="backToRosterOnCLickSpray"/>
+
+    <item
+        android:id="@+id/save_spray_chart"
         android:orderInCategory="2"
         app:showAsAction="never"
-        android:title="@string/sortByBatAvgLow"
-        android:onClick="SortByBatAvgLowestOnClick"/>
+        android:title="@string/save"
+        android:onClick="SaveSprayChartActivityOnClick"/>
 </menu>

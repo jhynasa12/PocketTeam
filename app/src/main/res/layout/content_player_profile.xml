@@ -29,7 +29,8 @@
         android:layout_alignLeft="@+id/player_profile_name"
         android:layout_alignStart="@+id/player_profile_name"
         android:layout_toLeftOf="@+id/roster_backto"
-        android:layout_toStartOf="@+id/roster_backto" />
+        android:layout_toStartOf="@+id/roster_backto"
+        android:onClick="btnChoosePhotoPressed"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -37,9 +38,9 @@
         android:text="Spray Chart"
         android:id="@+id/spray_chart"
         android:onClick="SprayChartOnClickEventHandler"
-        android:layout_alignBottom="@+id/imagePlayer"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/statlist"
+        android:layout_toRightOf="@+id/imagePlayer"
+        android:layout_toEndOf="@+id/imagePlayer" />
 
     <ListView
         android:layout_width="match_parent"
@@ -55,23 +56,44 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload Image"
-        android:id="@+id/player_image_btn"
-        android:onClick="btnChoosePhotoPressed"
-        android:layout_alignTop="@+id/imagePlayer"
-        android:layout_toLeftOf="@+id/imagePlayer"
-        android:layout_toStartOf="@+id/imagePlayer" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Back To Roster"
         android:id="@+id/roster_backto"
         android:onClick="btnRosterOnClickEventHandler"
         android:layout_alignTop="@+id/imagePlayer"
         android:layout_alignLeft="@+id/editButton"
         android:layout_alignStart="@+id/editButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Parent Name"
+        android:id="@+id/parent_name_profile"
+        android:editable="true"
+        android:layout_above="@+id/spray_chart"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Phone Number"
+        android:id="@+id/player_phone_number"
+        android:editable="true"
+        android:layout_alignBottom="@+id/imagePlayer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Position"
+        android:id="@+id/player_position_profile"
+        android:layout_below="@+id/player_profile_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

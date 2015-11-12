@@ -8,7 +8,10 @@
 package pocketteam.pocketteam;
 
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -22,19 +25,23 @@ public class Player implements Comparable<Player>{
     private String m_PhoneNumber;
     private String m_PlayerNumber;
     private String m_TeamName;
+    private String m_ParentName;
     private float m_BatAverage;
-    private double m_SluggingPercentage;
-    private double m_ERA;
+    private float m_SluggingPercentage;
+    private float m_ERA;
     private int m_RBIs;
     private int m_Saves;
     private int m_Wins;
     private int m_Losses;
     private int m_Hits;
+    private int m_HomeRuns;
     private int m_Strikeouts_Pitcher;
     private int m_Strikeouts_Batter;
     private int m_Walks_Pitching;
     private int m_Walks_Batter;
     private Bitmap m_ProfilePicture;
+    private ArrayList<Point> m_Points;
+
    
     
     
@@ -162,6 +169,15 @@ public class Player implements Comparable<Player>{
     public String getTeamName(){
         return m_TeamName;
     }
+
+
+    public void setParentName(String name){
+        m_ParentName = name;
+    }
+
+    public String getParentName(){
+        return m_ParentName;
+    }
     
     /**
      * Calculates the player's batting average
@@ -188,7 +204,7 @@ public class Player implements Comparable<Player>{
      * @param homeruns
      * @param atBats 
      */
-    public void calcSlugg(int singles, int doubles, int triples, int homeruns, int atBats){
+    public void calcSlugg(float singles, float doubles, float triples, float homeruns, float atBats){
         m_SluggingPercentage = Stat.getInstance().sluggingPercentage(singles, doubles, triples, homeruns, atBats);
     }
     
@@ -196,7 +212,7 @@ public class Player implements Comparable<Player>{
      * Returns the slugging percentage of the player
      * @return 
      */
-    public double getSlugg(){
+    public float getSlugg(){
         return m_SluggingPercentage;
     }
     
@@ -205,7 +221,7 @@ public class Player implements Comparable<Player>{
      * @param runs
      * @param innings 
      */
-    public void calcERA(int runs, double innings){
+    public void calcERA(float runs, float innings){
         m_ERA = Stat.getInstance().getERA(runs, innings);
     }
     
@@ -213,7 +229,7 @@ public class Player implements Comparable<Player>{
      * Returns the player's ERA
      * @return 
      */
-    public double getERA(){
+    public float getERA(){
         return m_ERA;
     }
     
@@ -241,10 +257,10 @@ public class Player implements Comparable<Player>{
    
     /**
      * Returns the current RBIs of the player
-     * @param rbi
+     *
      * @return 
      */
-    public int getRBI(int rbi){
+    public int getRBI(){
         return m_RBIs;
     }
     
@@ -378,6 +394,14 @@ public class Player implements Comparable<Player>{
          
      }
 
+    public void setHomeRuns(int hr){
+        m_HomeRuns = hr;
+    }
+
+    public int getHomeRuns(){
+        return m_HomeRuns;
+    }
+
     public void setProfilePicture(Bitmap image){
         m_ProfilePicture = image;
     }
@@ -386,12 +410,20 @@ public class Player implements Comparable<Player>{
         return m_ProfilePicture;
     }
 
+    public void setPoints(ArrayList<Point> points){
+        m_Points = points;
+    }
+
+    public ArrayList<Point> getPoints(ArrayList<Point> points){
+       return m_Points;
+    }
+
     @Override
     public int compareTo(Player another)
     {
         if(m_BatAverage < another.m_BatAverage)
         {
-            return -1;
+            return 1;
         }
         else if(m_BatAverage == another.m_BatAverage)
         {
@@ -399,7 +431,9 @@ public class Player implements Comparable<Player>{
         }
         else
         {
-            return 1;
+            return -1;
         }
     }
+
+
 }//end Player

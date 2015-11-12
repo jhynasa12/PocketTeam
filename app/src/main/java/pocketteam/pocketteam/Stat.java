@@ -51,7 +51,7 @@ public class Stat {
      * @param innings - innings pitched by player
      * @return 
      */
-    public double getERA(int earnedRuns, double innings){
+    public float getERA(float earnedRuns, float innings){
         return (earnedRuns * 9) / innings;
     }
     
@@ -64,9 +64,9 @@ public class Stat {
      * @param atBats
      * @return 
      */
-    public double sluggingPercentage(int singles, int doubles, int triples, int homeruns, int atBats){
+    public float sluggingPercentage(float singles, float doubles, float triples, float homeruns, float atBats){
        
-       int totalBases = 0;
+       float totalBases = 0;
        
         totalBases = singles + (doubles * 2) + (triples * 3) + (homeruns * 4);
         

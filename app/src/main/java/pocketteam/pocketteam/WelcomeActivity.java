@@ -36,7 +36,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void ScoutModeOnClickEventHandler(View view) {
 
-        Intent addPlayerIntent = new Intent(this, AddPlayerActivity.class);
+        Intent addPlayerIntent = new Intent(this, ScoutPlayerActivity.class);
         startActivity(addPlayerIntent);
 
     }

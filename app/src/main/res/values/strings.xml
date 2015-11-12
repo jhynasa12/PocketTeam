@@ -40,6 +40,12 @@
     <string name="rbi">RBI</string>
 
 
+    <string name="sortByBatAvgHigh">Sort By Bat Avg (High)</string>
+    <string name="sortByBatAvgLow">Sort By Bat Avg (Low) (High)</string>
+    <string name="backToRoster">Back to Roster</string>
+    <string name="save">Save</string>
+
+
 
 
 

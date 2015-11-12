@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static pocketteam.pocketteam.R.id.player_name;
-import static pocketteam.pocketteam.R.id.add_player_button;
+
+
 
 public class AddTeamActivity extends AppCompatActivity {
 
@@ -53,6 +53,14 @@ public class AddTeamActivity extends AppCompatActivity {
 
             Log.d(LOG_TAG, newTeam.getTeamName());
             Log.d(LOG_TAG, TeamList.getInstance().getTeam(newTeam.getTeamName()).getTeamName());
+
+            Context context = getApplicationContext();
+            CharSequence text = "Team Added";
+            int duration = Toast.LENGTH_SHORT;
+
+            final Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
 
             Intent teamListIntent = new Intent(this, TeamListActivity.class);
             startActivity(teamListIntent);

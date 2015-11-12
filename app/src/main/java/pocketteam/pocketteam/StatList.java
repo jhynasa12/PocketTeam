@@ -35,6 +35,7 @@ public class StatList {
         m_MapList.put(Stat.Hits, 0f);
         m_MapList.put(Stat.ERA, 0f);
 
+
         // m_StatList = new ArrayList<>();
 
 

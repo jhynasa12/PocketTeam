@@ -40,10 +40,21 @@
             android:label="@string/app_name" />
         <activity
             android:name=".SprayChartActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".PlayerProfileActivity" >
-        </activity>
+            android:label="@string/app_name" />
+
         <activity android:name=".BattingAvgActivity" >
+        </activity>
+        <activity android:name=".EraActivity" >
+        </activity>
+        <activity android:name=".ScoutPlayerActivity" >
+        </activity>
+        <activity android:name=".HitsActivity" >
+        </activity>
+        <activity android:name=".SluggingActivity" >
+        </activity>
+        <activity android:name=".RbiActivity" >
+        </activity>
+        <activity android:name=".HomeRunActivity" >
         </activity>
     </application>
 

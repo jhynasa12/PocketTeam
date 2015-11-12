@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,7 +44,7 @@ public class RosterActivity extends AppCompatActivity {
         rosterText.setText(teamName);
 
         players = TeamList.getInstance().getTeam(teamName).getRoster();
-        // Collections.sort(players);
+
 
         playerArrayAdapter = new ArrayAdapter<Player>(this, android.R.layout.simple_expandable_list_item_1, players);
         listView = (ListView) findViewById(android.R.id.list);
@@ -69,28 +71,41 @@ public class RosterActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_screen, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
     /**
      * Opens a dialog box so a User can edit the Team name
+     *
      * @param player - selected team
      */
-    public void openDialogForEdit(final Player player){
+    public void openDialogForEdit(final Player player) {
 
 
-
-        final AlertDialog alertDialog = new AlertDialog.Builder((RosterActivity)this).create(); //Read Update
+        final AlertDialog alertDialog = new AlertDialog.Builder((RosterActivity) this).create(); //Read Update
         alertDialog.setTitle("Edit your Player Name");
         alertDialog.setMessage("First Name and Last Name: ");
 
-//        final EditText input = new EditText(RosterActivity.this);
-//        final EditText lasName = new EditText(RosterActivity.this);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.MATCH_PARENT);
-//        input.setLayoutParams(lp);
-//        alertDialog.setView(input);
 
         LayoutInflater inflater = getLayoutInflater();
 
@@ -102,17 +117,15 @@ public class RosterActivity extends AppCompatActivity {
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                       String firstname = firstNameInput.getText().toString();
-                       String lastname = lastNameInput.getText().toString();
+                        String firstname = firstNameInput.getText().toString();
+                        String lastname = lastNameInput.getText().toString();
                         player.setFirstName(firstname);
                         player.setLastName(lastname);
                     }
                 });
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
                         alertDialog.cancel();
                     }
                 });
@@ -121,15 +134,14 @@ public class RosterActivity extends AppCompatActivity {
         alertDialog.setCanceledOnTouchOutside(true);
 
 
-
         alertDialog.show();  //<-- See This!
     }//end OpenDialogForEdit
-
 
 
     public void AddPlayerEventOnClickHandler(View view) {
 
         Intent addPlayerIntent = new Intent(this, AddPlayerActivity.class);
+        addPlayerIntent.putExtra(TEAM_NAME, teamName);
         startActivity(addPlayerIntent);
         finishActivity(DETAIL_REQUEST_CODE);
 
@@ -188,6 +200,24 @@ public class RosterActivity extends AppCompatActivity {
                 toast.show();
             }
         });
+
+
+    }
+
+    public void SortByBatAvgHighestOnClick(MenuItem item) {
+
+        Collections.sort(players);
+        playerArrayAdapter.notifyDataSetChanged();
+
+    }
+
+    public void SortByBatAvgLowestOnClick(MenuItem item) {
+
+        Collections.sort(players);
+        Collections.reverse(players);
+
+        playerArrayAdapter.notifyDataSetChanged();
+
 
 
     }
