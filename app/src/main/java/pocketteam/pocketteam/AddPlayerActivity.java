@@ -1,5 +1,5 @@
 package pocketteam.pocketteam;
-
+import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddPlayerActivity extends AppCompatActivity {
-    DataHelper myDb;
     EditText editFirstName, editLastName, editPosition, editNumber, editPhoneNumber, editParentContact;
     public static String teamName;
 
@@ -44,7 +43,7 @@ public class AddPlayerActivity extends AppCompatActivity {
 
     public void AddPlayerEventClickHandler(View view) {
 
-        DataHelper myDb = new DataHelper(this);
+        DataHelper myDb = new DataHelper(this); //creates database
 
 
         if (isEmpty(editFirstName) || isEmpty(editLastName) || isEmpty(editPosition) || isEmpty(editNumber) || isEmpty(editPhoneNumber) || isEmpty(editParentContact) == true ) {
@@ -66,7 +65,7 @@ public class AddPlayerActivity extends AppCompatActivity {
             player.setPhoneNumber(editPhoneNumber.getText().toString());
             player.setParentName(editParentContact.getText().toString());
 
-            //      myDb.addPlayer(player);
+
 
             Log.d(LOG_TAG, player.getFirstName() + " " + player.getLastName() + " " + player.getPosition() + " " + player.getPlayerNumber() + " " + player.getTeamName());
 
@@ -76,10 +75,21 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             //add player to the Team
             currentTeam.addPlayer(player);
-            //myDb.addPlayer(player);
-            myDb.insertData(player.getPlayerNumber(), player.getFirstName(), player.getLastName(), player.getPosition());
+            //add player to the database
+            myDb.addPlayer(player);
+            Log.d("Reading: ", "Reading all contacts..");
+            //finds all players from the database and adds them to a list
+            List<Player> players = myDb.getAllPlayers();
 
-            Log.d(LOG_TAG, player.getFirstName() + "'s team is " + currentTeam.getTeamName());
+            //finds players from database and adds them to the roster
+            for (Player p : players) {
+                currentTeam.addPlayer(p);
+//                // Writing Contacts to log
+//                Log.d("Name: ", log);
+           }
+//        }
+
+            //Log.d(LOG_TAG, player.getFirstName() + "'s team is " + currentTeam.getTeamName());
 
             RosterActivity.playerArrayAdapter.notifyDataSetChanged();
 
