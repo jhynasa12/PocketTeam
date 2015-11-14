@@ -9,6 +9,7 @@ package pocketteam.pocketteam.Data;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -134,7 +135,7 @@ public class Player implements Comparable<Player>{
      * @return 
      */
     public String getPhoneNumber(){
-        
+
         return m_PhoneNumber;
     }
     
