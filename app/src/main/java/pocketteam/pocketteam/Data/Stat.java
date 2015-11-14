@@ -1,11 +1,7 @@
 /**
  * This is the Stat Class.
  */
-package pocketteam.pocketteam;
-
-import android.util.Log;
-
-import java.text.DecimalFormat;
+package pocketteam.pocketteam.Data;
 
 /**
  *

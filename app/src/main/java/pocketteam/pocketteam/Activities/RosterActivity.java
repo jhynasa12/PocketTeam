@@ -1,4 +1,4 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,13 +14,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.R;
+import pocketteam.pocketteam.Data.TeamList;
 
 public class RosterActivity extends AppCompatActivity {
 

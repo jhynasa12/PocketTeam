@@ -1,14 +1,15 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Activities;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import pocketteam.pocketteam.Activities.ScoutPlayerActivity;
+import pocketteam.pocketteam.Activities.TeamListActivity;
+import pocketteam.pocketteam.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 

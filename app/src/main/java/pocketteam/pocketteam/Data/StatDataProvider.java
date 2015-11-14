@@ -1,7 +1,9 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pocketteam.pocketteam.Data.Stat;
 
 /**
  * Created by Max on 11/2/2015.

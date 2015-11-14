@@ -1,4 +1,4 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Activities;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.R;
 
 public class HitsActivity extends AppCompatActivity {
     public static Player currentPlayer;

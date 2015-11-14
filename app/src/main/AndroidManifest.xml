@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".Activities.WelcomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -21,40 +21,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddTeamActivity"
+            android:name=".Activities.AddTeamActivity"
             android:label="@string/add_team"
-            android:parentActivityName=".TeamListActivity" />
+            android:parentActivityName=".Activities.TeamListActivity" />
         <activity
-            android:name=".AddPlayerActivity"
+            android:name=".Activities.AddPlayerActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".RosterActivity"
+            android:name=".Activities.RosterActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".TeamListActivity" />
+            android:parentActivityName=".Activities.TeamListActivity" />
         <activity
-            android:name=".TeamListActivity"
+            android:name=".Activities.TeamListActivity"
             android:label="@string/pocketTeam"
-            android:parentActivityName=".WelcomeActivity" />
+            android:parentActivityName=".Activities.WelcomeActivity" />
         <activity
-            android:name=".PlayerProfileActivity"
+            android:name=".Activities.PlayerProfileActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".SprayChartActivity"
+            android:name=".Activities.SprayChartActivity"
             android:label="@string/app_name" />
 
-        <activity android:name=".BattingAvgActivity" >
+        <activity android:name=".Activities.BattingAvgActivity" >
         </activity>
-        <activity android:name=".EraActivity" >
+        <activity android:name=".Activities.EraActivity" >
         </activity>
-        <activity android:name=".ScoutPlayerActivity" >
+        <activity android:name=".Activities.ScoutPlayerActivity" >
         </activity>
-        <activity android:name=".HitsActivity" >
+        <activity android:name=".Activities.HitsActivity" >
         </activity>
-        <activity android:name=".SluggingActivity" >
+        <activity android:name=".Activities.SluggingActivity" >
         </activity>
-        <activity android:name=".RbiActivity" >
+        <activity android:name=".Activities.RbiActivity" >
         </activity>
-        <activity android:name=".HomeRunActivity" >
+        <activity android:name=".Activities.HomeRunActivity" >
         </activity>
     </application>
 

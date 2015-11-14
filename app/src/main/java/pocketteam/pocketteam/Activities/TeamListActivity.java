@@ -1,7 +1,6 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Activities;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +16,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.R;
+import pocketteam.pocketteam.Data.Team;
+import pocketteam.pocketteam.Data.TeamList;
 
 public class TeamListActivity extends AppCompatActivity {
 

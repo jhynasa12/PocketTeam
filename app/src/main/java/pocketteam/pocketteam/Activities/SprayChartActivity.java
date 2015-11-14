@@ -1,4 +1,4 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import pocketteam.pocketteam.R;
 
 public class SprayChartActivity extends AppCompatActivity {
 

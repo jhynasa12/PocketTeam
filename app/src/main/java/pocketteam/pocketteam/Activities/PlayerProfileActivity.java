@@ -1,4 +1,4 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -9,14 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,9 +24,12 @@ import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
+import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.R;
+import pocketteam.pocketteam.Data.StatList;
+import pocketteam.pocketteam.Data.TeamList;
 
 import static android.app.PendingIntent.getActivity;
 

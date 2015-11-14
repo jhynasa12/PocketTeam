@@ -1,9 +1,12 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.R;
 
 public class BattingAvgActivity extends AppCompatActivity {
 

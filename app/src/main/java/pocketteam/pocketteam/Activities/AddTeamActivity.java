@@ -1,4 +1,4 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,11 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
+import pocketteam.pocketteam.R;
+import pocketteam.pocketteam.Data.Team;
+import pocketteam.pocketteam.Data.TeamList;
 
 
 public class AddTeamActivity extends AppCompatActivity {
@@ -62,8 +63,11 @@ public class AddTeamActivity extends AppCompatActivity {
             toast.show();
 
 
-            Intent teamListIntent = new Intent(this, TeamListActivity.class);
-            startActivity(teamListIntent);
+//            Intent teamListIntent = new Intent(this, TeamListActivity.class);
+//            startActivity(teamListIntent);
+
+            finish();
+
         }
 
     }// end AddTeamClickEventHandler

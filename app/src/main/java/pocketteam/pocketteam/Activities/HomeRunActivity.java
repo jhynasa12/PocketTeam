@@ -1,4 +1,4 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Activities;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -7,25 +7,24 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class EraActivity extends AppCompatActivity {
+import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.R;
+
+public class HomeRunActivity extends AppCompatActivity {
     public static Player currentPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.era_layout);
+        setContentView(R.layout.home_run_layout);
 
         currentPlayer = PlayerProfileActivity.currentPlayer;
     }
 
+    public void hrOkBtnHandler(View view) {
 
 
-
-
-    public void eraOkBtnHandler(View view) {
-
-        final EditText earnedRuns = (EditText) findViewById(R.id.earned_runs);
-        final EditText innings = (EditText) findViewById(R.id.innings);
-        if(isEmpty(earnedRuns) || isEmpty(innings) == true){
+        final EditText hr = (EditText) findViewById(R.id.home_runs_text);
+        if(isEmpty(hr) == true){
 
             Context context = getApplicationContext();
             CharSequence text = "You're missing a field...";
@@ -36,7 +35,7 @@ public class EraActivity extends AppCompatActivity {
 
         }else{
 
-            currentPlayer.calcERA(Float.valueOf(earnedRuns.getText().toString()),Float.valueOf(innings.getText().toString()));
+            currentPlayer.setHomeRuns(Integer.valueOf(hr.getText().toString()));
 
             finish();
 
@@ -47,9 +46,10 @@ public class EraActivity extends AppCompatActivity {
 
     }
 
-    public void eraCancelBtn(View view) {
+    public void hrCancelBtn(View view) {
 
         finish();
+
     }
 
     private boolean isEmpty(EditText etText) {

@@ -1,6 +1,8 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Data;
 
 import java.util.ArrayList;
+
+import pocketteam.pocketteam.Data.Player;
 
 /**
  *

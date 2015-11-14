@@ -1,4 +1,4 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 
-import java.util.Currency;
+import pocketteam.pocketteam.Data.Player;
 
 /**
  * Created by Max on 11/7/2015.
@@ -50,7 +49,7 @@ public class DataHelper extends SQLiteOpenHelper {
     }
 
     //adds player object to table
-    void addPlayer(Player player){
+   public void addPlayer(Player player){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
