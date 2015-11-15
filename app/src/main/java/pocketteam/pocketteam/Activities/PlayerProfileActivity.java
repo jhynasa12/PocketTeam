@@ -52,7 +52,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
     private ImageView image;
     private ArrayList<String> statList;
     private ArrayAdapter<String> statArrayAdapter;
-    private TextView positionText, parentText, numberText, playerNumberText;
+    private TextView positionText, parentText, numberText, playerNumberText, teamText;
 
 
     @Override
@@ -84,6 +84,9 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
         playerNumberText = (TextView) findViewById(R.id.player_jersey_number_view);
         playerNumberText.setText(currentPlayer.getPlayerNumber());
+
+        teamText = (TextView) findViewById(R.id.team_name_text);
+        teamText.setText(currentPlayer.getTeamName());
 
 
         Context context = getApplicationContext();

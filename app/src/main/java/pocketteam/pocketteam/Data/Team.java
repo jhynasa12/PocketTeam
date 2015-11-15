@@ -18,6 +18,7 @@ public class Team {
 
         roster = new ArrayList<>();
     }
+
     
     /**
      * Sets the Team name

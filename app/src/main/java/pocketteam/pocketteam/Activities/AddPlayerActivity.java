@@ -122,10 +122,12 @@ public class AddPlayerActivity extends AppCompatActivity {
         } else if (editPhoneNumber.getText().toString().length() > 10 || editPhoneNumber.getText().toString().length() < 10) {
 
             showToastMessage("Phone number is too short or too long");
+            return;
 
             //this the number is greater than double digits
         }else if(editNumber.getText().toString().length() > 2){
             showToastMessage("A player number cannot be that big...");
+            return;
         }
 
 
@@ -144,8 +146,6 @@ public class AddPlayerActivity extends AppCompatActivity {
                 if (editNumber.getText().toString().equals(x.getPlayerNumber())) {
                     showToastMessage("Another player on your team has that number..."); // show message
                     matchingPlayer = false;
-                } else {
-                    matchingPlayer = true;
                 }
 
             }
@@ -167,9 +167,16 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.getInstance().getSize() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
 
+            Team testTeam =TeamList.getInstance().getTeam("Yankees");
+
+            Log.d("First Test- passes", String.valueOf(testTeam.getRoster().size()));
+
 
             //add player to the Team
             currentTeam.addPlayer(player);
+
+            Log.d(LOG_TAG, currentTeam.getTeamName());
+
             //add player to the database
             //         myDb.addPlayer(player);
             //         Log.d("Reading: ", "Reading all contacts..");
@@ -192,6 +199,7 @@ public class AddPlayerActivity extends AppCompatActivity {
             //Go to the Roster Screen
             finish();
 
+            Log.d("AddPlayerActivity", String.valueOf(TeamList.getInstance().getTeam("Yankees").getRoster().size()));
 
         }
 

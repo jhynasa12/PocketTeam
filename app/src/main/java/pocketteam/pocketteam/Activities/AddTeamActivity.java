@@ -64,8 +64,12 @@ public class AddTeamActivity extends AppCompatActivity {
             toast.show();
 
 
-            Intent teamListIntent = new Intent(this, TeamListActivity.class);
-            startActivity(teamListIntent);
+//            Intent teamListIntent = new Intent(this, TeamListActivity.class);
+//            startActivity(teamListIntent);
+
+            TeamListActivity.teamArrayAdapter.notifyDataSetChanged();
+
+            finish();
 
 
 

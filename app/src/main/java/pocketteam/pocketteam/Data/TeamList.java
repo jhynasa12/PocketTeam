@@ -8,7 +8,10 @@ import java.util.ArrayList;
 public class TeamList {
 
     private static ArrayList<Team> m_Teams;
-    private static TeamList uniqueInstance;
+    private static TeamList uniqueInstance = null;
+
+
+
 
     public TeamList() {
 
