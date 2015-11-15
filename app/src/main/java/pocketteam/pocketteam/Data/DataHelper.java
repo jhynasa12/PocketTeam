@@ -1,4 +1,4 @@
-package pocketteam.pocketteam;
+package pocketteam.pocketteam.Data;
 
 import android.content.ContentValues;
 import android.content.Context;

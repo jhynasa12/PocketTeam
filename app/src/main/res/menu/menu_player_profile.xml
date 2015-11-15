@@ -38,5 +38,14 @@
         android:title="@string/changePlayerNumber"
         android:onClick="editNumberOnClick" />
 
+    <item
+        android:id="@+id/changePosition"
+        android:orderInCategory="5"
+        app:showAsAction="never"
+        android:title="@string/"
+        android:onClick="editNumberOnClick" />
+
+
+
 
 </menu>
