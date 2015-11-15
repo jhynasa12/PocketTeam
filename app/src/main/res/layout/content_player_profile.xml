@@ -25,22 +25,10 @@
         android:layout_height="150dp"
         android:id="@+id/imagePlayer"
         android:src="@drawable/defaultprofilepicture"
+        android:onClick="btnChoosePhotoPressed"
         android:layout_below="@+id/player_profile_name"
-        android:layout_alignLeft="@+id/player_profile_name"
-        android:layout_alignStart="@+id/player_profile_name"
-        android:layout_toLeftOf="@+id/roster_backto"
-        android:layout_toStartOf="@+id/roster_backto"
-        android:onClick="btnChoosePhotoPressed"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Spray Chart"
-        android:id="@+id/spray_chart"
-        android:onClick="SprayChartOnClickEventHandler"
-        android:layout_above="@+id/statlist"
-        android:layout_toRightOf="@+id/imagePlayer"
-        android:layout_toEndOf="@+id/imagePlayer" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_width="match_parent"
@@ -52,17 +40,6 @@
         android:layout_below="@+id/imagePlayer"
         android:layout_centerVertical="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back To Roster"
-        android:id="@+id/roster_backto"
-        android:onClick="btnRosterOnClickEventHandler"
-        android:layout_alignTop="@+id/imagePlayer"
-        android:layout_alignLeft="@+id/editButton"
-        android:layout_alignStart="@+id/editButton" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,8 +48,8 @@
         android:id="@+id/parent_name_profile"
         android:editable="true"
         android:layout_above="@+id/player_phone_number"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/player_phone_number"
+        android:layout_alignStart="@+id/player_phone_number" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,9 +58,9 @@
         android:text="Phone Number"
         android:id="@+id/player_phone_number"
         android:editable="true"
-        android:layout_alignBottom="@+id/imagePlayer"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/statlist"
+        android:layout_alignRight="@+id/parent_contact"
+        android:layout_alignEnd="@+id/parent_contact" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -91,9 +68,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Position"
         android:id="@+id/player_position_profile"
-        android:layout_below="@+id/player_profile_name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/parent_contact"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -101,8 +77,36 @@
         android:text="Emergency Contact:"
         android:id="@+id/parent_contact"
         android:layout_above="@+id/parent_name_profile"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/player_position_profile"
+        android:layout_alignStart="@+id/player_position_profile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Position"
+        android:id="@+id/playerPositionView"
+        android:layout_above="@+id/player_position_profile"
+        android:layout_alignLeft="@+id/player_position_profile"
+        android:layout_alignStart="@+id/player_position_profile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number"
+        android:id="@+id/number_view"
+        android:layout_below="@+id/player_profile_name"
+        android:layout_alignLeft="@+id/playerPositionView"
+        android:layout_alignStart="@+id/playerPositionView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Player Number"
+        android:id="@+id/player_jersey_number_view"
+        android:layout_below="@+id/number_view"
+        android:layout_alignLeft="@+id/number_view"
+        android:layout_alignStart="@+id/number_view" />
 
 
 </RelativeLayout>

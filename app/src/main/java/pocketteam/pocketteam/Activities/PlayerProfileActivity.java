@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,6 +29,7 @@ import org.xmlpull.v1.XmlPullParser;
 import java.util.ArrayList;
 
 import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.Data.Team;
 import pocketteam.pocketteam.R;
 import pocketteam.pocketteam.Data.StatList;
 import pocketteam.pocketteam.Data.TeamList;
@@ -47,7 +50,8 @@ public class PlayerProfileActivity extends AppCompatActivity {
     public static Player currentPlayer;
     private ImageView image;
     private ArrayList<String> statList;
-    ArrayAdapter<String> statArrayAdapter;
+    private ArrayAdapter<String> statArrayAdapter;
+    private TextView positionText, parentText, numberText, playerNumberText;
 
 
     @Override
@@ -67,15 +71,18 @@ public class PlayerProfileActivity extends AppCompatActivity {
         currentPlayer = TeamList.getInstance().findPlayerByName(firstName, lastName);
 
 
-        TextView positionText = (TextView) findViewById(R.id.player_position_profile);
+        positionText = (TextView) findViewById(R.id.player_position_profile);
         positionText.setText(currentPlayer.getPosition());
 
-        TextView parentText = (TextView) findViewById(R.id.parent_name_profile);
+        parentText = (TextView) findViewById(R.id.parent_name_profile);
         parentText.setText(currentPlayer.getParentName());
 
 
-        TextView numberText = (TextView) findViewById(R.id.player_phone_number);
+        numberText = (TextView) findViewById(R.id.player_phone_number);
         numberText.setText(currentPlayer.getPhoneNumber());
+
+        playerNumberText = (TextView) findViewById(R.id.player_jersey_number_view);
+        playerNumberText.setText(currentPlayer.getPlayerNumber());
 
 
         Context context = getApplicationContext();
@@ -148,6 +155,27 @@ public class PlayerProfileActivity extends AppCompatActivity {
             }
         });
 
+        numberText.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+
+            public void onClick(View v) {
+
+
+                Intent sIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + currentPlayer.getPhoneNumber()));
+
+
+                sIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
+                startActivity(sIntent);
+
+
+            }
+
+
+        });
+
 
     }
 
@@ -179,12 +207,6 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
     }
 
-
-    public void SprayChartOnClickEventHandler(View view) {
-        Intent sprayChartIntent = new Intent(this, SprayChartActivity.class);
-        startActivity(sprayChartIntent);
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -220,12 +242,6 @@ public class PlayerProfileActivity extends AppCompatActivity {
                 android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         final int ACTIVITY_SELECT_IMAGE = 1234;
         startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
-    }
-
-
-    public void btnRosterOnClickEventHandler(View view) {
-
-        finish();
     }
 
 
@@ -303,5 +319,151 @@ public class PlayerProfileActivity extends AppCompatActivity {
     }//end OpenDialogForEdit
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_player_profile, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.player_profile_back_roster) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public void backToRosterProfileOnClick(MenuItem item) {
+        finish();
+    }
+
+    public void sprayChartOnClick(MenuItem item) {
+
+        Intent sprayChartIntent = new Intent(this, SprayChartActivity.class);
+        startActivity(sprayChartIntent);
+    }
+
+    public void editContactNameOnClick(MenuItem item) {
+
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Change Emergency Contact");
+        alertDialog.setMessage("Enter name: ");
+
+        final EditText input = new EditText(PlayerProfileActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+
+        alertDialog.setButton("Confirm",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newContact = input.getText().toString();
+                        currentPlayer.setParentName(newContact);
+                        parentText.setText(currentPlayer.getParentName());
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+
+
+    }
+
+    public void editContactNumberOnClick(MenuItem item) {
+
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Change Emergency Contact Number");
+        alertDialog.setMessage("Enter number: ");
+
+        final EditText input = new EditText(PlayerProfileActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+
+        alertDialog.setButton("Confirm",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newNumber = input.getText().toString();
+                        currentPlayer.setPhoneNumber(newNumber);
+                        numberText.setText(currentPlayer.getPhoneNumber());
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+
+
+    }
+
+    public void editNumberOnClick(MenuItem item) {
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Change Player Number");
+        alertDialog.setMessage("Enter number: ");
+
+        final EditText input = new EditText(PlayerProfileActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+
+        alertDialog.setButton("Confirm",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newNumber = input.getText().toString();
+                        //check if any other player on the team has the same number
+                        Team currentTeam = TeamList.getInstance().getTeam(currentPlayer.getTeamName());
+                        for (Player x : currentTeam.getRoster()) {
+                            //if the numbers are the same
+                            if (newNumber.equals(x.getPlayerNumber())) {
+                                showToastMessage("Another player on your team has that number...Please enter another one"); // show message
+                                break;
+                            } else{
+                                currentPlayer.setPlayerNumber(newNumber);
+                                playerNumberText.setText(currentPlayer.getPlayerNumber());
+
+                            }
+                        }
+
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+    }
+
+    private void showToastMessage(String message) {
+
+        Context context = getApplicationContext();
+        CharSequence text = message;
+        int duration = Toast.LENGTH_SHORT;
+
+        final Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
 
 }// end Activity

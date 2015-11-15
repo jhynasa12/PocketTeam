@@ -101,7 +101,7 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
+
             }
         });
 
@@ -121,26 +121,39 @@ public class AddPlayerActivity extends AppCompatActivity {
             //check if phone number is not too long or short
         } else if (editPhoneNumber.getText().toString().length() > 10 || editPhoneNumber.getText().toString().length() < 10) {
 
-            showToastMessage("Your phone number is either too short or too long...");
+            showToastMessage("Phone number is too short or too long");
 
-        } else {
-
-
-            Team currentTeam = TeamList.getInstance().getTeam(teamName);
+        }
 
 
-//            //check if any other player on the team has the same number
-//            for(Player x: currentTeam){
-//                if(editNumber.getText().toString().equals(x.getPlayerNumber())){
-//
-//                }
-//            }
+        Team currentTeam = TeamList.getInstance().getTeam(teamName);
 
-            //create Player
+        boolean matchingPlayer = true;
+
+
+        /// if the current roster is has players in it
+        if (!currentTeam.getRoster().isEmpty()) {
+
+
+            //check if any other player on the team has the same number
+            for (Player x : currentTeam.getRoster()) {
+                //if the numbers are the same
+                if (editNumber.getText().toString().equals(x.getPlayerNumber())) {
+                    showToastMessage("Another player on your team has that number..."); // show message
+                    matchingPlayer = false;
+                } else {
+                    matchingPlayer = true;
+                }
+
+            }
+        }
+
+        if (matchingPlayer) {      //create Player
+
 
             Player player = new Player(editFirstName.getText().toString(), editLastName.getText().toString(), playerPosition, editNumber.getText().toString(), teamName); //creates player
 
-             String phoneNumber = Utility.getInstance().setPhoneNumberFormat(editPhoneNumber.getText().toString());
+            String phoneNumber = Utility.getInstance().setPhoneNumberFormat(editPhoneNumber.getText().toString());
 
             player.setPhoneNumber(phoneNumber);
             player.setParentName(editParentContact.getText().toString());
@@ -172,17 +185,14 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             RosterActivity.playerArrayAdapter.notifyDataSetChanged();
 
-            Context context = getApplicationContext();
-            CharSequence text = "Player Added";
-            int duration = Toast.LENGTH_SHORT;
-
-            final Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-
+            showToastMessage("Player Added");
             //Go to the Roster Screen
             finish();
 
+
         }
+
+
     }
 
 
