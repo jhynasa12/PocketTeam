@@ -123,6 +123,9 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             showToastMessage("Phone number is too short or too long");
 
+            //this the number is greater than double digits
+        }else if(editNumber.getText().toString().length() > 2){
+            showToastMessage("A player number cannot be that big...");
         }
 
 

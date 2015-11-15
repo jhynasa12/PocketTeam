@@ -42,8 +42,8 @@
         android:id="@+id/changePosition"
         android:orderInCategory="5"
         app:showAsAction="never"
-        android:title="@string/"
-        android:onClick="editNumberOnClick" />
+        android:title="@string/changePosition"
+        android:onClick="editPositionOnClick" />
 
 
 

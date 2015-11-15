@@ -13,7 +13,7 @@ public class StatList {
     public enum Stat
     {
         Batting_Average, Slugging_Percentage,
-        RBI, Hits, ERA
+        RBI, Hits, ERA, Home_Runs, Walks, Wins, Losses
     }
     //private ArrayList<String> m_StatList;
     private HashMap<Stat,Float> m_MapList;
@@ -27,12 +27,15 @@ public class StatList {
                             "Slugging Percentage",
                              "RBI", "Hits", "ERA"};*/
 
-
+        m_MapList.put(Stat.Hits, 0f);
+        m_MapList.put(Stat.RBI, 0f);
+        m_MapList.put(Stat.Walks, 0f);
         m_MapList.put(Stat.Batting_Average, .000f);
         m_MapList.put(Stat.Slugging_Percentage, .000f);
-        m_MapList.put(Stat.RBI, 0f);
-        m_MapList.put(Stat.Hits, 0f);
         m_MapList.put(Stat.ERA, 0f);
+        m_MapList.put(Stat.Wins, 0f);
+        m_MapList.put(Stat.Losses, 0f);
+
 
 
         // m_StatList = new ArrayList<>();

@@ -33,6 +33,7 @@ import pocketteam.pocketteam.Data.Team;
 import pocketteam.pocketteam.R;
 import pocketteam.pocketteam.Data.StatList;
 import pocketteam.pocketteam.Data.TeamList;
+import pocketteam.pocketteam.Utilities.Utility;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -135,7 +136,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
                         openStatDialogBox("ERA", currentPlayer.getERA());
                         break;
 
-                    case 2:
+                    case 7:
                         openStatDialogBox("Hits", currentPlayer.getHits());
                         break;
 
@@ -191,8 +192,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
             startActivity(eraIntent);
 
         } else if (stat.equals(StatList.Stat.Hits.name())) {
-            Intent hitsIntent = new Intent(this, HitsActivity.class);
-            startActivity(hitsIntent);
+            onHitsClick();
 
         } else if (stat.equals(StatList.Stat.Slugging_Percentage.name())) {
             Intent sluggingIntent = new Intent(this, SluggingActivity.class);
@@ -202,6 +202,9 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
             Intent rbiIntent = new Intent(this, RbiActivity.class);
             startActivity(rbiIntent);
+
+        }else if(stat.equals(StatList.Stat.Wins)){
+
 
         }
 
@@ -400,7 +403,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String newNumber = input.getText().toString();
-                        currentPlayer.setPhoneNumber(newNumber);
+                        currentPlayer.setPhoneNumber(Utility.getInstance().setPhoneNumberFormat(newNumber));
                         numberText.setText(currentPlayer.getPhoneNumber());
                     }
                 });
@@ -439,7 +442,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
                             if (newNumber.equals(x.getPlayerNumber())) {
                                 showToastMessage("Another player on your team has that number...Please enter another one"); // show message
                                 break;
-                            } else{
+                            } else {
                                 currentPlayer.setPlayerNumber(newNumber);
                                 playerNumberText.setText(currentPlayer.getPlayerNumber());
 
@@ -465,5 +468,75 @@ public class PlayerProfileActivity extends AppCompatActivity {
         final Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
+
+    public void editPositionOnClick(MenuItem item) {
+
+        String[] items = new String[]{"P", "C", "1B", "2B", "3B", "LF", "CF", "RF"};
+
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Change Player Number");
+        alertDialog.setMessage("Select Position: ");
+
+        final EditText input = new EditText(PlayerProfileActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Confirm",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+
+
+    }
+
+
+    public void onHitsClick() {
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Hits");
+        alertDialog.setMessage("Increment or Decrement hits: Touch outside screen to cancel ");
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ADD",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentPlayer.incrementHits();
+                        showToastMessage("Hit added");
+                    }
+                });
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (currentPlayer.getHits() <= 0) {
+                            showToastMessage("You cannot have less than 0 hits");
+                        } else {
+                            currentPlayer.decrimentHits();
+                            showToastMessage("Hits subtracted");
+                        }
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+    }
+
 
 }// end Activity
