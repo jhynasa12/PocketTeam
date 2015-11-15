@@ -12,12 +12,13 @@ import android.widget.Toast;
 import pocketteam.pocketteam.R;
 import pocketteam.pocketteam.Data.Team;
 import pocketteam.pocketteam.Data.TeamList;
+import pocketteam.pocketteam.Utilities.Utility;
 
 
 public class AddTeamActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = "AddTeamActivity";
-    public Team newTeam;
+    private Team newTeam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class AddTeamActivity extends AppCompatActivity {
         final EditText teamName = (EditText) findViewById(R.id.team_text);
 
 
-        if (isEmpty(teamName) == true) {
+        if (Utility.getInstance().isEmpty(teamName)) {
 
             Context context = getApplicationContext();
             CharSequence text = "You need a team name...";
@@ -63,17 +64,15 @@ public class AddTeamActivity extends AppCompatActivity {
             toast.show();
 
 
-//            Intent teamListIntent = new Intent(this, TeamListActivity.class);
-//            startActivity(teamListIntent);
+            Intent teamListIntent = new Intent(this, TeamListActivity.class);
+            startActivity(teamListIntent);
 
-            finish();
+
 
         }
 
     }// end AddTeamClickEventHandler
 
-    private boolean isEmpty(EditText etText) {
-        return etText.getText().toString().trim().length() == 0;
-    }
+
 }
 

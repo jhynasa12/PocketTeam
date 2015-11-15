@@ -32,6 +32,11 @@ public class Utility {
     }
 
 
+    public String setPhoneNumberFormat(String number) {
+        number = "(" + number.substring(0, 3) + ")-" + number.substring(3, 6) + "-" + number.substring(6, 10);
+        return number;
+    }
+
     public void callToastMessage(String message){
 
         Context context = getApplicationContext();

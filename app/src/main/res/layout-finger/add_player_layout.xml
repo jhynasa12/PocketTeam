@@ -29,12 +29,13 @@
         android:singleLine="true"
         android:hint="Last Name" />
 
-    <EditText
-        android:layout_width="match_parent"
+
+    <Spinner
+        android:id="@+id/position_list"
+        android:layout_width= "match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/position"
-        android:singleLine="true"
-        android:hint="Position" />
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
 
     <EditText
         android:layout_width="match_parent"
@@ -59,6 +60,8 @@
         android:singleLine="true"
         android:hint="Parent Name"
         />
+
+
 
 
     <Button

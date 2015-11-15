@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/player_profile_back_roster"
+        android:orderInCategory="1"
+        app:showAsAction="never"
+        android:title="@string/backToRoster"
+        android:onClick="backToRosterProfileOnClick"/>
+
+    <item
+        android:id="@+id/player_profile_spraychart"
+        android:orderInCategory="2"
+        app:showAsAction="never"
+        android:title="@string/sprayChart"
+        android:onClick="sprayChartOnClick" />
+
+    <item
+        android:id="@+id/changeEmergencyContact"
+        android:orderInCategory="3"
+        app:showAsAction="never"
+        android:title="@string/changeEmergencyContact"
+        android:onClick="editContactNameOnClick" />
+
+    <item
+        android:id="@+id/changeEmergencyNumber"
+        android:orderInCategory="4"
+        app:showAsAction="never"
+        android:autoLink="phone"
+        android:title="@string/changeEmergencyPhone"
+        android:onClick="editContactNumberOnClick" />
+
+    <item
+        android:id="@+id/changeNumber"
+        android:orderInCategory="5"
+        app:showAsAction="never"
+        android:title="@string/changePlayerNumber"
+        android:onClick="editNumberOnClick" />
+
+
+</menu>

@@ -41,9 +41,14 @@
 
 
     <string name="sortByBatAvgHigh">Sort By Bat Avg (High)</string>
-    <string name="sortByBatAvgLow">Sort By Bat Avg (Low) (High)</string>
+    <string name="sortByBatAvgLow">Sort By Bat Avg (Low)</string>
     <string name="backToRoster">Back to Roster</string>
+    <string name="backToProfile">Back to Profile</string>
     <string name="save">Save</string>
+    <string name="sprayChart">To Spray Chart</string>
+    <string name="changeEmergencyContact">Change Emergency Contact</string>
+    <string name="changeEmergencyPhone">Change Emergency Phone #</string>
+    <string name="changePlayerNumber">Change Player Number</string>
 
 
 

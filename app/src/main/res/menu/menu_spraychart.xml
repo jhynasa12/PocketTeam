@@ -9,7 +9,7 @@
         android:id="@+id/spray_chart_roster"
         android:orderInCategory="1"
         app:showAsAction="never"
-        android:title="@string/backToRoster"
+        android:title="@string/backToProfile"
         android:onClick="backToRosterOnCLickSpray"/>
 
     <item
