@@ -51,7 +51,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Intent teamsIntent = new Intent(this, TeamListActivity.class);
         startActivity(teamsIntent);
-        //Pulls existing teams from db
+       // Pulls existing teams from db
         if (!WelcomeActivity.nice.getAllTeams().isEmpty())
 
 

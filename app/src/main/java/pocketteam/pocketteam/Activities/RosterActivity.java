@@ -50,7 +50,7 @@ public class RosterActivity extends AppCompatActivity {
 
 
         playerArrayAdapter = new ArrayAdapter<Player>(this, android.R.layout.simple_expandable_list_item_1, players);
-        listView = (ListView) findViewById(R.id.list_players);
+        listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(playerArrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

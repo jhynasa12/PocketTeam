@@ -167,7 +167,15 @@ public class AddPlayerActivity extends AppCompatActivity {
 
 
             //add player to the Team
-            currentTeam.addPlayer(player);
+
+           // if (!WelcomeActivity.nice.getAllTeams().isEmpty())
+
+            //for (Player p : WelcomeActivity.nice.getAllPlayers(teamName))
+                currentTeam.addPlayer(player);
+
+
+
+
 
             //finds all players from the database and adds them to a list
                     //List<Player> players = WelcomeActivity.nice.getAllPlayers();
