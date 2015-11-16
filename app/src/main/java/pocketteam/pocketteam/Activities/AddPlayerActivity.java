@@ -167,9 +167,9 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.getInstance().getSize() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
 
-            Team testTeam =TeamList.getInstance().getTeam("Yankees");
+           // Team testTeam =TeamList.getInstance().getTeam("Yankees");
 
-            Log.d("First Test- passes", String.valueOf(testTeam.getRoster().size()));
+         //   Log.d("First Test- passes", String.valueOf(testTeam.getRoster().size()));
 
 
             //add player to the Team
@@ -199,7 +199,7 @@ public class AddPlayerActivity extends AppCompatActivity {
             //Go to the Roster Screen
             finish();
 
-            Log.d("AddPlayerActivity", String.valueOf(TeamList.getInstance().getTeam("Yankees").getRoster().size()));
+       //     Log.d("AddPlayerActivity", String.valueOf(TeamList.getInstance().getTeam("Yankees").getRoster().size()));
 
         }
 
