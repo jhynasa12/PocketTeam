@@ -173,7 +173,7 @@ public class AddPlayerActivity extends AppCompatActivity {
             //for (Player p : WelcomeActivity.nice.getAllPlayers(teamName))
                 currentTeam.addPlayer(player);
 
-
+//                Log.d("AddPlayerActivity", String.valueOf(TeamList.getInstance().getTeam("Yankees").getRoster().size()));
 
 
 
@@ -191,7 +191,7 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             //currentTeam.addPlayer(player);
             //add player to the database
-            WelcomeActivity.nice.addPlayer(player);
+          // WelcomeActivity.nice.addPlayer(player);
             //         Log.d("Reading: ", "Reading all contacts..");
             //finds all players from the database and adds them to a list
             //        List<Player> players = myDb.getAllPlayers();
@@ -206,7 +206,7 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             //Log.d(LOG_TAG, player.getFirstName() + "'s team is " + currentTeam.getTeamName());
 
-            RosterActivity.playerArrayAdapter.notifyDataSetChanged();
+
 
             showToastMessage("Player Added");
             //Go to the Roster Screen
@@ -219,10 +219,9 @@ public class AddPlayerActivity extends AppCompatActivity {
     }
 
 
-    public void btnOnClickCancelEventHandler(View view) {
-
+    public void btnOnClickCancelEventHandler(View view)
+    {
         finish();
-
     }
 
     public void showToastMessage(String message) {

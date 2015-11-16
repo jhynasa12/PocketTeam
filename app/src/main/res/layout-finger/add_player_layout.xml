@@ -51,7 +51,9 @@
         android:id="@+id/addplayer_player_number"
         android:singleLine="true"
         android:hint="Phone Number"
-        android:inputType="number" />
+        android:phoneNumber="false"
+        android:password="false"
+        android:inputType="phone" />
 
     <EditText
         android:layout_width="match_parent"

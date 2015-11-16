@@ -10,7 +10,7 @@ import pocketteam.pocketteam.Data.Player;
  */
 public class Team {
     
-    public static ArrayList<Player> roster;
+    private ArrayList<Player> roster;
     private String m_TeamName;
     
     public Team(String name){

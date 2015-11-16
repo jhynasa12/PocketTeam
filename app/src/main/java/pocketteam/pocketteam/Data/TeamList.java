@@ -85,7 +85,8 @@ public class TeamList {
 
 
     public Team getTeam(String name) {
-        for (Team team : m_Teams) {
+        for (Team team : m_Teams)
+        {
             if (team.getTeamName().equals(name)) return team;
         }
         return null;
@@ -93,9 +94,11 @@ public class TeamList {
 
     public Player findPlayerByName(String firstname, String lastname) {
 
-        ArrayList<Player> roster = Team.roster;
 
-        for (Team team : m_Teams) {
+
+        for (Team team : m_Teams)
+        {
+            ArrayList<Player> roster = team.getRoster();
 
             for (Player player : roster) {
                 if (player.getFirstName().equals(firstname) && player.getLastName().equals(lastname)) {

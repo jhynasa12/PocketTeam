@@ -54,7 +54,7 @@ public class AddTeamActivity extends AppCompatActivity {
         } else {
 
             newTeam = new Team(teamName.getText().toString()); //creates a new team
-            WelcomeActivity.nice.addTeams(newTeam); //add team to database
+           // WelcomeActivity.nice.addTeams(newTeam); //add team to database
             TeamList.getInstance().addTeam(newTeam); //add to team list
         }
 

@@ -188,6 +188,8 @@ public class Player implements Comparable<Player>{
      */
     public void calcBatAvg(Float hits, Float atBats){
       m_BatAverage = Stat.getInstance().battingAverage(hits, atBats);
+
+        String.format(".3f", m_BatAverage);
         Log.d("calcBatAvg()", "" + m_BatAverage);
     }
     

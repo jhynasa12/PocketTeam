@@ -139,7 +139,7 @@ public class TeamListActivity extends AppCompatActivity {
                 Team team = teams.get(position);
                 teams.remove(team);
 
-                WelcomeActivity.nice.deleteTeam(team);
+         //      WelcomeActivity.nice.deleteTeam(team);
 
                 teamArrayAdapter.notifyDataSetChanged();
 

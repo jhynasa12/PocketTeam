@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import pocketteam.pocketteam.Data.Player;
 import pocketteam.pocketteam.R;
+import pocketteam.pocketteam.Utilities.Utility;
 
 public class BattingAvgActivity extends AppCompatActivity {
 
@@ -32,7 +33,8 @@ public class BattingAvgActivity extends AppCompatActivity {
 
         final EditText atBats = (EditText) findViewById(R.id.atBats);
         final EditText hits = (EditText) findViewById(R.id.hits);
-        if(isEmpty(atBats) || isEmpty(hits) == true){
+        if(Utility.getInstance().isEmpty(atBats) || Utility.getInstance().isEmpty(hits) == true){
+
 
         }else{
 
@@ -41,12 +43,9 @@ public class BattingAvgActivity extends AppCompatActivity {
             finish();
 
 
-
         }
 
     }
 
-    private boolean isEmpty(EditText etText) {
-        return etText.getText().toString().trim().length() == 0;
-    }
+
 }

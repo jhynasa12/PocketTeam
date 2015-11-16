@@ -30,11 +30,11 @@ public class RosterActivity extends AppCompatActivity {
     public static final String LAST_NAME = "lastName";
     public static final String TEAM_NAME = "teamName";
     public static final String FIRST_NAME = "firstName";
-    public static String teamName;
     public static final String PLAYER_NAME = "playerName";
-    public static final int DETAIL_REQUEST_CODE = 1001;
-    protected ArrayList<Player> players;
-    public static ArrayAdapter<Player> playerArrayAdapter;
+
+    private String teamName;
+    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayAdapter<Player> playerArrayAdapter;
     private ListView listView;
 
     @Override
@@ -48,9 +48,9 @@ public class RosterActivity extends AppCompatActivity {
 
         players = TeamList.getInstance().getTeam(teamName).getRoster();
 
-
         playerArrayAdapter = new ArrayAdapter<Player>(this, android.R.layout.simple_expandable_list_item_1, players);
-        listView = (ListView) findViewById(android.R.id.list);
+
+        listView = (ListView) findViewById(R.id.list_players);
         listView.setAdapter(playerArrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -145,33 +145,27 @@ public class RosterActivity extends AppCompatActivity {
 
         Intent addPlayerIntent = new Intent(this, AddPlayerActivity.class);
         addPlayerIntent.putExtra(TEAM_NAME, teamName);
-        startActivity(addPlayerIntent);
-        finishActivity(DETAIL_REQUEST_CODE);
-
+        startActivityForResult(addPlayerIntent, 0x0);
+       // finishActivity(DETAIL_REQUEST_CODE)
     }
 
-    private void displayRosterDetail(Player player) {
+    private void displayRosterDetail(Player player)
+    {
         Log.d("RosterActivity", "Displaying player: " + player.getLastName());
         Intent playerProfileIntent = new Intent(this, PlayerProfileActivity.class);
         playerProfileIntent.putExtra(PLAYER_NAME, player.getFirstName() + " " + player.getLastName());
         playerProfileIntent.putExtra(LAST_NAME, player.getLastName());
         playerProfileIntent.putExtra(TEAM_NAME, player.getTeamName());
         playerProfileIntent.putExtra(FIRST_NAME, player.getFirstName());
-        startActivityForResult(playerProfileIntent, DETAIL_REQUEST_CODE);
+        startActivity(playerProfileIntent);
 
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         playerArrayAdapter.notifyDataSetChanged();
-
-        Context context = getApplicationContext();
-        CharSequence text = "This runs.... ";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
 
 
     }

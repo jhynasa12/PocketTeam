@@ -52,14 +52,14 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent teamsIntent = new Intent(this, TeamListActivity.class);
         startActivity(teamsIntent);
        // Pulls existing teams from db
-        if (!WelcomeActivity.nice.getAllTeams().isEmpty())
-
-
-            for (Team p : TeamList.getInstance().getTeams())
-                TeamList.getInstance().removeTeam(p);
-
-            for (Team p : WelcomeActivity.nice.getAllTeams())
-                TeamList.getInstance().addTeam(p);
+//        if (!WelcomeActivity.nice.getAllTeams().isEmpty())
+//
+//
+//            for (Team p : TeamList.getInstance().getTeams())
+//                TeamList.getInstance().removeTeam(p);
+//
+//            for (Team p : WelcomeActivity.nice.getAllTeams())
+//                TeamList.getInstance().addTeam(p);
         ///////////////////we might need to end method???/////////////////////////////
 
     }

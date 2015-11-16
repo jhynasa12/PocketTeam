@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,7 +25,8 @@ import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+
 
 import pocketteam.pocketteam.Data.Player;
 import pocketteam.pocketteam.Data.Team;
@@ -34,14 +34,11 @@ import pocketteam.pocketteam.R;
 import pocketteam.pocketteam.Data.StatList;
 import pocketteam.pocketteam.Data.TeamList;
 import pocketteam.pocketteam.Utilities.Utility;
+import pocketteam.pocketteam.view.StatListAdapter;
 
-import static android.app.PendingIntent.getActivity;
 
 public class PlayerProfileActivity extends AppCompatActivity {
 
-    private static final int SELECT_IMAGE = 12;
-    private static int IMAGE_GALLERY = 10;
-    public static String stats;
     public static String playerName;
     public static String lastName;
     public static String teamName;
@@ -50,8 +47,8 @@ public class PlayerProfileActivity extends AppCompatActivity {
     private Bitmap yourSelectedImage;
     public static Player currentPlayer;
     private ImageView image;
-    private ArrayList<String> statList;
-    private ArrayAdapter<String> statArrayAdapter;
+    private HashMap<StatList.Stat, Float> statList;
+    private StatListAdapter<StatList.Stat, Float> statArrayAdapter;
     private TextView positionText, parentText, numberText, playerNumberText, teamText;
 
 
@@ -110,54 +107,70 @@ public class PlayerProfileActivity extends AppCompatActivity {
         }
 
 
-        statList = StatList.getInstance().getStats();
+        statList = StatList.getInstance().getMap();
 
-        statArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, statList);
+        statArrayAdapter = new StatListAdapter<StatList.Stat, Float>(this, statList);
         ListView listView = (ListView) findViewById(R.id.statlist);
         listView.setAdapter(statArrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String stat = statList.get(position);
-                statDetail(stat, position);
+                // String stat = statList.values().toArray()[position].toString();
+
+                statDetail(position);
+                statArrayAdapter.notifyDataSetChanged();
+
             }
         });
 
 
+        final Intent hitsIntent = new Intent(this,HitsActivity.class);
+
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String stat = statList.get(position);
+                // String stat = statList.get(position);
 
-                switch (position) {
 
-                    case 0:
+                StatList.Stat stat = StatList.Stat.values()[position];
+
+
+
+                switch (stat) {
+
+                    case Batting_Average:
                         openStatDialogBox("Batting Average", currentPlayer.getBatAvg());
                         break;
-                    case 1:
-                        openStatDialogBox("ERA", currentPlayer.getERA());
-                        break;
-
-                    case 7:
-                        openStatDialogBox("Hits", currentPlayer.getHits());
-                        break;
-
-                    case 3:
+                    case Slugging_Percentage:
                         openStatDialogBox("Slugging Percentage", currentPlayer.getSlugg());
                         break;
-
-                    case 4:
+                    case RBI:
                         openStatDialogBox("RBIs", currentPlayer.getRBI());
                         break;
-
-
+                    case Hits:
+                        startActivity(hitsIntent);
+                        break;
+                    case ERA:
+                        openStatDialogBox("ERA", currentPlayer.getERA());
+                        break;
+                    case Home_Runs:
+                        break;
+                    case Walks:
+                        break;
+                    case Wins:
+                        break;
+                    case Losses:
+                        break;
                 }
 
 
                 return true;
             }
         });
+
+
+        final AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
 
         numberText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,13 +179,40 @@ public class PlayerProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Intent sIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + currentPlayer.getPhoneNumber()));
+                final Intent sIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + currentPlayer.getPhoneNumber()));
 
 
                 sIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
-                startActivity(sIntent);
+                alertDialog.setTitle("Call Contact");
+                alertDialog.setMessage("Would you like to call the player's Emergency Contact?");
+
+
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+
+
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Call",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(sIntent);
+
+                            }
+                        });
+                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                alertDialog.cancel();
+                            }
+                        });
+
+
+                alertDialog.setCanceledOnTouchOutside(true);
+
+
+                alertDialog.show();  //<-- See This!
 
 
             }
@@ -183,34 +223,69 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
     }
 
-    private void statDetail(String stat, int position) {
+    private void statDetail(int position) {
 
-        if (stat.equals(StatList.Stat.Batting_Average.name())) {
-            Intent batAvgIntent = new Intent(this, BattingAvgActivity.class);
-            startActivity(batAvgIntent);
 
-        } else if (stat.equals(StatList.Stat.ERA.name())) {
 
-            Intent eraIntent = new Intent(this, EraActivity.class);
-            startActivity(eraIntent);
+        switch (position) {
 
-        } else if (stat.equals(StatList.Stat.Hits.name())) {
-            onHitsClick();
+            case 0:
 
-        } else if (stat.equals(StatList.Stat.Slugging_Percentage.name())) {
-            Intent sluggingIntent = new Intent(this, SluggingActivity.class);
-            startActivity(sluggingIntent);
+                break;
+            case 1:
+                break;
+            case 2:
+                Intent sluggingIntent = new Intent(this, SluggingActivity.class);
+                startActivity(sluggingIntent);
+                statList.put(StatList.Stat.Slugging_Percentage, currentPlayer.getSlugg());
+                break;
+            case 3:
+                break;
+            case 4:
+                Intent batAvgIntent = new Intent(this, BattingAvgActivity.class);
+                startActivity(batAvgIntent);
+                statList.put(StatList.Stat.Batting_Average, currentPlayer.getBatAvg());
 
-        } else if (stat.equals(StatList.Stat.RBI.name())) {
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
 
-            Intent rbiIntent = new Intent(this, RbiActivity.class);
-            startActivity(rbiIntent);
-
-        }else if(stat.equals(StatList.Stat.Wins)){
+            case 7:
+                onHitsClick();
+                statList.put(StatList.Stat.Hits, Float.parseFloat(String.valueOf(currentPlayer.getHits())));
+                break;
 
 
         }
 
+
+        //            if (stat.equals("Batting Average")) {
+//                Intent batAvgIntent = new Intent(this, BattingAvgActivity.class);
+//                startActivity(batAvgIntent);
+//
+//            } else if (stat.equals(StatList.Stat.ERA.name())) {
+//
+//                Intent eraIntent = new Intent(this, EraActivity.class);
+//                startActivity(eraIntent);
+//
+//            } else if (stat.equals(StatList.Stat.Hits.name())) {
+//                onHitsClick();
+//
+//            } else if (stat.equals(StatList.Stat.Slugging_Percentage.name())) {
+//                Intent sluggingIntent = new Intent(this, SluggingActivity.class);
+//                startActivity(sluggingIntent);
+//
+//            } else if (stat.equals(StatList.Stat.RBI.name())) {
+//
+//                Intent rbiIntent = new Intent(this, RbiActivity.class);
+//                startActivity(rbiIntent);
+//
+//            } else if (stat.equals(StatList.Stat.Wins)) {
+//
+//
+//            }
     }
 
 
@@ -518,6 +593,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         currentPlayer.incrementHits();
+                        statArrayAdapter.notifyDataSetChanged();
                         showToastMessage("Hit added");
                     }
                 });
@@ -527,8 +603,10 @@ public class PlayerProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if (currentPlayer.getHits() <= 0) {
                             showToastMessage("You cannot have less than 0 hits");
+                            return;
                         } else {
                             currentPlayer.decrimentHits();
+                            statArrayAdapter.notifyDataSetChanged();
                             showToastMessage("Hits subtracted");
                         }
                     }
