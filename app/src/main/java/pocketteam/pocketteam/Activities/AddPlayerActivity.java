@@ -1,9 +1,7 @@
 package pocketteam.pocketteam.Activities;
 
 import java.util.List;
-
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,11 +13,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import pocketteam.pocketteam.Data.DataHelper;
 import pocketteam.pocketteam.Data.Player;
 import pocketteam.pocketteam.R;
 import pocketteam.pocketteam.Data.Team;
 import pocketteam.pocketteam.Data.TeamList;
+import pocketteam.pocketteam.Data.DataHelper;
 import pocketteam.pocketteam.Utilities.Utility;
 
 public class AddPlayerActivity extends AppCompatActivity {
@@ -111,7 +109,7 @@ public class AddPlayerActivity extends AppCompatActivity {
 
     public void AddPlayerEventClickHandler(View view) {
 
-        DataHelper myDb = new DataHelper(this); //creates database
+        //DataHelper myDb = new DataHelper(this); //creates database
 
 
         if (Utility.getInstance().isEmpty(editFirstName) || Utility.getInstance().isEmpty(editLastName) || Utility.getInstance().isEmpty(editNumber) || Utility.getInstance().isEmpty(editPhoneNumber) || Utility.getInstance().isEmpty(editParentContact) == true) {
@@ -122,12 +120,10 @@ public class AddPlayerActivity extends AppCompatActivity {
         } else if (editPhoneNumber.getText().toString().length() > 10 || editPhoneNumber.getText().toString().length() < 10) {
 
             showToastMessage("Phone number is too short or too long");
-            return;
 
             //this the number is greater than double digits
         }else if(editNumber.getText().toString().length() > 2){
             showToastMessage("A player number cannot be that big...");
-            return;
         }
 
 
@@ -146,6 +142,8 @@ public class AddPlayerActivity extends AppCompatActivity {
                 if (editNumber.getText().toString().equals(x.getPlayerNumber())) {
                     showToastMessage("Another player on your team has that number..."); // show message
                     matchingPlayer = false;
+                } else {
+                    matchingPlayer = true;
                 }
 
             }
@@ -167,18 +165,25 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.getInstance().getSize() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
 
-           // Team testTeam =TeamList.getInstance().getTeam("Yankees");
-
-         //   Log.d("First Test- passes", String.valueOf(testTeam.getRoster().size()));
-
 
             //add player to the Team
             currentTeam.addPlayer(player);
 
-            Log.d(LOG_TAG, currentTeam.getTeamName());
+            //finds all players from the database and adds them to a list
+                    //List<Player> players = WelcomeActivity.nice.getAllPlayers();
+//
+            //finds players from database and adds them to the roster
+//                    for (Player p : players) {
+//                        if(!players.isEmpty())
+//                        currentTeam.addPlayer(p);
+////                // Writing Contacts to log
+////                Log.d("Name: ", log);
+//                   }
+//        }
 
+            //currentTeam.addPlayer(player);
             //add player to the database
-            //         myDb.addPlayer(player);
+            WelcomeActivity.nice.addPlayer(player);
             //         Log.d("Reading: ", "Reading all contacts..");
             //finds all players from the database and adds them to a list
             //        List<Player> players = myDb.getAllPlayers();
@@ -199,7 +204,6 @@ public class AddPlayerActivity extends AppCompatActivity {
             //Go to the Roster Screen
             finish();
 
-       //     Log.d("AddPlayerActivity", String.valueOf(TeamList.getInstance().getTeam("Yankees").getRoster().size()));
 
         }
 

@@ -9,9 +9,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
 import pocketteam.pocketteam.R;
+import pocketteam.pocketteam.Data.DataHelper;
 import pocketteam.pocketteam.Data.Team;
+import pocketteam.pocketteam.Data.Player;
 import pocketteam.pocketteam.Data.TeamList;
+
 import pocketteam.pocketteam.Utilities.Utility;
 
 
@@ -19,11 +24,14 @@ public class AddTeamActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = "AddTeamActivity";
     private Team newTeam;
+    private List<Team> teamList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_team_layout);
+
 
         Log.d(LOG_TAG, "OnCreate");
 
@@ -32,9 +40,7 @@ public class AddTeamActivity extends AppCompatActivity {
 
     public void AddTeamClickEventHandler(View view) {
 
-
         final EditText teamName = (EditText) findViewById(R.id.team_text);
-
 
         if (Utility.getInstance().isEmpty(teamName)) {
 
@@ -48,10 +54,9 @@ public class AddTeamActivity extends AppCompatActivity {
         } else {
 
             newTeam = new Team(teamName.getText().toString()); //creates a new team
-
-
+            WelcomeActivity.nice.addTeams(newTeam); //add team to database
             TeamList.getInstance().addTeam(newTeam); //add to team list
-
+        }
 
             Log.d(LOG_TAG, newTeam.getTeamName());
             Log.d(LOG_TAG, TeamList.getInstance().getTeam(newTeam.getTeamName()).getTeamName());
@@ -63,20 +68,13 @@ public class AddTeamActivity extends AppCompatActivity {
             final Toast toast = Toast.makeText(context, text, duration);
             toast.show();
 
-
-//            Intent teamListIntent = new Intent(this, TeamListActivity.class);
-//            startActivity(teamListIntent);
-
-            TeamListActivity.teamArrayAdapter.notifyDataSetChanged();
-
-            finish();
-
-
-
+            Intent teamListIntent = new Intent(this, TeamListActivity.class);
+            startActivity(teamListIntent);
         }
 
     }// end AddTeamClickEventHandler
 
 
-}
+
+
 

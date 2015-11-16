@@ -28,7 +28,7 @@ public class TeamListActivity extends AppCompatActivity {
     public static final int DETAIL_REQUEST_CODE = 1001;
     protected ArrayList<Team> teams;
     private ListView listView;
-    public static ArrayAdapter<Team> teamArrayAdapter;
+    private ArrayAdapter<Team> teamArrayAdapter;
 
 
     @Override
@@ -36,13 +36,11 @@ public class TeamListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_list);
 
-
-
-
         teams = TeamList.getInstance().getTeams();
 
+
         teamArrayAdapter = new ArrayAdapter<Team>(this, android.R.layout.simple_expandable_list_item_1, teams);
-        listView = (ListView) findViewById(R.id.list_teams);
+        listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(teamArrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,6 +72,7 @@ public class TeamListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RosterActivity.class);
         intent.putExtra(TEAM_NAME, team.getTeamName());
         startActivityForResult(intent, DETAIL_REQUEST_CODE);
+
     }
 
     public void AddTeamOnClickEventHandler(View view) {
@@ -140,6 +139,7 @@ public class TeamListActivity extends AppCompatActivity {
                 Team team = teams.get(position);
                 teams.remove(team);
 
+                WelcomeActivity.nice.deleteTeam(team);
 
                 teamArrayAdapter.notifyDataSetChanged();
 
