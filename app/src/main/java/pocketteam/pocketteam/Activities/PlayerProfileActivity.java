@@ -481,8 +481,12 @@ public class PlayerProfileActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String newNumber = input.getText().toString();
-                        currentPlayer.setPhoneNumber(Utility.getInstance().setPhoneNumberFormat(newNumber));
-                        numberText.setText(currentPlayer.getPhoneNumber());
+                        if(Utility.getInstance().isEmpty(input) || input.getText().toString().length() < 10 || input.getText().toString().length() > 10){
+                            showToastMessage("The phone number is either too short or too long...");
+                        }else {
+                            currentPlayer.setPhoneNumber(Utility.getInstance().setPhoneNumberFormat(newNumber));
+                            numberText.setText(currentPlayer.getPhoneNumber());
+                        }
                     }
                 });
 
