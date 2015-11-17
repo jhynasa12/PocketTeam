@@ -24,7 +24,7 @@ public class AddTeamActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = "AddTeamActivity";
     private Team newTeam;
-    private List<Team> teamList;
+
 
 
     @Override
@@ -54,8 +54,9 @@ public class AddTeamActivity extends AppCompatActivity {
         } else {
 
             newTeam = new Team(teamName.getText().toString()); //creates a new team
-           // WelcomeActivity.nice.addTeams(newTeam); //add team to database
+            WelcomeActivity.teamDB.addTeams(newTeam); //add team to database
             TeamList.getInstance().addTeam(newTeam); //add to team list
+
         }
 
             Log.d(LOG_TAG, newTeam.getTeamName());

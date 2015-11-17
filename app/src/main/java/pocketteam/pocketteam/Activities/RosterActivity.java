@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.Data.Team;
 import pocketteam.pocketteam.R;
 import pocketteam.pocketteam.Data.TeamList;
 
@@ -46,9 +47,20 @@ public class RosterActivity extends AppCompatActivity {
         TextView rosterText = (TextView) findViewById(R.id.roster_team_name);
         rosterText.setText(teamName);
 
-        players = TeamList.getInstance().getTeam(teamName).getRoster();
+
+        //gets players from certain team from database
+        if (!WelcomeActivity.teamDB.getAllTeams().isEmpty())
+                for (Player p : WelcomeActivity.teamDB.getAllPlayers(teamName))
+                players.add(p);
+
+
+        //players = TeamList.getInstance().getTeam(teamName).getRoster();
+
+
 
         playerArrayAdapter = new ArrayAdapter<Player>(this, android.R.layout.simple_expandable_list_item_1, players);
+
+
 
         listView = (ListView) findViewById(R.id.list_players);
         listView.setAdapter(playerArrayAdapter);
@@ -160,6 +172,8 @@ public class RosterActivity extends AppCompatActivity {
         startActivity(playerProfileIntent);
 
 
+
+
     }
 
     @Override
@@ -185,6 +199,9 @@ public class RosterActivity extends AppCompatActivity {
 
                 Player player = players.get(position);
                 players.remove(player);
+
+                //removes player from database
+                WelcomeActivity.teamDB.removePlayer(player);
 
 
                 playerArrayAdapter.notifyDataSetChanged();

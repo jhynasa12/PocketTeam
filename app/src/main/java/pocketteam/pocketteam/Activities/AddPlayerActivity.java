@@ -2,6 +2,7 @@ package pocketteam.pocketteam.Activities;
 
 import java.util.List;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -109,7 +110,6 @@ public class AddPlayerActivity extends AppCompatActivity {
 
     public void AddPlayerEventClickHandler(View view) {
 
-        //DataHelper myDb = new DataHelper(this); //creates database
 
 
         if (Utility.getInstance().isEmpty(editFirstName) || Utility.getInstance().isEmpty(editLastName) || Utility.getInstance().isEmpty(editNumber) || Utility.getInstance().isEmpty(editPhoneNumber) || Utility.getInstance().isEmpty(editParentContact) == true) {
@@ -132,7 +132,7 @@ public class AddPlayerActivity extends AppCompatActivity {
         boolean matchingPlayer = true;
 
 
-        /// if the current roster is has players in it
+        /// if the current roster has players in it
         if (!currentTeam.getRoster().isEmpty()) {
 
 
@@ -168,49 +168,23 @@ public class AddPlayerActivity extends AppCompatActivity {
 
             //add player to the Team
 
-           // if (!WelcomeActivity.nice.getAllTeams().isEmpty())
+            if (!WelcomeActivity.teamDB.getAllTeams().isEmpty())
 
-            //for (Player p : WelcomeActivity.nice.getAllPlayers(teamName))
+            for (Player p : WelcomeActivity.teamDB.getAllPlayers(teamName))
                 currentTeam.addPlayer(player);
 
 //                Log.d("AddPlayerActivity", String.valueOf(TeamList.getInstance().getTeam("Yankees").getRoster().size()));
 
 
-
-            //finds all players from the database and adds them to a list
-                    //List<Player> players = WelcomeActivity.nice.getAllPlayers();
-//
-            //finds players from database and adds them to the roster
-//                    for (Player p : players) {
-//                        if(!players.isEmpty())
-//                        currentTeam.addPlayer(p);
-////                // Writing Contacts to log
-////                Log.d("Name: ", log);
-//                   }
-//        }
-
-            //currentTeam.addPlayer(player);
-            //add player to the database
-          // WelcomeActivity.nice.addPlayer(player);
-            //         Log.d("Reading: ", "Reading all contacts..");
-            //finds all players from the database and adds them to a list
-            //        List<Player> players = myDb.getAllPlayers();
-//
-            //finds players from database and adds them to the roster
-            //        for (Player p : players) {
-            //            currentTeam.addPlayer(p);
-//                // Writing Contacts to log
-//                Log.d("Name: ", log);
-            //        }
-//        }
-
-            //Log.d(LOG_TAG, player.getFirstName() + "'s team is " + currentTeam.getTeamName());
-
-
+            WelcomeActivity.teamDB.addPlayer(player);
 
             showToastMessage("Player Added");
+
+            Intent intent = new Intent(this, RosterActivity.class);
+            intent.putExtra("teamName", teamName);
+            startActivityForResult(intent, 1001);
             //Go to the Roster Screen
-            finish();
+        //  finish();
 
 
         }

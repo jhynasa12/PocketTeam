@@ -20,14 +20,13 @@ import java.util.Currency;
  * Created by Max on 11/7/2015.
  */
 public class DataHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "pocketDB.db"; //name of database
-
-    public static final String TABLE_TEAM = "Team_table"; //name of table
-    public static final String TABLE_PLAYERS = "Players_table"; //name of table
-
-    //Team table column names
-    public static final String KEY_ID = "id";
-    int id = 1;
+    //name of database
+     public static final String DATABASE_NAME = "pocketDB.db";
+    //name of table that contains the team names
+    public static final String TABLE_TEAM = "Team_table";
+    //name of table that contains the players for each team
+    public static final String TABLE_PLAYERS = "Players_table";
+    //name of column for team names
     public static final String teamName = "team_name";
     //Players table column names
     public static final String NUMBER = "NUMBER";
@@ -76,9 +75,9 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + team.getTeamName() + "(" + NUMBER + " INTEGER PRIMARY KEY," + FirstName + " TEXT," + LastName + " TEXT," + Position + " TEXT," + TeamName + " TEXT," + ParentCell + " TEXT," + ParentName + " TEXT" + ");");
 
         ContentValues contentValues = new ContentValues();
-        //contentValues.put(KEY_ID, id);
-        contentValues.put(teamName,team.getTeamName());
-        //contentValues.put(FirstName,player.getFirstName());
+
+        contentValues.put(teamName, team.getTeamName());
+
 
         db.insert(TABLE_TEAM, null, contentValues);
         db.close();
@@ -87,8 +86,9 @@ public class DataHelper extends SQLiteOpenHelper {
 
     public void deleteTeam(Team team) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_TEAM, teamName + " = ?", new String[] { team.getTeamName() });
-
+        db.delete(TABLE_TEAM, teamName + " = ?", new String[]{team.getTeamName()});
+        db.execSQL("DROP TABLE " + team.getTeamName());
+        TeamList.getInstance().removeTeam(team);
         db.close();
     }
 
@@ -105,11 +105,22 @@ public class DataHelper extends SQLiteOpenHelper {
         contentValues.put(LastName,player.getLastName());
         contentValues.put(Position,player.getPosition());
         contentValues.put(TeamName,player.getTeamName());
-        contentValues.put(ParentCell,player.getPhoneNumber());
-        contentValues.put(ParentName,player.getParentName());
+        contentValues.put(ParentCell, player.getPhoneNumber());
+        contentValues.put(ParentName, player.getParentName());
         db.insert(player.getTeamName(), null, contentValues);
         db.close();
     }
+
+    //removes player from database. For some reason, the position field holds team. Works for now, but should be looked into.
+    public void removePlayer(Player player) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(player.getPosition(), NUMBER + " = ?", new String[]{player.getPlayerNumber()});
+        db.close();
+    }
+
+
+
+
     //gets a player by number from table in database
     public Player getPlayer(String number, String teamName) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -150,6 +161,11 @@ public class DataHelper extends SQLiteOpenHelper {
         return playersList;
     }
 
+
+
+
+
+
     ////////////////////get all teams
 
 
@@ -176,6 +192,10 @@ public class DataHelper extends SQLiteOpenHelper {
         // return contact list
         return teamList;
     }
+
+
+
+
 
 
 

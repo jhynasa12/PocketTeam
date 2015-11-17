@@ -15,14 +15,14 @@ import pocketteam.pocketteam.R;
 import pocketteam.pocketteam.Data.DataHelper;
 
 public class WelcomeActivity extends AppCompatActivity {
-   public static DataHelper nice;
-    private static ArrayList<Team> teams;
+   public static DataHelper teamDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        nice = new DataHelper(getApplicationContext());
+        teamDB = new DataHelper(getApplicationContext());
 
         String fontPath = "fonts/varsity_regular.ttf";
 
@@ -51,15 +51,20 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Intent teamsIntent = new Intent(this, TeamListActivity.class);
         startActivity(teamsIntent);
+
+
+
        // Pulls existing teams from db
-//        if (!WelcomeActivity.nice.getAllTeams().isEmpty())
-//
-//
-//            for (Team p : TeamList.getInstance().getTeams())
-//                TeamList.getInstance().removeTeam(p);
-//
-//            for (Team p : WelcomeActivity.nice.getAllTeams())
-//                TeamList.getInstance().addTeam(p);
+        if (!teamDB.getAllTeams().isEmpty()) //checks to see if there are any teams
+
+            //clears roster list
+            for (Team p : TeamList.getInstance().getTeams())
+                TeamList.getInstance().removeTeam(p);
+
+            //re-adds players to list
+            for (Team p : teamDB.getAllTeams())
+                TeamList.getInstance().addTeam(p);
+
         ///////////////////we might need to end method???/////////////////////////////
 
     }

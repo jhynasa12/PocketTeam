@@ -36,7 +36,16 @@ public class TeamListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_list);
 
+
+
+
         teams = TeamList.getInstance().getTeams();
+
+        if (!WelcomeActivity.teamDB.getAllTeams().isEmpty())
+            for(Team t : teams)
+            for (Player p : WelcomeActivity.teamDB.getAllPlayers(t.getTeamName()))
+                t.addPlayer(p);
+
 
 
         teamArrayAdapter = new ArrayAdapter<Team>(this, android.R.layout.simple_expandable_list_item_1, teams);
@@ -72,6 +81,7 @@ public class TeamListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RosterActivity.class);
         intent.putExtra(TEAM_NAME, team.getTeamName());
         startActivityForResult(intent, DETAIL_REQUEST_CODE);
+
 
     }
 
@@ -139,7 +149,8 @@ public class TeamListActivity extends AppCompatActivity {
                 Team team = teams.get(position);
                 teams.remove(team);
 
-         //      WelcomeActivity.nice.deleteTeam(team);
+                //deletes team from database
+                WelcomeActivity.teamDB.deleteTeam(team);
 
                 teamArrayAdapter.notifyDataSetChanged();
 
