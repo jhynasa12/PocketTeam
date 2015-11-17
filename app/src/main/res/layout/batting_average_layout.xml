@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/atBats"
         android:layout_gravity="center_horizontal"
@@ -12,12 +12,13 @@
         android:inputType="number" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/hits"
         android:hint="Hits"
         android:inputType="number"
-        android:editable="false" />
+        android:editable="false"
+        android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"

@@ -12,6 +12,7 @@ import pocketteam.pocketteam.Data.Player;
 import pocketteam.pocketteam.R;
 import pocketteam.pocketteam.Data.Team;
 import pocketteam.pocketteam.Data.TeamList;
+import pocketteam.pocketteam.Utilities.Utility;
 
 public class ScoutPlayerActivity extends AppCompatActivity {
 
@@ -53,7 +54,7 @@ public class ScoutPlayerActivity extends AppCompatActivity {
         }
 
 
-        if (isEmpty(editFirstName) || isEmpty(editLastName) || isEmpty(editPosition) || isEmpty(editNumber) || isEmpty(editPhoneNumber) || isEmpty(editParentContact) == true) {
+        if (Utility.getInstance().isEmpty(editFirstName) || Utility.getInstance().isEmpty(editLastName) || Utility.getInstance().isEmpty(editPosition) || Utility.getInstance().isEmpty(editNumber) || Utility.getInstance().isEmpty(editPhoneNumber) || Utility.getInstance().isEmpty(editParentContact) == true) {
 
             Context context = getApplicationContext();
             CharSequence text = "You're missing the fields...";
@@ -61,8 +62,40 @@ public class ScoutPlayerActivity extends AppCompatActivity {
 
             final Toast toast = Toast.makeText(context, text, duration);
             toast.show();
+            //check if phone number is not too long or short
+        } else if (editPhoneNumber.getText().toString().length() > 10 || editPhoneNumber.getText().toString().length() < 10) {
 
-        } else {
+            showToastMessage("Phone number is too short or too long");
+
+            //this the number is greater than double digits
+        }else if(editNumber.getText().toString().length() > 2){
+            showToastMessage("A player number cannot be that big...");
+
+
+        }
+        boolean matchingPlayer = true;
+
+
+        /// if the current roster has players in it
+        if (!currentTeam.getRoster().isEmpty()) {
+
+
+            //check if any other player on the team has the same number
+            for (Player x : currentTeam.getRoster()) {
+                //if the numbers are the same
+                if (editNumber.getText().toString().equals(x.getPlayerNumber())) {
+                    showToastMessage("Another player on your team has that number..."); // show message
+                    matchingPlayer = false;
+                } else {
+                    matchingPlayer = true;
+                }
+
+            }
+        }
+
+        if (matchingPlayer) {      //create Player
+
+
 
 
             //create Player
@@ -94,7 +127,14 @@ public class ScoutPlayerActivity extends AppCompatActivity {
     }
 
 
-    private boolean isEmpty(EditText etText) {
-        return etText.getText().toString().trim().length() == 0;
+    public void showToastMessage(String message) {
+
+        Context context = getApplicationContext();
+        CharSequence text = message;
+        int duration = Toast.LENGTH_SHORT;
+
+        final Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
     }
 }

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.Data.StatList;
 import pocketteam.pocketteam.R;
 
 public class HitsActivity extends AppCompatActivity {
@@ -44,6 +45,8 @@ public class HitsActivity extends AppCompatActivity {
         }else{
 
             currentPlayer.setHits(Integer.valueOf(hits.getText().toString()));
+
+            StatList.getInstance().getMap().put(StatList.Stat.Hits, Float.parseFloat(String.valueOf(currentPlayer.getHits())));
 
             finish();
 

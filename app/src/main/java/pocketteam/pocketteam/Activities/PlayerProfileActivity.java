@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -130,38 +131,40 @@ public class PlayerProfileActivity extends AppCompatActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                // String stat = statList.get(position);
-
-
-                StatList.Stat stat = StatList.Stat.values()[position];
+               // String stat = String.valueOf(statList.get(position));
 
 
 
-                switch (stat) {
 
-                    case Batting_Average:
+
+
+                switch (position) {
+
+                    case 0:
                         openStatDialogBox("Batting Average", currentPlayer.getBatAvg());
                         break;
-                    case Slugging_Percentage:
+                    case 1:
                         openStatDialogBox("Slugging Percentage", currentPlayer.getSlugg());
                         break;
-                    case RBI:
+                    case 2:
                         openStatDialogBox("RBIs", currentPlayer.getRBI());
                         break;
-                    case Hits:
+                    case 3:
                         startActivity(hitsIntent);
                         break;
-                    case ERA:
-                        openStatDialogBox("ERA", currentPlayer.getERA());
+                    case 4:
+                        openStatDialogBox("Batting Average", currentPlayer.getBatAvg());
                         break;
-                    case Home_Runs:
+                    case 5:
                         break;
-                    case Walks:
+                    case 6:
                         break;
-                    case Wins:
+                    case 7:
+
+                        startActivity(hitsIntent);
+                        statArrayAdapter.notifyDataSetChanged();
                         break;
-                    case Losses:
-                        break;
+
                 }
 
 
@@ -523,7 +526,6 @@ public class PlayerProfileActivity extends AppCompatActivity {
                             //if the numbers are the same
                             if (newNumber.equals(x.getPlayerNumber())) {
                                 showToastMessage("Another player on your team has that number...Please enter another one"); // show message
-                                break;
                             } else {
                                 currentPlayer.setPlayerNumber(newNumber);
                                 playerNumberText.setText(currentPlayer.getPlayerNumber());
@@ -553,7 +555,11 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
     public void editPositionOnClick(MenuItem item) {
 
-        String[] items = new String[]{"P", "C", "1B", "2B", "3B", "LF", "CF", "RF"};
+        String[] items = new String[]{"P", "C", "1B", "2B", "SS", "3B", "LF", "CF", "RF"};
+
+        Spinner dropdown = (Spinner) findViewById(R.id.position_list);
+
+        String playerPosition = dropdown.toString();
 
         AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
         alertDialog.setTitle("Change Player Number");
@@ -565,6 +571,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT);
         input.setLayoutParams(lp);
         alertDialog.setView(input);
+
 
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Confirm",
                 new DialogInterface.OnClickListener() {
@@ -601,6 +608,8 @@ public class PlayerProfileActivity extends AppCompatActivity {
                         showToastMessage("Hit added");
                     }
                 });
+
+
 
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
                 new DialogInterface.OnClickListener() {

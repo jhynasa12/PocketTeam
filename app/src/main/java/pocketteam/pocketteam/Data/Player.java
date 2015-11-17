@@ -383,19 +383,46 @@ public class Player implements Comparable<Player>{
      public void decrimentHits(){
          m_Hits--;
      }
-    
-     /**
-      * Returns the current hits of the player
-      * @return 
-      */
-     public int getHits(){
-         return m_Hits;
-     }//
-     
-     public void setStrikeouts(){
-         
-         
-     }
+
+    /**
+     * Returns the current hits of the player
+     * @return
+     */
+    public int getHits(){
+        return m_Hits;
+    }//
+
+    public void setStrikeouts(){
+
+
+    }
+
+
+    public void setWalks(int walks){
+        m_Walks_Batter = walks;
+    }
+
+    /**
+     * Increments the current amount of hits by + 1
+     */
+    public void incrementWalks(){
+        m_Walks_Batter++;
+    }
+
+    /**
+     * Decrements the current amount of hits by - 1
+     */
+    public void decrimentWalks(){
+
+        m_Walks_Batter--;
+    }
+
+    public int getWalks(){
+        return m_Walks_Batter;
+    }
+
+
+
 
     public void setHomeRuns(int hr){
         m_HomeRuns = hr;

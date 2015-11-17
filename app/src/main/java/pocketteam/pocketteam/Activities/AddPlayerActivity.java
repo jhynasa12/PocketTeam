@@ -37,7 +37,7 @@ public class AddPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_player_layout);
 
-        items = new String[]{"P", "C", "1B", "2B", "3B", "LF", "CF", "RF"};
+        items = new String[]{"P", "C", "1B", "2B","SS", "3B", "LF", "CF", "RF"};
 
         editFirstName = (EditText) findViewById(R.id.first_name);
         editLastName = (EditText) findViewById(R.id.last_name);
@@ -173,7 +173,7 @@ public class AddPlayerActivity extends AppCompatActivity {
             for (Player p : WelcomeActivity.teamDB.getAllPlayers(teamName))
                 currentTeam.addPlayer(player);
 
-//                Log.d("AddPlayerActivity", String.valueOf(TeamList.getInstance().getTeam("Yankees").getRoster().size()));
+
 
 
             WelcomeActivity.teamDB.addPlayer(player);
