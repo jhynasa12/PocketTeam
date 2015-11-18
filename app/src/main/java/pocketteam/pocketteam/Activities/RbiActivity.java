@@ -8,7 +8,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.Data.StatList;
 import pocketteam.pocketteam.R;
+import pocketteam.pocketteam.Utilities.Utility;
 
 public class RbiActivity extends AppCompatActivity {
 
@@ -28,7 +30,7 @@ public class RbiActivity extends AppCompatActivity {
     public void rbiOkBtnHandler(View view) {
 
         final EditText rbis = (EditText) findViewById(R.id.rbis_text);
-        if(isEmpty(rbis) == true){
+        if(Utility.getInstance().isEmpty(rbis) == true){
 
             Context context = getApplicationContext();
             CharSequence text = "You're missing a field...";
@@ -42,6 +44,8 @@ public class RbiActivity extends AppCompatActivity {
 
             currentPlayer.setRBI(Integer.valueOf(rbis.getText().toString()));
 
+            //StatList.getMap().put(StatList.Stat.RBI, Float.valueOf(String.valueOf(currentPlayer.getRBI())));
+
             finish();
 
 
@@ -49,7 +53,5 @@ public class RbiActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isEmpty(EditText etText) {
-        return etText.getText().toString().trim().length() == 0;
-    }
+
 }

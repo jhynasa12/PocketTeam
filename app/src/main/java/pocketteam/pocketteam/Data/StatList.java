@@ -44,20 +44,6 @@ public class StatList {
     }//constructor
 
 
-    /**
-     * Singleton Pattern - only need one instance of StatList
-     *
-     * @return uniqueInstance
-     */
-    public static StatList getInstance() {
-
-        if (uniqueInstance == null) {
-            uniqueInstance = new StatList();
-        }
-
-        return uniqueInstance;
-
-    }
 
 
     public HashMap<Stat,Float> getMap(){

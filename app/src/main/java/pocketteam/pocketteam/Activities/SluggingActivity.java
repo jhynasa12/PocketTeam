@@ -8,7 +8,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import pocketteam.pocketteam.Data.Player;
+import pocketteam.pocketteam.Data.StatList;
 import pocketteam.pocketteam.R;
+import pocketteam.pocketteam.Utilities.Utility;
 
 public class SluggingActivity extends AppCompatActivity {
     public static Player currentPlayer;
@@ -29,7 +31,7 @@ public class SluggingActivity extends AppCompatActivity {
         final EditText atBats = (EditText) findViewById(R.id.atbats_slugging);
 
 
-        if(isEmpty(singles) || isEmpty(doubles) || isEmpty(triples) || isEmpty(homeruns) || isEmpty(atBats) == true){
+        if(Utility.getInstance().isEmpty(singles) || Utility.getInstance().isEmpty(doubles) || Utility.getInstance().isEmpty(triples) || Utility.getInstance().isEmpty(homeruns) || Utility.getInstance().isEmpty(atBats) == true){
 
             Context context = getApplicationContext();
             CharSequence text = "You're missing a field...";
@@ -43,6 +45,8 @@ public class SluggingActivity extends AppCompatActivity {
 
             currentPlayer.calcSlugg(Float.valueOf(singles.getText().toString()), Float.valueOf(doubles.getText().toString()), Float.valueOf(triples.getText().toString()), Float.valueOf(homeruns.getText().toString()), Float.valueOf(atBats.getText().toString()));
 
+            //StatList.getInstance().getMap().put(StatList.Stat.Slugging_Percentage, Float.valueOf(String.valueOf(String.format("%.3f",currentPlayer.getSlugg()))));
+
             finish();
         }
 
@@ -52,7 +56,5 @@ public class SluggingActivity extends AppCompatActivity {
         finish();
     }
 
-    private boolean isEmpty(EditText etText) {
-        return etText.getText().toString().trim().length() == 0;
-    }
+
 }

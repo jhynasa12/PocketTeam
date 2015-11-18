@@ -124,71 +124,68 @@ public class AddPlayerActivity extends AppCompatActivity {
             //this the number is greater than double digits
         }else if(editNumber.getText().toString().length() > 2){
             showToastMessage("A player number cannot be that big...");
-        }
+        } else {
 
 
-        Team currentTeam = TeamList.getInstance().getTeam(teamName);
+            Team currentTeam = TeamList.getInstance().getTeam(teamName);
 
-        boolean matchingPlayer = true;
-
-
-        /// if the current roster has players in it
-        if (!currentTeam.getRoster().isEmpty()) {
+            boolean matchingPlayer = true;
 
 
-            //check if any other player on the team has the same number
-            for (Player x : currentTeam.getRoster()) {
-                //if the numbers are the same
-                if (editNumber.getText().toString().equals(x.getPlayerNumber())) {
-                    showToastMessage("Another player on your team has that number..."); // show message
-                    matchingPlayer = false;
-                } else {
-                    matchingPlayer = true;
+            /// if the current roster has players in it
+            if (!currentTeam.getRoster().isEmpty()) {
+
+
+                //check if any other player on the team has the same number
+                for (Player x : currentTeam.getRoster()) {
+                    //if the numbers are the same
+                    if (editNumber.getText().toString().equals(x.getPlayerNumber())) {
+                        showToastMessage("Another player on your team has that number..."); // show message
+                        matchingPlayer = false;
+                    } else {
+                        matchingPlayer = true;
+                    }
+
                 }
+            }
+
+            if (matchingPlayer) {      //create Player
+
+
+                Player player = new Player(editFirstName.getText().toString(), editLastName.getText().toString(), playerPosition, editNumber.getText().toString(), teamName); //creates player
+
+                String phoneNumber = Utility.getInstance().setPhoneNumberFormat(editPhoneNumber.getText().toString());
+
+                player.setPhoneNumber(phoneNumber);
+                player.setParentName(editParentContact.getText().toString());
+
+                Log.d(LOG_TAG, player.getPosition());
+
+                Log.d(LOG_TAG, player.getFirstName() + " " + player.getLastName() + " " + player.getPosition() + " " + player.getPlayerNumber() + " " + player.getTeamName());
+
+                Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.getInstance().getSize() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
+
+
+                //add player to the Team
+
+                if (!WelcomeActivity.teamDB.getAllTeams().isEmpty())
+
+                    for (Player p : WelcomeActivity.teamDB.getAllPlayers(teamName))
+                        currentTeam.addPlayer(player);
+
+
+                WelcomeActivity.teamDB.addPlayer(player);
+
+                showToastMessage("Player Added");
+
+                Intent intent = new Intent(this, RosterActivity.class);
+                intent.putExtra("teamName", teamName);
+                startActivityForResult(intent, 1001);
+                //Go to the Roster Screen
+
 
             }
         }
-
-        if (matchingPlayer) {      //create Player
-
-
-            Player player = new Player(editFirstName.getText().toString(), editLastName.getText().toString(), playerPosition, editNumber.getText().toString(), teamName); //creates player
-
-            String phoneNumber = Utility.getInstance().setPhoneNumberFormat(editPhoneNumber.getText().toString());
-
-            player.setPhoneNumber(phoneNumber);
-            player.setParentName(editParentContact.getText().toString());
-
-            Log.d(LOG_TAG, player.getPosition());
-
-            Log.d(LOG_TAG, player.getFirstName() + " " + player.getLastName() + " " + player.getPosition() + " " + player.getPlayerNumber() + " " + player.getTeamName());
-
-            Log.d(LOG_TAG, player.getTeamName() + ": " + TeamList.getInstance().getSize() + " " + TeamList.getInstance().getTeam(player.getTeamName()).getTeamName());
-
-
-            //add player to the Team
-
-            if (!WelcomeActivity.teamDB.getAllTeams().isEmpty())
-
-            for (Player p : WelcomeActivity.teamDB.getAllPlayers(teamName))
-                currentTeam.addPlayer(player);
-
-
-
-
-            WelcomeActivity.teamDB.addPlayer(player);
-
-            showToastMessage("Player Added");
-
-            Intent intent = new Intent(this, RosterActivity.class);
-            intent.putExtra("teamName", teamName);
-            startActivityForResult(intent, 1001);
-            //Go to the Roster Screen
-        //  finish();
-
-
-        }
-
 
     }
 

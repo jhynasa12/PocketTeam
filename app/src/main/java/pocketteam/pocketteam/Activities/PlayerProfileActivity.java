@@ -51,6 +51,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
     private HashMap<StatList.Stat, Float> statList;
     private StatListAdapter<StatList.Stat, Float> statArrayAdapter;
     private TextView positionText, parentText, numberText, playerNumberText, teamText;
+    private StatList playerStatList;
 
 
     @Override
@@ -108,7 +109,9 @@ public class PlayerProfileActivity extends AppCompatActivity {
         }
 
 
-        statList = StatList.getInstance().getMap();
+        playerStatList = new StatList();
+
+        statList = playerStatList.getMap();
 
         statArrayAdapter = new StatListAdapter<StatList.Stat, Float>(this, statList);
         ListView listView = (ListView) findViewById(R.id.statlist);
@@ -127,6 +130,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
 
         final Intent hitsIntent = new Intent(this,HitsActivity.class);
+        final Intent rbiIntent = new Intent(this,RbiActivity.class);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -141,16 +145,17 @@ public class PlayerProfileActivity extends AppCompatActivity {
                 switch (position) {
 
                     case 0:
-                        openStatDialogBox("Batting Average", currentPlayer.getBatAvg());
+
                         break;
                     case 1:
-                        openStatDialogBox("Slugging Percentage", currentPlayer.getSlugg());
+
                         break;
                     case 2:
-                        openStatDialogBox("RBIs", currentPlayer.getRBI());
+                        openStatDialogBox("Slugging Percentage", currentPlayer.getSlugg());
                         break;
                     case 3:
-                        startActivity(hitsIntent);
+                        startActivity(rbiIntent);
+                        statArrayAdapter.notifyDataSetChanged();
                         break;
                     case 4:
                         openStatDialogBox("Batting Average", currentPlayer.getBatAvg());
@@ -233,9 +238,12 @@ public class PlayerProfileActivity extends AppCompatActivity {
         switch (position) {
 
             case 0:
-
+                onWalksClick();
+                statList.put(StatList.Stat.Walks, Float.parseFloat(String.valueOf(currentPlayer.getWalks())));
                 break;
             case 1:
+                onWinsClick();
+                statList.put(StatList.Stat.Wins, Float.parseFloat(String.valueOf(currentPlayer.getWins())));
                 break;
             case 2:
                 Intent sluggingIntent = new Intent(this, SluggingActivity.class);
@@ -243,6 +251,8 @@ public class PlayerProfileActivity extends AppCompatActivity {
                 statList.put(StatList.Stat.Slugging_Percentage, currentPlayer.getSlugg());
                 break;
             case 3:
+                onRbiClick();
+                statList.put(StatList.Stat.RBI, Float.parseFloat(String.valueOf(currentPlayer.getRBI())));
                 break;
             case 4:
                 Intent batAvgIntent = new Intent(this, BattingAvgActivity.class);
@@ -251,8 +261,13 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
                 break;
             case 5:
+                Intent eraIntent = new Intent(this, EraActivity.class);
+                startActivity(eraIntent);
+                statList.put(StatList.Stat.ERA, currentPlayer.getERA());
                 break;
             case 6:
+                onLossesClick();
+                statList.put(StatList.Stat.Losses, Float.parseFloat(String.valueOf(currentPlayer.getLosses())));
                 break;
 
             case 7:
@@ -631,6 +646,185 @@ public class PlayerProfileActivity extends AppCompatActivity {
 
         alertDialog.show();  //<-- See This!
     }
+
+
+    public void onWalksClick(){
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Walks");
+        alertDialog.setMessage("Increment or Decrement walks: Touch outside screen to cancel ");
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ADD",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentPlayer.incrementWalks();
+                        statArrayAdapter.notifyDataSetChanged();
+                        showToastMessage("Walks added");
+                    }
+                });
+
+
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (currentPlayer.getWalks() <= 0) {
+                            showToastMessage("You cannot have less than 0 walks");
+                            return;
+                        } else {
+                            currentPlayer.decrimentWalks();
+                            statArrayAdapter.notifyDataSetChanged();
+                            showToastMessage("Walks subtracted");
+                        }
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+
+    }
+
+
+    public void onWinsClick(){
+
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Wins");
+        alertDialog.setMessage("Increment or Decrement Wins: Touch outside screen to cancel ");
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ADD",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentPlayer.incrementWins();
+                        statArrayAdapter.notifyDataSetChanged();
+                        showToastMessage("Wins added");
+                    }
+                });
+
+
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (currentPlayer.getWalks() <= 0) {
+                            showToastMessage("You cannot have less than 0 wins");
+                            return;
+                        } else {
+                            currentPlayer.decrementWins();
+                            statArrayAdapter.notifyDataSetChanged();
+                            showToastMessage("Wins subtracted");
+                        }
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+
+    }
+
+
+    public void onRbiClick(){
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("RBIs");
+        alertDialog.setMessage("Increment or Decrement RBIs: Touch outside screen to cancel ");
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ADD",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentPlayer.incrementRBIs();
+                        statArrayAdapter.notifyDataSetChanged();
+                        showToastMessage("RBIs added");
+                    }
+                });
+
+
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (currentPlayer.getRBI() <= 0) {
+                            showToastMessage("You cannot have less than 0 RBIs");
+                            return;
+                        } else {
+                            currentPlayer.decrementRBIs();
+                            statArrayAdapter.notifyDataSetChanged();
+                            showToastMessage("RBIs subtracted");
+                        }
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+
+    }
+
+
+    public void onLossesClick(){
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Losses");
+        alertDialog.setMessage("Increment or Decrement Losses: Touch outside screen to cancel ");
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ADD",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentPlayer.incrementLosses();
+                        statArrayAdapter.notifyDataSetChanged();
+                        showToastMessage("Losses added");
+                    }
+                });
+
+
+
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (currentPlayer.getLosses() <= 0) {
+                            showToastMessage("You cannot have less than 0 Losses");
+                            return;
+                        } else {
+                            currentPlayer.decrementLosses();
+                            statArrayAdapter.notifyDataSetChanged();
+                            showToastMessage("Losses subtracted");
+                        }
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+
+    }
+
+
 
 
 }// end Activity

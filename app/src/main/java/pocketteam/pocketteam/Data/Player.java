@@ -209,6 +209,8 @@ public class Player implements Comparable<Player>{
      */
     public void calcSlugg(float singles, float doubles, float triples, float homeruns, float atBats){
         m_SluggingPercentage = Stat.getInstance().sluggingPercentage(singles, doubles, triples, homeruns, atBats);
+
+
     }
     
     /**
@@ -327,7 +329,7 @@ public class Player implements Comparable<Player>{
      * @param wins
      * @return int
      */
-     public int getWins( int wins){
+     public int getWins(){
         return m_Wins;
     }
      

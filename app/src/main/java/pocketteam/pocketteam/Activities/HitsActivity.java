@@ -46,7 +46,7 @@ public class HitsActivity extends AppCompatActivity {
 
             currentPlayer.setHits(Integer.valueOf(hits.getText().toString()));
 
-            StatList.getInstance().getMap().put(StatList.Stat.Hits, Float.parseFloat(String.valueOf(currentPlayer.getHits())));
+          //  StatList.getInstance().getMap().put(StatList.Stat.Hits, Float.parseFloat(String.valueOf(currentPlayer.getHits())));
 
             finish();
 
