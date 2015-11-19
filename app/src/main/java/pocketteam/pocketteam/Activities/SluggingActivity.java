@@ -44,7 +44,7 @@ public class SluggingActivity extends AppCompatActivity {
 
 
             currentPlayer.calcSlugg(Float.valueOf(singles.getText().toString()), Float.valueOf(doubles.getText().toString()), Float.valueOf(triples.getText().toString()), Float.valueOf(homeruns.getText().toString()), Float.valueOf(atBats.getText().toString()));
-
+            WelcomeActivity.teamDB.updateSlugging(currentPlayer);
             //StatList.getInstance().getMap().put(StatList.Stat.Slugging_Percentage, Float.valueOf(String.valueOf(String.format("%.3f",currentPlayer.getSlugg()))));
 
             finish();

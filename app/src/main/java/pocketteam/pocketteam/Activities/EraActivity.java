@@ -40,6 +40,7 @@ public class EraActivity extends AppCompatActivity {
         }else{
 
             currentPlayer.calcERA(Float.valueOf(earnedRuns.getText().toString()),Float.valueOf(innings.getText().toString()));
+            WelcomeActivity.teamDB.updateERA(currentPlayer);
             this.setResult(0);
             finish();
 

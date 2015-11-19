@@ -61,6 +61,12 @@ public class SprayChartView extends View
         super(context, attrs);
     }
 
+    public void clearPoints(){
+        sprayPoints.clear();
+        invalidate();
+    }
+
+
     @Override
     protected void onDraw(Canvas canvas)
     {

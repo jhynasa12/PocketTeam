@@ -58,6 +58,7 @@ public class BattingAvgActivity extends AppCompatActivity {
         else
         {
             currentPlayer.calcBatAvg(Float.valueOf(hits.getText().toString()),Float.valueOf(atBats.getText().toString()));
+            WelcomeActivity.teamDB.updateBattingAvrg(currentPlayer);
 
           //  StatList.getInstance().getMap().put(StatList.Stat.Batting_Average, Float.parseFloat(String.valueOf(currentPlayer.getBatAvg())));
 

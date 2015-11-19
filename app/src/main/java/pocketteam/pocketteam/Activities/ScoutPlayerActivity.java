@@ -107,12 +107,13 @@ public class ScoutPlayerActivity extends AppCompatActivity {
     public void AddPlayerScoutEventClickHandler(View view) {
 
 
-        if (TeamList.getInstance().findTeamByName("Scouted Players") == false) {
+        if (TeamList.getInstance().findTeamByName("Scouted_Players") == false) {
 
-            TeamList.getInstance().addTeam(new Team("Scouted Players"));
-            currentTeam = TeamList.getInstance().returnTeamByName("Scouted Players");
+            TeamList.getInstance().addTeam(new Team("Scouted_Players"));
+            currentTeam = TeamList.getInstance().returnTeamByName("Scouted_Players");
+            WelcomeActivity.teamDB.addTeams(currentTeam);
         } else {
-            currentTeam = TeamList.getInstance().returnTeamByName("Scouted Players");
+            currentTeam = TeamList.getInstance().returnTeamByName("Scouted_Players");
         }
 
 
@@ -164,7 +165,8 @@ public class ScoutPlayerActivity extends AppCompatActivity {
 
             Player player = new Player(editFirstName.getText().toString(), editLastName.getText().toString(), playerPosition, editNumber.getText().toString(), currentTeam.getTeamName()); //creates player
 
-            player.setPhoneNumber(editPhoneNumber.getText().toString());
+
+            player.setPhoneNumber(Utility.getInstance().setPhoneNumberFormat(editPhoneNumber.getText().toString()));
 
             player.setParentName(editParentContact.getText().toString());
 
@@ -177,6 +179,7 @@ public class ScoutPlayerActivity extends AppCompatActivity {
 
             //add player to the Team
             currentTeam.addPlayer(player);
+            WelcomeActivity.teamDB.addPlayer(player);
 
             Log.d(LOG_TAG, player.getFirstName() + "'s team is " + currentTeam.getTeamName());
 

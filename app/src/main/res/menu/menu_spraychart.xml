@@ -18,4 +18,12 @@
         app:showAsAction="never"
         android:title="@string/save"
         android:onClick="SaveSprayChartActivityOnClick"/>
+
+
+    <item
+        android:id="@+id/clear_spray_chart"
+        android:orderInCategory="3"
+        app:showAsAction="never"
+        android:title="Clear"
+        android:onClick="ClearSprayChartActivityOnClick"/>
 </menu>

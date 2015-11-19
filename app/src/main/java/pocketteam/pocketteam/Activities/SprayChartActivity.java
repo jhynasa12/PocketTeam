@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import pocketteam.pocketteam.R;
+import pocketteam.pocketteam.view.SprayChartView;
 
 public class SprayChartActivity extends AppCompatActivity {
 
@@ -46,10 +47,6 @@ public class SprayChartActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -57,5 +54,10 @@ public class SprayChartActivity extends AppCompatActivity {
 
     public void backToRosterOnCLickSpray(MenuItem item) {
         finish();
+    }
+
+    public void ClearSprayChartActivityOnClick(MenuItem item) {
+        ((SprayChartView)findViewById(R.id.spray_view)).clearPoints();
+
     }
 }

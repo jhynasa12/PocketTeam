@@ -10,7 +10,7 @@
     <pocketteam.pocketteam.view.SprayChartView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/view"
+        android:id="@+id/spray_view"
         android:layout_gravity="center_horizontal" />
 </ScrollView>
 
