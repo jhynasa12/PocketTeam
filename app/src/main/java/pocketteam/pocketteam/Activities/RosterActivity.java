@@ -38,6 +38,16 @@ public class RosterActivity extends AppCompatActivity {
     private ArrayAdapter<Player> playerArrayAdapter;
     private ListView listView;
 
+    private AdapterView.OnItemClickListener defaultListener = new AdapterView.OnItemClickListener()
+    {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
+            Player player = players.get(position);
+            displayRosterDetail(player);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,15 +75,10 @@ public class RosterActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list_players);
         listView.setAdapter(playerArrayAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Player player = players.get(position);
-                displayRosterDetail(player);
-            }
-        });
+        listView.setOnItemClickListener(defaultListener);
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Player player = players.get(position);
@@ -130,7 +135,8 @@ public class RosterActivity extends AppCompatActivity {
         final EditText firstNameInput = (EditText) diagLayout.findViewById(R.id.fname);
         final EditText lastNameInput = (EditText) diagLayout.findViewById(R.id.lname);
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener()
+                {
                     public void onClick(DialogInterface dialog, int which) {
                         String firstname = firstNameInput.getText().toString();
                         String lastname = lastNameInput.getText().toString();
@@ -139,7 +145,8 @@ public class RosterActivity extends AppCompatActivity {
                     }
                 });
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
-                new DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener()
+                {
                     public void onClick(DialogInterface dialog, int which) {
                         alertDialog.cancel();
                     }
@@ -193,7 +200,8 @@ public class RosterActivity extends AppCompatActivity {
         final Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
@@ -212,6 +220,7 @@ public class RosterActivity extends AppCompatActivity {
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+                listView.setOnItemClickListener(defaultListener);
             }
         });
 

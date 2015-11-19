@@ -1,6 +1,7 @@
 package pocketteam.pocketteam.Activities;
 
-import java.util.List;
+
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +19,6 @@ import pocketteam.pocketteam.Data.Player;
 import pocketteam.pocketteam.R;
 import pocketteam.pocketteam.Data.Team;
 import pocketteam.pocketteam.Data.TeamList;
-import pocketteam.pocketteam.Data.DataHelper;
 import pocketteam.pocketteam.Utilities.Utility;
 
 public class AddPlayerActivity extends AppCompatActivity {
@@ -37,7 +37,7 @@ public class AddPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_player_layout);
 
-        items = new String[]{"P", "C", "1B", "2B","SS", "3B", "LF", "CF", "RF"};
+        items = new String[]{"P", "C", "1B", "2B", "SS", "3B", "LF", "CF", "RF"};
 
         editFirstName = (EditText) findViewById(R.id.first_name);
         editLastName = (EditText) findViewById(R.id.last_name);
@@ -111,7 +111,6 @@ public class AddPlayerActivity extends AppCompatActivity {
     public void AddPlayerEventClickHandler(View view) {
 
 
-
         if (Utility.getInstance().isEmpty(editFirstName) || Utility.getInstance().isEmpty(editLastName) || Utility.getInstance().isEmpty(editNumber) || Utility.getInstance().isEmpty(editPhoneNumber) || Utility.getInstance().isEmpty(editParentContact) == true) {
 
             showToastMessage("Please enter in all the fields");
@@ -122,7 +121,7 @@ public class AddPlayerActivity extends AppCompatActivity {
             showToastMessage("Phone number is too short or too long");
 
             //this the number is greater than double digits
-        }else if(editNumber.getText().toString().length() > 2){
+        } else if (editNumber.getText().toString().length() > 2) {
             showToastMessage("A player number cannot be that big...");
         } else {
 
@@ -190,8 +189,7 @@ public class AddPlayerActivity extends AppCompatActivity {
     }
 
 
-    public void btnOnClickCancelEventHandler(View view)
-    {
+    public void btnOnClickCancelEventHandler(View view) {
         finish();
     }
 

@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import pocketteam.pocketteam.Data.Player;
@@ -19,21 +22,80 @@ public class ScoutPlayerActivity extends AppCompatActivity {
     EditText editFirstName, editLastName, editPosition, editNumber, editPhoneNumber, editParentContact;
     private String teamName;
     private Team currentTeam;
+    private String playerPosition;
+    private ArrayAdapter<String> positionAdapter;
+    private String[] items;
 
     public static final String LOG_TAG = "ScoutPlayerActivity";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scout_player_layout);
 
+        items = new String[]{"P", "C", "1B", "2B","SS", "3B", "LF", "CF", "RF"};
 
-        editPosition = (EditText) findViewById(R.id.scout_position);
+
         editFirstName = (EditText) findViewById(R.id.scout_first_name);
         editLastName = (EditText) findViewById(R.id.scout_last_name);
         editNumber = (EditText) findViewById(R.id.scout_jersey_number);
         editPhoneNumber = (EditText) findViewById(R.id.scout_player_number);
         editParentContact = (EditText) findViewById(R.id.scout_parent_contact);
+
+        Spinner dropdown = (Spinner) findViewById(R.id.position_list_scout);
+
+        playerPosition = dropdown.toString();
+
+        positionAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(positionAdapter);
+
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                Log.v("item", (String) parent.getItemAtPosition(position));
+
+                switch (position) {
+                    case 0:
+                        playerPosition = positionAdapter.getItem(0);
+                        break;
+                    case 1:
+                        playerPosition = positionAdapter.getItem(1);
+                        break;
+                    case 2:
+                        playerPosition = positionAdapter.getItem(2);
+                        break;
+                    case 3:
+                        playerPosition = positionAdapter.getItem(3);
+                        break;
+                    case 4:
+                        playerPosition = positionAdapter.getItem(4);
+                        break;
+                    case 5:
+                        playerPosition = positionAdapter.getItem(5);
+                        break;
+                    case 6:
+                        playerPosition = positionAdapter.getItem(6);
+                        break;
+                    case 7:
+                        playerPosition = positionAdapter.getItem(7);
+                        break;
+                    case 8:
+                        playerPosition = positionAdapter.getItem(8);
+                        break;
+
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
     }
@@ -54,7 +116,7 @@ public class ScoutPlayerActivity extends AppCompatActivity {
         }
 
 
-        if (Utility.getInstance().isEmpty(editFirstName) || Utility.getInstance().isEmpty(editLastName) || Utility.getInstance().isEmpty(editPosition) || Utility.getInstance().isEmpty(editNumber) || Utility.getInstance().isEmpty(editPhoneNumber) || Utility.getInstance().isEmpty(editParentContact) == true) {
+        if (Utility.getInstance().isEmpty(editFirstName) || Utility.getInstance().isEmpty(editLastName) || Utility.getInstance().isEmpty(editNumber) || Utility.getInstance().isEmpty(editPhoneNumber) || Utility.getInstance().isEmpty(editParentContact) == true) {
 
             Context context = getApplicationContext();
             CharSequence text = "You're missing the fields...";
@@ -100,7 +162,7 @@ public class ScoutPlayerActivity extends AppCompatActivity {
 
             //create Player
 
-            Player player = new Player(editFirstName.getText().toString(), editLastName.getText().toString(), editPosition.getText().toString(), editNumber.getText().toString(), currentTeam.getTeamName()); //creates player
+            Player player = new Player(editFirstName.getText().toString(), editLastName.getText().toString(), playerPosition, editNumber.getText().toString(), currentTeam.getTeamName()); //creates player
 
             player.setPhoneNumber(editPhoneNumber.getText().toString());
 

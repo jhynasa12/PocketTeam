@@ -6,62 +6,74 @@
 
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/singles_slugging"
         android:layout_gravity="center_horizontal"
         android:hint="Singles"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textAlignment="center" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/doubles_slugging"
         android:hint="Doubles"
         android:inputType="number"
         android:editable="false"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/triples_slugging"
         android:layout_gravity="center_horizontal"
         android:hint="Triples"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textAlignment="center" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/homeruns_slugging"
         android:hint="Home Runs"
         android:inputType="number"
         android:editable="false"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/atbats_slugging"
         android:hint="At Bats"
         android:inputType="number"
         android:editable="false"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OK"
-        android:id="@+id/ok_btn_slugging"
         android:layout_gravity="center_horizontal"
-        android:onClick="sluggingOkBtnHandler"/>
+        android:textAlignment="center" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:id="@+id/cancel_slugging"
-        android:layout_gravity="center_horizontal"
-        android:onClick="sluggingCancelBtn"/>
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:id="@+id/ok_btn_slugging"
+            android:layout_gravity="center_horizontal"
+            android:onClick="sluggingOkBtnHandler"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/cancel_slugging"
+            android:layout_gravity="center_horizontal"
+            android:onClick="sluggingCancelBtn"/>
+    </LinearLayout>
 
 </LinearLayout>

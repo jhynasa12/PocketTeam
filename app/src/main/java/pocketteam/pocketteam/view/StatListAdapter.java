@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -34,9 +36,9 @@ public class StatListAdapter<K, V> extends BaseAdapter
     }
 
     @Override
-    public Object getItem(int position)
+    public K getItem(int position)
     {
-        return myData.keySet().toArray()[position];
+        return (K)myData.keySet().toArray()[position];
     }
 
     @Override
@@ -55,9 +57,35 @@ public class StatListAdapter<K, V> extends BaseAdapter
             convertView = inflater.inflate(R.layout.statslist, null);
         }
 
-        ((TextView)convertView.findViewById(R.id.statname)).setText(getItem(position).toString().replace("_", " "));
-        ((TextView)convertView.findViewById(R.id.statvalue)).setText(myData.get(getItem(position)).toString());
+        String formatted_value;
+        K item = getItem(position);
+        V value = myData.get(item);
 
+        NumberFormat numFmt;
+
+        if(item.toString().equals("ERA"))
+        {
+            numFmt = new DecimalFormat("#0.00");
+            formatted_value = numFmt.format(value);
+        }
+        else if(item.toString().equals("Batting_Average"))
+        {
+            numFmt = new DecimalFormat(".000");
+            formatted_value = numFmt.format(value);
+        }
+        else if(item.toString().equals("Slugging_Percentage"))
+        {
+            numFmt = new DecimalFormat(".000");
+            formatted_value = numFmt.format(value);
+        }
+        else
+        {
+            numFmt = new DecimalFormat("#####");
+            formatted_value = numFmt.format(value);
+        }
+
+        ((TextView)convertView.findViewById(R.id.statname)).setText(item.toString().replace("_", " "));
+        ((TextView)convertView.findViewById(R.id.statvalue)).setText(formatted_value);
 
         return convertView;
     }

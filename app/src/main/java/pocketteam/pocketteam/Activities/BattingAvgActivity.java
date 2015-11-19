@@ -54,8 +54,9 @@ public class BattingAvgActivity extends AppCompatActivity {
             final Toast toast = Toast.makeText(context, text, duration);
             toast.show();
 
-        }else{
-
+        }
+        else
+        {
             currentPlayer.calcBatAvg(Float.valueOf(hits.getText().toString()),Float.valueOf(atBats.getText().toString()));
 
           //  StatList.getInstance().getMap().put(StatList.Stat.Batting_Average, Float.parseFloat(String.valueOf(currentPlayer.getBatAvg())));

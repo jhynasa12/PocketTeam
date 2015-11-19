@@ -30,6 +30,15 @@ public class TeamListActivity extends AppCompatActivity {
     private ListView listView;
     public static ArrayAdapter<Team> teamArrayAdapter;
 
+    AdapterView.OnItemClickListener defaultListener = new AdapterView.OnItemClickListener()
+    {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Team team = teams.get(position);
+            displayTeamDetail(team);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +61,7 @@ public class TeamListActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list_teams);
         listView.setAdapter(teamArrayAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Team team = teams.get(position);
-                displayTeamDetail(team);
-            }
-        });
+        listView.setOnItemClickListener(defaultListener);
 
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -132,9 +135,8 @@ public class TeamListActivity extends AppCompatActivity {
     }//end OpenDialogForEdit
 
 
-    public void RemoveTeamOnClickEventHandler(View view) {
-
-
+    public void RemoveTeamOnClickEventHandler(View view)
+    {
         Context context = getApplicationContext();
         CharSequence text = "Please select a team to remove...";
         int duration = Toast.LENGTH_SHORT;
@@ -142,10 +144,12 @@ public class TeamListActivity extends AppCompatActivity {
         final Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id)
+            {
+                String item = (String) teamArrayAdapter.getItem(position).getTeamName();
                 Team team = teams.get(position);
                 teams.remove(team);
 
@@ -160,6 +164,8 @@ public class TeamListActivity extends AppCompatActivity {
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+
+                listView.setOnItemClickListener(defaultListener);
             }
         });
 
