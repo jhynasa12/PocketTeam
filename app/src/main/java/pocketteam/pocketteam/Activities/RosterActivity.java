@@ -142,6 +142,7 @@ public class RosterActivity extends AppCompatActivity {
                         String lastname = lastNameInput.getText().toString();
                         player.setFirstName(firstname);
                         player.setLastName(lastname);
+                        WelcomeActivity.teamDB.updatePlayer(player);
                     }
                 });
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",

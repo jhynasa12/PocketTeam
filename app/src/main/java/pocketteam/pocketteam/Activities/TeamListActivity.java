@@ -69,6 +69,7 @@ public class TeamListActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Team team = teams.get(position);
                 openDialogForEdit(team);
+
                 teamArrayAdapter.notifyDataSetChanged();
                 return true;
             }
@@ -117,10 +118,14 @@ public class TeamListActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String name = input.getText().toString();
+                        WelcomeActivity.teamDB.renameTeam(team, name, team.getTeamName());
                         team.setTeamName(name);
+
+
                         for(Player player: team.getRoster())
                         {
                             player.setTeamName(name);
+                            WelcomeActivity.teamDB.updatePlayer(player);
                         }
 
                     }

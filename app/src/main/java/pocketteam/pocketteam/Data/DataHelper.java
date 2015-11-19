@@ -1,5 +1,6 @@
 package pocketteam.pocketteam.Data;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.BaseColumns;
 
 
-
+import pocketteam.pocketteam.Activities.WelcomeActivity;
 import pocketteam.pocketteam.Data.Player;
 import pocketteam.pocketteam.Data.Team;
 import java.util.Currency;
@@ -36,10 +39,21 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String TeamName = "TEAM_NAME";
     public static final String ParentCell = "PARENT_CELL";
     public static final String ParentName = "PARENT_NAME";
+    public static final String Walks = "WALKS";
+    public static final String Wins = "WINS";
+    public static final String Slugging = "SLUGGING";
+    public static final String RBI = "RBI";
+    public static final String BatAvrg = "BATTING_AVRG";
+    public static final String ERA = "ERA";
+    public static final String Losses = "LOSSES";
+    public static final String Hits = "HITS";
+    public static final String PlayerImage = "PLAYER_IMAGE";
     //Team Table create statement
     private static final String CREATE_TABLE_TEAM = "CREATE TABLE " + TABLE_TEAM + "(" + teamName + " TEXT" + ");";
     //Players Table create statement
-    private static final String CREATE_TABLE_PLAYERS = "CREATE TABLE " + TABLE_PLAYERS + "(" + NUMBER + " INTEGER PRIMARY KEY," + FirstName + " TEXT," + LastName + " TEXT," + Position + " TEXT," + TeamName + " TEXT," + ParentCell + " TEXT," + ParentName + " TEXT" + ");";
+    private static final String CREATE_TABLE_PLAYERS = "CREATE TABLE " + TABLE_PLAYERS + "(" + NUMBER + " INTEGER PRIMARY KEY," + FirstName + " TEXT," + LastName + " TEXT," + Position + " TEXT," +
+                                                                                                TeamName + " TEXT," + ParentCell + " TEXT," + ParentName + " TEXT," + PlayerImage + " BLOB," + Walks + " TEXT,"
+            + Wins + " TEXT,"+ Slugging + " TEXT,"+ RBI + " TEXT,"+ BatAvrg + " TEXT,"+ ERA + " TEXT," + Losses + " TEXT," + Hits + " TEXT"+ ");";
 
     public DataHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -72,7 +86,9 @@ public class DataHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
 
-        db.execSQL("CREATE TABLE " + team.getTeamName() + "(" + NUMBER + " INTEGER PRIMARY KEY," + FirstName + " TEXT," + LastName + " TEXT," + Position + " TEXT," + TeamName + " TEXT," + ParentCell + " TEXT," + ParentName + " TEXT" + ");");
+        db.execSQL("CREATE TABLE " + team.getTeamName() + "(" + NUMBER + " INTEGER PRIMARY KEY," + FirstName + " TEXT," + LastName + " TEXT," + Position + " TEXT," +
+                TeamName + " TEXT," + ParentCell + " TEXT," + ParentName + " TEXT," + PlayerImage + " BLOB," + Walks + " TEXT,"
+                + Wins + " TEXT," + Slugging + " TEXT," + RBI + " TEXT," + BatAvrg + " TEXT," + ERA + " TEXT," + Losses + " TEXT," + Hits + " TEXT" + ");");
 
         ContentValues contentValues = new ContentValues();
 
@@ -92,6 +108,24 @@ public class DataHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public int renameTeam(Team team, String newName, String oldName){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        db.execSQL("ALTER TABLE " + oldName + " RENAME TO " + newName);
+
+        values.put(teamName, newName);
+
+
+        // updating row
+
+
+        return db.update(TABLE_TEAM, values, teamName + " = ?",
+                new String[] { String.valueOf(team.getTeamName()) });
+
+    }
+
 
 
     // ------------------------ "PLAYERS" table methods ----------------//
@@ -100,7 +134,7 @@ public class DataHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(NUMBER,player.getPlayerNumber());
+        contentValues.put(NUMBER, player.getPlayerNumber());
         contentValues.put(FirstName,player.getFirstName());
         contentValues.put(LastName,player.getLastName());
         contentValues.put(Position,player.getPosition());
@@ -118,6 +152,36 @@ public class DataHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void addImage (Player player, Bitmap image) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(PlayerImage, getBytes(image));
+
+
+        // updating row
+        db.update(player.getTeamName(), values, NUMBER + " = ?",
+                new String[]{String.valueOf(player.getPlayerNumber())});
+
+
+
+
+
+    }
+
+    public static byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        return stream.toByteArray();
+    }
+
+
+    // convert from byte array to bitmap
+    public static Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
 
 
 
@@ -151,7 +215,29 @@ public class DataHelper extends SQLiteOpenHelper {
                 player.setFirstName(cursor.getString(1));
                 player.setLastName(cursor.getString(2));
                 player.setPosition(cursor.getString(3));
-                player.setPosition(cursor.getString(4));
+                player.setTeamName(cursor.getString(4));
+                player.setPhoneNumber(cursor.getString(5));
+                player.setParentName(cursor.getString(6));
+//                byte [] imgByte = cursor.getBlob(7);
+//                player.setProfilePicture(getImage(imgByte));
+                if(cursor.getString(8) != null)
+                player.setWalks(Integer.parseInt(cursor.getString(8)));
+                if(cursor.getString(9) != null)
+                player.setWins(Integer.parseInt(cursor.getString(9)));
+                if(cursor.getString(10) != null)
+                player.setSlugg(Float.parseFloat(cursor.getString(10)));
+                if(cursor.getString(11) != null)
+                player.setRBI(Integer.parseInt(cursor.getString(11)));
+                if(cursor.getString(12) != null)
+                player.setBatAvrg(Float.parseFloat(cursor.getString(12)));
+                if(cursor.getString(13) != null)
+                player.setERA(Float.parseFloat(cursor.getString(13)));
+                if(cursor.getString(14) != null)
+                player.setLosses(Integer.parseInt(cursor.getString(14)));
+                if(cursor.getString(15) != null)
+                player.setHits(Integer.parseInt(cursor.getString(15)));
+
+
 
                 playersList.add(player);
             } while (cursor.moveToNext());
@@ -164,7 +250,137 @@ public class DataHelper extends SQLiteOpenHelper {
 
 
 
+    public int updatePlayer(Player player) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(NUMBER, player.getPlayerNumber());
+        values.put(FirstName, player.getFirstName());
+        values.put(LastName, player.getLastName());
+        values.put(Position, player.getPosition());
+        values.put(TeamName, player.getTeamName());
+        values.put(ParentCell, player.getPhoneNumber());
+        values.put(ParentName, player.getParentName());
+        if(player.getProfilePicture() != null)
+        values.put(PlayerImage, WelcomeActivity.teamDB.getBytes(player.getProfilePicture()));
+        if(player.getWalks() != 0)
+        values.put(Walks, player.getWalks());
+        if(player.getWins() != 0)
+        values.put(Wins, player.getWins());
+        if(player.getSlugg() != 0.0)
+        values.put(Slugging, player.getSlugg());
+        if(player.getRBI() != 0)
+        values.put(RBI, player.getRBI());
+        if(player.getBatAvg() != 0.0)
+        values.put(BatAvrg, player.getBatAvg());
+        if(player.getERA() != 0.0)
+        values.put(ERA, player.getERA());
+        if(player.getLosses() != 0)
+        values.put(Losses, player.getLosses());
+        if(player.getHits() != 0)
+        values.put(Hits, player.getHits());
+
+
+
+        // updating row
+        return db.update(player.getTeamName(), values, NUMBER + " = ?",
+                new String[] { String.valueOf(player.getPlayerNumber()) });
+    }
+    //-------------------------------------------------UPDATE PLAYER STATS-----------------------------------------------------------------------------//
+
+    public int updateWalks(Player player) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Walks, player.getWalks());
+
+        // updating row
+        return db.update(player.getTeamName(), values, NUMBER + " = ?",
+                new String[] { String.valueOf(player.getPlayerNumber()) });
+    }
+
+
+    public int updateWins(Player player) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Wins, player.getWins());
+
+        // updating row
+        return db.update(player.getTeamName(), values, NUMBER + " = ?",
+                new String[] { String.valueOf(player.getPlayerNumber()) });
+    }
+
+    public int updateSlugging(Player player) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Slugging, player.getSlugg());
+
+        // updating row
+        return db.update(player.getTeamName(), values, NUMBER + " = ?",
+                new String[] { String.valueOf(player.getPlayerNumber()) });
+    }
+
+
+
+    public int updateRBI(Player player) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(RBI, player.getRBI());
+
+        // updating row
+        return db.update(player.getTeamName(), values, NUMBER + " = ?",
+                new String[] { String.valueOf(player.getPlayerNumber()) });
+    }
+
+
+    public int updateBattingAvrg(Player player) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(BatAvrg, player.getBatAvg());
+
+        // updating row
+        return db.update(player.getTeamName(), values, NUMBER + " = ?",
+                new String[] { String.valueOf(player.getPlayerNumber()) });
+    }
+
+
+    public int updateERA(Player player) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ERA, player.getERA());
+
+        // updating row
+        return db.update(player.getTeamName(), values, NUMBER + " = ?",
+                new String[] { String.valueOf(player.getPlayerNumber()) });
+    }
+
+    public int updateLosses(Player player) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Losses, player.getLosses());
+
+        // updating row
+        return db.update(player.getTeamName(), values, NUMBER + " = ?",
+                new String[] { String.valueOf(player.getPlayerNumber()) });
+    }
+
+
+    public int updateHits(Player player) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Hits, player.getHits());
+
+        // updating row
+        return db.update(player.getTeamName(), values, NUMBER + " = ?",
+                new String[] { String.valueOf(player.getPlayerNumber()) });
+    }
 
     ////////////////////get all teams
 
@@ -183,8 +399,6 @@ public class DataHelper extends SQLiteOpenHelper {
             do {
                 Team team = new Team(null);
                 team.setTeamName(cursor.getString(0));
-
-
                 teamList.add(team);
             } while (cursor.moveToNext());
         }

@@ -167,9 +167,9 @@ public class AddPlayerActivity extends AppCompatActivity {
 
                 //add player to the Team
 
-                if (!WelcomeActivity.teamDB.getAllTeams().isEmpty())
 
-                    for (Player p : WelcomeActivity.teamDB.getAllPlayers(teamName))
+
+
                         currentTeam.addPlayer(player);
 
 

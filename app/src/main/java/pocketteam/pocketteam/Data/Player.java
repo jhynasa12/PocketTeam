@@ -198,6 +198,22 @@ public class Player implements Comparable<Player>{
      * @return 
      */
     public float getBatAvg(){ return m_BatAverage; }
+
+
+
+    /**
+     * Sets the Slugging of the player
+     * @param avrg
+     */
+    public void setBatAvrg(float avrg){
+        m_BatAverage = avrg;
+    }
+
+
+
+
+
+
     
     /**
      * Calculates the slugging percentage of a player
@@ -220,6 +236,19 @@ public class Player implements Comparable<Player>{
     public float getSlugg(){
         return m_SluggingPercentage;
     }
+
+
+
+
+    /**
+     * Sets the Slugging of the player
+     * @param slug
+     */
+    public void setSlugg(float slug){
+        m_SluggingPercentage = slug;
+    }
+
+
     
     /**
      * Calculates ERA of the player
@@ -237,6 +266,31 @@ public class Player implements Comparable<Player>{
     public float getERA(){
         return m_ERA;
     }
+
+
+
+
+
+
+
+
+    /**
+     * Sets the ERA of the player
+     * @param era
+     */
+    public void setERA(float era){
+        m_ERA = era;
+    }
+
+
+
+
+
+
+
+
+
+
     
     /**
      * Sets the RBIs of the player
@@ -326,7 +380,7 @@ public class Player implements Comparable<Player>{
     
     /**
      * Returns the number of wins the player has
-     * @param wins
+     * @param
      * @return int
      */
      public int getWins(){

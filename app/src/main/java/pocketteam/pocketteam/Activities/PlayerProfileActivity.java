@@ -1,7 +1,6 @@
 package pocketteam.pocketteam.Activities;
 
 import android.app.AlertDialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,8 +38,8 @@ import pocketteam.pocketteam.Utilities.Utility;
 import pocketteam.pocketteam.view.StatListAdapter;
 
 
-public class PlayerProfileActivity extends AppCompatActivity
-{
+
+public class PlayerProfileActivity extends AppCompatActivity {
 
     public static String playerName;
     public static String lastName;
@@ -59,8 +56,7 @@ public class PlayerProfileActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
 
@@ -92,8 +88,24 @@ public class PlayerProfileActivity extends AppCompatActivity
         teamText = (TextView) findViewById(R.id.team_name_text);
         teamText.setText(currentPlayer.getTeamName());
 
-        if (currentPlayer.getProfilePicture() != null)
-        {
+
+        Context context = getApplicationContext();
+        CharSequence text = "Touch a Statistic to add to " + firstName + "'s profile. Hold down to see the stat! ";
+        int duration = Toast.LENGTH_SHORT;
+
+        final Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+
+        Context context1 = getApplicationContext();
+        CharSequence text1 = "Click on the Profile Picture to add one of your own...";
+        int duration1 = Toast.LENGTH_SHORT;
+
+        final Toast toast1 = Toast.makeText(context1, text1, duration1);
+        toast1.show();
+
+
+        if (currentPlayer.getProfilePicture() != null) {
             image.setImageBitmap(currentPlayer.getProfilePicture());
         }
 
@@ -102,29 +114,66 @@ public class PlayerProfileActivity extends AppCompatActivity
 
         statList = playerStatList.getMap();
 
-        statList.put(StatList.Stat.Slugging_Percentage, currentPlayer.getSlugg());
-        statList.put(StatList.Stat.Batting_Average, currentPlayer.getBatAvg());
-        statList.put(StatList.Stat.ERA, currentPlayer.getERA());
-        statList.put(StatList.Stat.Hits, (float)currentPlayer.getHits());
-        statList.put(StatList.Stat.Wins, (float)currentPlayer.getWins());
-        statList.put(StatList.Stat.Losses, (float)currentPlayer.getLosses());
-        statList.put(StatList.Stat.RBI, (float) currentPlayer.getRBI());
-        statList.put(StatList.Stat.Walks, (float) currentPlayer.getWalks());
-
-
         statArrayAdapter = new StatListAdapter<StatList.Stat, Float>(this, statList);
-        final ListView listView = (ListView) findViewById(R.id.statlist);
+        ListView listView = (ListView) findViewById(R.id.statlist);
         listView.setAdapter(statArrayAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // String stat = statList.values().toArray()[position].toString();
+
+                statDetail(position);
+                statArrayAdapter.notifyDataSetChanged();
+
+            }
+        });
+
 
         final Intent hitsIntent = new Intent(this,HitsActivity.class);
         final Intent rbiIntent = new Intent(this,RbiActivity.class);
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                statDetail(position);
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+               // String stat = String.valueOf(statList.get(position));
+
+
+
+
+
+
+                switch (position) {
+
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+                        openStatDialogBox("Slugging Percentage", currentPlayer.getSlugg());
+                        break;
+                    case 3:
+                        startActivity(rbiIntent);
+                        statArrayAdapter.notifyDataSetChanged();
+                        break;
+                    case 4:
+                        openStatDialogBox("Batting Average", currentPlayer.getBatAvg());
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+
+                        startActivity(hitsIntent);
+                        statArrayAdapter.notifyDataSetChanged();
+                        break;
+
+                }
+
+
                 return true;
             }
         });
@@ -132,86 +181,138 @@ public class PlayerProfileActivity extends AppCompatActivity
 
         final AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
 
-        numberText.setOnClickListener(new View.OnClickListener()
-        {
+        numberText.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+
+
+            public void onClick(View v) {
+
+
                 final Intent sIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + currentPlayer.getPhoneNumber()));
+
 
                 sIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+
                 alertDialog.setTitle("Call Contact");
                 alertDialog.setMessage("Would you like to call the player's Emergency Contact?");
+
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
 
+
                 alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Call",
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int which)
-                            {
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
                                 startActivity(sIntent);
+
                             }
                         });
                 alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int which)
-                            {
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
                                 alertDialog.cancel();
                             }
                         });
+
+
                 alertDialog.setCanceledOnTouchOutside(true);
+
+
                 alertDialog.show();  //<-- See This!
+
+
             }
+
+
         });
 
 
     }
 
-    private void statDetail(int position)
-    {
-        switch (position)
-        {
+    private void statDetail(int position) {
+
+
+
+        switch (position) {
+
             case 0:
                 onWalksClick();
                 statList.put(StatList.Stat.Walks, Float.parseFloat(String.valueOf(currentPlayer.getWalks())));
+                WelcomeActivity.teamDB.updateWalks(currentPlayer);
                 break;
             case 1:
                 onWinsClick();
                 statList.put(StatList.Stat.Wins, Float.parseFloat(String.valueOf(currentPlayer.getWins())));
-
+                WelcomeActivity.teamDB.updateWins(currentPlayer);
                 break;
             case 2:
                 Intent sluggingIntent = new Intent(this, SluggingActivity.class);
-                startActivityForResult(sluggingIntent, 2);
+                startActivity(sluggingIntent);
+                statList.put(StatList.Stat.Slugging_Percentage, currentPlayer.getSlugg());
+                WelcomeActivity.teamDB.updateSlugging(currentPlayer);
                 break;
             case 3:
                 onRbiClick();
                 statList.put(StatList.Stat.RBI, Float.parseFloat(String.valueOf(currentPlayer.getRBI())));
+                WelcomeActivity.teamDB.updateRBI(currentPlayer);
                 break;
             case 4:
                 Intent batAvgIntent = new Intent(this, BattingAvgActivity.class);
-                startActivityForResult(batAvgIntent, 4);
+                startActivity(batAvgIntent);
+                statList.put(StatList.Stat.Batting_Average, currentPlayer.getBatAvg());
+                WelcomeActivity.teamDB.updateBattingAvrg(currentPlayer);
 
                 break;
             case 5:
                 Intent eraIntent = new Intent(this, EraActivity.class);
-                startActivityForResult(eraIntent, 5);
+                startActivity(eraIntent);
+                statList.put(StatList.Stat.ERA, currentPlayer.getERA());
+                WelcomeActivity.teamDB.updateERA(currentPlayer);
                 break;
             case 6:
                 onLossesClick();
                 statList.put(StatList.Stat.Losses, Float.parseFloat(String.valueOf(currentPlayer.getLosses())));
+                WelcomeActivity.teamDB.updateLosses(currentPlayer);
                 break;
 
             case 7:
                 onHitsClick();
                 statList.put(StatList.Stat.Hits, Float.parseFloat(String.valueOf(currentPlayer.getHits())));
+                WelcomeActivity.teamDB.updateHits(currentPlayer);
                 break;
+
+
         }
+
+
+        //            if (stat.equals("Batting Average")) {
+//                Intent batAvgIntent = new Intent(this, BattingAvgActivity.class);
+//                startActivity(batAvgIntent);
+//
+//            } else if (stat.equals(StatList.Stat.ERA.name())) {
+//
+//                Intent eraIntent = new Intent(this, EraActivity.class);
+//                startActivity(eraIntent);
+//
+//            } else if (stat.equals(StatList.Stat.Hits.name())) {
+//                onHitsClick();
+//
+//            } else if (stat.equals(StatList.Stat.Slugging_Percentage.name())) {
+//                Intent sluggingIntent = new Intent(this, SluggingActivity.class);
+//                startActivity(sluggingIntent);
+//
+//            } else if (stat.equals(StatList.Stat.RBI.name())) {
+//
+//                Intent rbiIntent = new Intent(this, RbiActivity.class);
+//                startActivity(rbiIntent);
+//
+//            } else if (stat.equals(StatList.Stat.Wins)) {
+//
+//
+//            }
     }
 
 
@@ -219,11 +320,9 @@ public class PlayerProfileActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode)
-        {
+        switch (requestCode) {
             case 1234:
-                if (resultCode == RESULT_OK)
-                {
+                if (resultCode == RESULT_OK) {
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
@@ -237,35 +336,55 @@ public class PlayerProfileActivity extends AppCompatActivity
 
                     yourSelectedImage = BitmapFactory.decodeFile(filePath);
                     currentPlayer.setProfilePicture(yourSelectedImage);
+                    WelcomeActivity.teamDB.addImage(currentPlayer, yourSelectedImage);
                     image.setImageBitmap(yourSelectedImage);
 
                 }
-                break;
-            case 2:
-                statList.put(StatList.Stat.Slugging_Percentage, currentPlayer.getSlugg());
-                break;
-            case 4:
-                statList.put(StatList.Stat.Batting_Average, currentPlayer.getBatAvg());
-                break;
-            case 5:
-                statList.put(StatList.Stat.ERA, currentPlayer.getERA());
-                break;
-            default:
-                // Nothing for now.
         }
-        statArrayAdapter.notifyDataSetChanged();
 
     }
 
     ;
 
-    public void btnChoosePhotoPressed(View view)
-    {
+    public void btnChoosePhotoPressed(View view) {
         Intent i = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         final int ACTIVITY_SELECT_IMAGE = 1234;
         startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
     }
+
+
+    public void openStatDialogBox(String stat, float number) {
+        AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle(stat);
+
+        String numberf = String.format("%.3f", number);
+
+        alertDialog.setMessage("Your " + stat + " is " + numberf);
+
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
+
+        alertDialog.setButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                });
+
+
+        alertDialog.setCanceledOnTouchOutside(true);
+
+
+        alertDialog.show();  //<-- See This!
+
+    }
+
+
     /**
      * Opens a dialog box so a User can edit the Team name
      *
@@ -287,20 +406,16 @@ public class PlayerProfileActivity extends AppCompatActivity
         final EditText input = (EditText) diagLayout.findViewById(R.id.earned_runs);
         final EditText input2 = (EditText) diagLayout.findViewById(R.id.innings);
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
                         String firstname = input.getText().toString();
                         String lastname = input.getText().toString();
 
                     }
                 });
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
                         alertDialog.cancel();
                     }
                 });
@@ -336,8 +451,7 @@ public class PlayerProfileActivity extends AppCompatActivity
     }
 
 
-    public void backToRosterProfileOnClick(MenuItem item)
-    {
+    public void backToRosterProfileOnClick(MenuItem item) {
         finish();
     }
 
@@ -366,6 +480,7 @@ public class PlayerProfileActivity extends AppCompatActivity
                         String newContact = input.getText().toString();
                         currentPlayer.setParentName(newContact);
                         parentText.setText(currentPlayer.getParentName());
+                        WelcomeActivity.teamDB.updatePlayer(currentPlayer);
                     }
                 });
 
@@ -395,14 +510,12 @@ public class PlayerProfileActivity extends AppCompatActivity
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String newNumber = input.getText().toString();
-                        if(Utility.getInstance().isEmpty(input) || input.getText().toString().length() < 10 || input.getText().toString().length() > 10)
-                        {
+                        if(Utility.getInstance().isEmpty(input) || input.getText().toString().length() < 10 || input.getText().toString().length() > 10){
                             showToastMessage("The phone number is either too short or too long...");
-                        }
-                        else
-                        {
+                        }else {
                             currentPlayer.setPhoneNumber(Utility.getInstance().setPhoneNumberFormat(newNumber));
                             numberText.setText(currentPlayer.getPhoneNumber());
+                            WelcomeActivity.teamDB.updatePlayer(currentPlayer);
                         }
                     }
                 });
@@ -431,10 +544,8 @@ public class PlayerProfileActivity extends AppCompatActivity
         alertDialog.setView(input);
 
         alertDialog.setButton("Confirm",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
                         String newNumber = input.getText().toString();
                         //check if any other player on the team has the same number
                         Team currentTeam = TeamList.getInstance().getTeam(currentPlayer.getTeamName());
@@ -445,6 +556,7 @@ public class PlayerProfileActivity extends AppCompatActivity
                             } else {
                                 currentPlayer.setPlayerNumber(newNumber);
                                 playerNumberText.setText(currentPlayer.getPlayerNumber());
+                                WelcomeActivity.teamDB.updatePlayer(currentPlayer);
 
                             }
                         }
@@ -508,43 +620,38 @@ public class PlayerProfileActivity extends AppCompatActivity
 
     public void onHitsClick() {
         AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Hits");
+        alertDialog.setMessage("Increment or Decrement hits: Touch outside screen to cancel ");
 
-        LayoutInflater inflater = getLayoutInflater();
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
 
-        final View statsPickerView = inflater.inflate(R.layout.numericstatpicker, null);
 
-        alertDialog.setView(statsPickerView);
-        final NumberPicker p = (NumberPicker)statsPickerView.findViewById(R.id.numericstatvalue);
-        TextView text = (TextView)statsPickerView.findViewById(R.id.numericstatname);
-        text.setText("Hits");
-
-        p.setMinValue(0);
-        p.setMaxValue(10000);
-        p.setWrapSelectorWheel(false);
-        p.setValue(currentPlayer.getHits());
-
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        int statValue = p.getValue();
-                        currentPlayer.setWalks(statValue);
-                        statList.put(StatList.Stat.Hits, (float) statValue);
-
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ADD",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentPlayer.incrementHits();
+                        WelcomeActivity.teamDB.updateHits(currentPlayer);
                         statArrayAdapter.notifyDataSetChanged();
-
+                        showToastMessage("Hit added");
                     }
                 });
 
 
 
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.cancel();
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (currentPlayer.getHits() <= 0) {
+                            showToastMessage("You cannot have less than 0 hits");
+                            return;
+                        } else {
+                            currentPlayer.decrimentHits();
+                            WelcomeActivity.teamDB.updateHits(currentPlayer);
+                            statArrayAdapter.notifyDataSetChanged();
+                            showToastMessage("Hits subtracted");
+                        }
                     }
                 });
 
@@ -553,46 +660,43 @@ public class PlayerProfileActivity extends AppCompatActivity
 
 
         alertDialog.show();  //<-- See This!
-
     }
 
 
-    public void onWalksClick()
-    {
+    public void onWalksClick(){
         AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Walks");
+        alertDialog.setMessage("Increment or Decrement walks: Touch outside screen to cancel ");
 
-        LayoutInflater inflater = getLayoutInflater();
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
 
-        final View statsPickerView = inflater.inflate(R.layout.numericstatpicker, null);
 
-        alertDialog.setView(statsPickerView);
-        final NumberPicker p = (NumberPicker)statsPickerView.findViewById(R.id.numericstatvalue);
-        TextView text = (TextView)statsPickerView.findViewById(R.id.numericstatname);
-        text.setText("Walks");
-
-        p.setMinValue(0);
-        p.setMaxValue(10000);
-        p.setWrapSelectorWheel(false);
-        p.setValue(currentPlayer.getWalks());
-
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ADD",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        int statValue = p.getValue();
-                        currentPlayer.setWalks(statValue);
-                        statList.put(StatList.Stat.Walks, (float) statValue);
-
+                        currentPlayer.incrementWalks();
+                        WelcomeActivity.teamDB.updateWalks(currentPlayer);
                         statArrayAdapter.notifyDataSetChanged();
-
+                        showToastMessage("Walks added");
                     }
                 });
 
 
 
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
+                        if (currentPlayer.getWalks() <= 0) {
+                            showToastMessage("You cannot have less than 0 walks");
+                            return;
+                        } else {
+                            currentPlayer.decrimentWalks();
+                            WelcomeActivity.teamDB.updateWalks(currentPlayer);
+                            statArrayAdapter.notifyDataSetChanged();
+                            showToastMessage("Walks subtracted");
+                        }
                     }
                 });
 
@@ -603,47 +707,43 @@ public class PlayerProfileActivity extends AppCompatActivity
         alertDialog.show();  //<-- See This!
 
     }
+
 
     public void onWinsClick(){
 
         AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Wins");
+        alertDialog.setMessage("Increment or Decrement Wins: Touch outside screen to cancel ");
 
-        LayoutInflater inflater = getLayoutInflater();
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
 
-        final View statsPickerView = inflater.inflate(R.layout.numericstatpicker, null);
 
-        alertDialog.setView(statsPickerView);
-        final NumberPicker p = (NumberPicker)statsPickerView.findViewById(R.id.numericstatvalue);
-        TextView text = (TextView)statsPickerView.findViewById(R.id.numericstatname);
-        text.setText("Wins");
-
-        p.setMinValue(0);
-        p.setMaxValue(10000);
-        p.setWrapSelectorWheel(false);
-        p.setValue(currentPlayer.getWins());
-
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        int statValue = p.getValue();
-                        currentPlayer.setWins(statValue);
-                        statList.put(StatList.Stat.Wins, (float) statValue);
-
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ADD",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentPlayer.incrementWins();
+                        WelcomeActivity.teamDB.updateWins(currentPlayer);
                         statArrayAdapter.notifyDataSetChanged();
-
+                        showToastMessage("Wins added");
                     }
                 });
 
 
 
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.cancel();
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (currentPlayer.getWalks() <= 0) {
+                            showToastMessage("You cannot have less than 0 wins");
+                            return;
+                        } else {
+                            currentPlayer.decrementWins();
+                            WelcomeActivity.teamDB.updateWins(currentPlayer);
+                            statArrayAdapter.notifyDataSetChanged();
+                            showToastMessage("Wins subtracted");
+                        }
                     }
                 });
 
@@ -652,50 +752,44 @@ public class PlayerProfileActivity extends AppCompatActivity
 
 
         alertDialog.show();  //<-- See This!
-
 
     }
 
 
     public void onRbiClick(){
         AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("RBIs");
+        alertDialog.setMessage("Increment or Decrement RBIs: Touch outside screen to cancel ");
 
-        LayoutInflater inflater = getLayoutInflater();
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
 
-        final View statsPickerView = inflater.inflate(R.layout.numericstatpicker, null);
 
-        alertDialog.setView(statsPickerView);
-        final NumberPicker p = (NumberPicker)statsPickerView.findViewById(R.id.numericstatvalue);
-        TextView text = (TextView)statsPickerView.findViewById(R.id.numericstatname);
-        text.setText("RBIs");
-
-        p.setMinValue(0);
-        p.setMaxValue(10000);
-        p.setWrapSelectorWheel(false);
-        p.setValue(currentPlayer.getRBI());
-
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        int statValue = p.getValue();
-                        currentPlayer.setWalks(statValue);
-                        statList.put(StatList.Stat.RBI, (float) statValue);
-
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ADD",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentPlayer.incrementRBIs();
+                        WelcomeActivity.teamDB.updateRBI(currentPlayer);
                         statArrayAdapter.notifyDataSetChanged();
-
+                        showToastMessage("RBIs added");
                     }
                 });
 
 
 
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.cancel();
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (currentPlayer.getRBI() <= 0) {
+                            showToastMessage("You cannot have less than 0 RBIs");
+                            return;
+                        } else {
+                            currentPlayer.decrementRBIs();
+                            WelcomeActivity.teamDB.updateRBI(currentPlayer);
+                            statArrayAdapter.notifyDataSetChanged();
+                            showToastMessage("RBIs subtracted");
+                        }
                     }
                 });
 
@@ -704,51 +798,44 @@ public class PlayerProfileActivity extends AppCompatActivity
 
 
         alertDialog.show();  //<-- See This!
-
 
     }
 
 
-    public void onLossesClick()
-    {
+    public void onLossesClick(){
         AlertDialog alertDialog = new AlertDialog.Builder((PlayerProfileActivity) this).create(); //Read Update
+        alertDialog.setTitle("Losses");
+        alertDialog.setMessage("Increment or Decrement Losses: Touch outside screen to cancel ");
 
-        LayoutInflater inflater = getLayoutInflater();
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
 
-        final View statsPickerView = inflater.inflate(R.layout.numericstatpicker, null);
 
-        alertDialog.setView(statsPickerView);
-        final NumberPicker p = (NumberPicker)statsPickerView.findViewById(R.id.numericstatvalue);
-        TextView text = (TextView)statsPickerView.findViewById(R.id.numericstatname);
-        text.setText("Losses");
-
-        p.setMinValue(0);
-        p.setMaxValue(10000);
-        p.setWrapSelectorWheel(false);
-        p.setValue(currentPlayer.getLosses());
-
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        int statValue = p.getValue();
-                        currentPlayer.setWalks(statValue);
-                        statList.put(StatList.Stat.Losses, (float) statValue);
-
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "ADD",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentPlayer.incrementLosses();
+                        WelcomeActivity.teamDB.updateLosses(currentPlayer);
                         statArrayAdapter.notifyDataSetChanged();
-
+                        showToastMessage("Losses added");
                     }
                 });
 
 
 
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.cancel();
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "SUBTRACT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (currentPlayer.getLosses() <= 0) {
+                            showToastMessage("You cannot have less than 0 Losses");
+                            return;
+                        } else {
+                            currentPlayer.decrementLosses();
+                            WelcomeActivity.teamDB.updateLosses(currentPlayer);
+                            statArrayAdapter.notifyDataSetChanged();
+                            showToastMessage("Losses subtracted");
+                        }
                     }
                 });
 
@@ -757,7 +844,6 @@ public class PlayerProfileActivity extends AppCompatActivity
 
 
         alertDialog.show();  //<-- See This!
-
 
     }
 
