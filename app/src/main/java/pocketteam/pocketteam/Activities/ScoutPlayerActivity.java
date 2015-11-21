@@ -1,6 +1,7 @@
 package pocketteam.pocketteam.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -111,9 +112,12 @@ public class ScoutPlayerActivity extends AppCompatActivity {
 
             TeamList.getInstance().addTeam(new Team("Scouted_Players"));
             currentTeam = TeamList.getInstance().returnTeamByName("Scouted_Players");
+
+            
             WelcomeActivity.teamDB.addTeams(currentTeam);
         } else {
             currentTeam = TeamList.getInstance().returnTeamByName("Scouted_Players");
+
         }
 
 
@@ -185,7 +189,8 @@ public class ScoutPlayerActivity extends AppCompatActivity {
 
 
             //Go to the Team Screen
-            finish();
+            Intent teamListIntent = new Intent(this, TeamListActivity.class);
+            startActivity(teamListIntent);
 
         }
 
