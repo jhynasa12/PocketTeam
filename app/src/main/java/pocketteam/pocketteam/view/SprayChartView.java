@@ -23,6 +23,8 @@ import pocketteam.pocketteam.R;
  */
 public class SprayChartView extends View
 {
+
+
     private class Point
     {
         private float x, y;
@@ -56,6 +58,10 @@ public class SprayChartView extends View
 
     private ArrayList<Point> sprayPoints = new ArrayList<Point>();
 
+    private int spraySizeIndex = sprayPoints.size() - 1;
+
+    private Canvas canvas = new Canvas();
+
     public SprayChartView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -64,6 +70,18 @@ public class SprayChartView extends View
     public void clearPoints(){
         sprayPoints.clear();
         invalidate();
+    }
+
+    public void undoPoint(){
+
+       sprayPoints.remove(spraySizeIndex);
+
+       clearPoints();
+
+       redraw();
+
+
+
     }
 
 
@@ -99,4 +117,29 @@ public class SprayChartView extends View
         }
         return true;
     }
+
+    public void redraw(){
+        
+        Context ctx = getContext();
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.chart2);
+        canvas.drawBitmap(b, 0, 0, null);
+
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setColor(Color.RED);
+
+
+        for(Point p : sprayPoints)
+        {
+            canvas.drawCircle(p.getX(), p.getY(), 5, paint);
+        }
+
+
+    }
+
+
+
 }
+
+

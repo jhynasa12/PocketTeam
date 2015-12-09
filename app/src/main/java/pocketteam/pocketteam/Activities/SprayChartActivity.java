@@ -60,4 +60,9 @@ public class SprayChartActivity extends AppCompatActivity {
         ((SprayChartView)findViewById(R.id.spray_view)).clearPoints();
 
     }
+
+    public void UndoSprayChartActivityOnClick(MenuItem item) {
+        ((SprayChartView)findViewById(R.id.spray_view)).undoPoint();
+
+    }
 }
