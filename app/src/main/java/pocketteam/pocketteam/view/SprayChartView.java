@@ -21,73 +21,61 @@ import pocketteam.pocketteam.R;
 /**
  * TODO: document your custom view class.
  */
-public class SprayChartView extends View
-{
+public class SprayChartView extends View {
 
 
-    private class Point
-    {
+    private class Point {
         private float x, y;
 
-        public Point(float _x, float _y)
-        {
+        public Point(float _x, float _y) {
             x = _x;
             y = _y;
         }
 
-        public void setX(float _x)
-        {
+        public void setX(float _x) {
             x = _x;
         }
 
-        public void setY(float _y)
-        {
+        public void setY(float _y) {
             y = _y;
         }
 
-        public float getX()
-        {
+        public float getX() {
             return x;
         }
 
-        public float getY()
-        {
+        public float getY() {
             return y;
         }
     }
 
     private ArrayList<Point> sprayPoints = new ArrayList<Point>();
 
-    private int spraySizeIndex = sprayPoints.size() - 1;
 
     private Canvas canvas = new Canvas();
 
-    public SprayChartView(Context context, AttributeSet attrs)
-    {
+    public SprayChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public void clearPoints(){
+    public void clearPoints() {
         sprayPoints.clear();
         invalidate();
     }
 
-    public void undoPoint(){
+    public void undoPoint() {
 
-       sprayPoints.remove(spraySizeIndex);
+        sprayPoints.remove(sprayPoints.size() - 1);
 
-       clearPoints();
 
-       redraw();
-
+        invalidate();
 
 
     }
 
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Context ctx = getContext();
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.chart2);
@@ -97,17 +85,14 @@ public class SprayChartView extends View
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setColor(Color.RED);
 
-        for(Point p : sprayPoints)
-        {
+        for (Point p : sprayPoints) {
             canvas.drawCircle(p.getX(), p.getY(), 5, paint);
         }
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent e)
-    {
-        switch(e.getAction())
-        {
+    public boolean onTouchEvent(MotionEvent e) {
+        switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 sprayPoints.add(new Point(e.getX(), e.getY()));
                 invalidate();
@@ -118,8 +103,8 @@ public class SprayChartView extends View
         return true;
     }
 
-    public void redraw(){
-        
+    public void redraw() {
+
         Context ctx = getContext();
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.chart2);
         canvas.drawBitmap(b, 0, 0, null);
@@ -130,14 +115,12 @@ public class SprayChartView extends View
         paint.setColor(Color.RED);
 
 
-        for(Point p : sprayPoints)
-        {
+        for (Point p : sprayPoints) {
             canvas.drawCircle(p.getX(), p.getY(), 5, paint);
         }
 
 
     }
-
 
 
 }
