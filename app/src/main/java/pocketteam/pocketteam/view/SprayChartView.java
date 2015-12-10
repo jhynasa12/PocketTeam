@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import pocketteam.pocketteam.R;
@@ -24,7 +25,7 @@ import pocketteam.pocketteam.R;
 public class SprayChartView extends View {
 
 
-    private class Point {
+    public class Point {
         private float x, y;
 
         public Point(float _x, float _y) {
@@ -52,7 +53,6 @@ public class SprayChartView extends View {
     private ArrayList<Point> sprayPoints = new ArrayList<Point>();
 
 
-    private Canvas canvas = new Canvas();
 
     public SprayChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -63,6 +63,10 @@ public class SprayChartView extends View {
         invalidate();
     }
 
+    public void setSprayPoints(ArrayList<SprayChartView.Point> points){
+        sprayPoints = points;
+    }
+
     public void undoPoint() {
 
         sprayPoints.remove(sprayPoints.size() - 1);
@@ -71,6 +75,11 @@ public class SprayChartView extends View {
         invalidate();
 
 
+    }
+
+
+    public ArrayList<Point> getPoints(){
+        return sprayPoints;
     }
 
 
@@ -103,24 +112,7 @@ public class SprayChartView extends View {
         return true;
     }
 
-    public void redraw() {
 
-        Context ctx = getContext();
-        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.chart2);
-        canvas.drawBitmap(b, 0, 0, null);
-
-
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setColor(Color.RED);
-
-
-        for (Point p : sprayPoints) {
-            canvas.drawCircle(p.getX(), p.getY(), 5, paint);
-        }
-
-
-    }
 
 
 }

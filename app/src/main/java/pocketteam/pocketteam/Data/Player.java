@@ -14,6 +14,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import pocketteam.pocketteam.view.SprayChartView;
+
 /**
  *
  * @author Justin Hyland
@@ -41,7 +43,7 @@ public class Player implements Comparable<Player>{
     private int m_Walks_Pitching;
     private int m_Walks_Batter;
     private Bitmap m_ProfilePicture;
-    private ArrayList<Point> m_Points;
+    private ArrayList<SprayChartView.Point> m_Points;
 
    
     
@@ -496,11 +498,11 @@ public class Player implements Comparable<Player>{
         return m_ProfilePicture;
     }
 
-    public void setPoints(ArrayList<Point> points){
+    public void setPoints(ArrayList<SprayChartView.Point> points){
         m_Points = points;
     }
 
-    public ArrayList<Point> getPoints(ArrayList<Point> points){
+    public ArrayList<SprayChartView.Point> getPoints(){
        return m_Points;
     }
 

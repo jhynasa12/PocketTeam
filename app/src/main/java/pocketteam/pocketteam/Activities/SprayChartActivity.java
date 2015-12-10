@@ -1,6 +1,7 @@
 package pocketteam.pocketteam.Activities;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,16 +9,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import pocketteam.pocketteam.view.SprayChartView;
+
+import java.util.ArrayList;
 
 import pocketteam.pocketteam.R;
 import pocketteam.pocketteam.view.SprayChartView;
 
 public class SprayChartActivity extends AppCompatActivity {
 
+    private ArrayList<SprayChartView.Point> currentPoints;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spray_chart);
+
+        if(PlayerProfileActivity.currentPlayer.getPoints() != null){
+            SprayChartView view = (SprayChartView) findViewById(R.id.spray_view);
+
+            view.setSprayPoints(PlayerProfileActivity.currentPlayer.getPoints());
+
+            view.invalidate();
+        }
 
         Context context = getApplicationContext();
         CharSequence text = "Touch the field to Add Hit";
@@ -30,6 +44,18 @@ public class SprayChartActivity extends AppCompatActivity {
     }
 
     public void SaveSprayChartActivityOnClick(MenuItem item) {
+
+        SprayChartView chart;
+
+        chart = (SprayChartView) findViewById(R.id.spray_view);
+
+        currentPoints = chart.getPoints();
+
+        PlayerProfileActivity.currentPlayer.setPoints(currentPoints);
+
+
+
+
     }
 
 
