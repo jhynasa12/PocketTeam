@@ -16,6 +16,7 @@ import pocketteam.pocketteam.Data.DataHelper;
 
 public class WelcomeActivity extends AppCompatActivity {
    public static DataHelper teamDB;
+    private static ArrayList<Team> teamList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +55,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
 
-       // Pulls existing teams from db
-        if (!teamDB.getAllTeams().isEmpty()) //checks to see if there are any teams
-
+       // Pulls existing teams from db and checks to see if there are any teams
+        if (!teamDB.getAllTeams().isEmpty()) {
             //clears roster list
-            for (Team p : TeamList.getInstance().getTeams())
-                TeamList.getInstance().removeTeam(p);
+            teamList = TeamList.getInstance().getTeams();
+            teamList.clear();
+        }
 
             //re-adds players to list
             for (Team p : teamDB.getAllTeams())

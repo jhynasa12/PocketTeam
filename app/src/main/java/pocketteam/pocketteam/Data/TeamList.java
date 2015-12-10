@@ -83,6 +83,7 @@ public class TeamList {
         m_Teams.remove(team);
     }
 
+    public void  removeAllTeams(Team team) {m_Teams.clear();}
 
     public Team getTeam(String name) {
         for (Team team : m_Teams)
