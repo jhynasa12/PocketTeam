@@ -17,7 +17,7 @@ import pocketteam.pocketteam.Data.StatList;
 import pocketteam.pocketteam.R;
 
 /**
- * Created by hylan on 11/16/2015.
+ * Created by Justin Hyland
  */
 public class StatListAdapter<K, V> extends BaseAdapter
 {

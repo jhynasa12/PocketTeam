@@ -1,5 +1,9 @@
 package pocketteam.pocketteam.Activities;
-
+/**
+ * This is the AddPlayerActivity Class. This class allows the user to Add a player to the roster
+ *
+ * @author Justin Hyland
+ */
 
 
 import android.content.Context;
@@ -32,6 +36,12 @@ public class AddPlayerActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = "AddPlayerActivity";
 
+
+    /**
+     * On Creation on the Activity
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +68,8 @@ public class AddPlayerActivity extends AppCompatActivity {
         positionAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(positionAdapter);
 
+
+        //Creates a drop down menu to select the player position
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -108,6 +120,11 @@ public class AddPlayerActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * OnButtonClickEvent - When the user clicks the Add Player button, runs checks and then adds the player
+     *
+     * @param view
+     */
     public void AddPlayerEventClickHandler(View view) {
 
 
@@ -168,12 +185,10 @@ public class AddPlayerActivity extends AppCompatActivity {
                 //add player to the Team
 
 
+                currentTeam.addPlayer(player);
 
 
-                        currentTeam.addPlayer(player);
-
-
-                WelcomeActivity.teamDB.addPlayer(player);
+                WelcomeActivity.teamDB.addPlayer(player); // adds player to the database
 
                 showToastMessage("Player Added");
 
@@ -189,10 +204,20 @@ public class AddPlayerActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Cancel Button - When a user clicks the Cancel button the Activity finishes
+     *
+     * @param view
+     */
     public void btnOnClickCancelEventHandler(View view) {
         finish();
     }
 
+    /**
+     * Shows a toast message
+     *
+     * @param message
+     */
     public void showToastMessage(String message) {
 
         Context context = getApplicationContext();

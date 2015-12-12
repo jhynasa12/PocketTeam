@@ -1,5 +1,12 @@
 package pocketteam.pocketteam.Activities;
 
+/**
+ * This is the TeamActivity Class. This hold the list of Teams that contain all of the playerr
+ *
+ * @author Justin Hyland
+ */
+
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,8 +37,7 @@ public class TeamListActivity extends AppCompatActivity {
     private ListView listView;
     public static ArrayAdapter<Team> teamArrayAdapter;
 
-    AdapterView.OnItemClickListener defaultListener = new AdapterView.OnItemClickListener()
-    {
+    AdapterView.OnItemClickListener defaultListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Team team = teams.get(position);
@@ -40,21 +46,23 @@ public class TeamListActivity extends AppCompatActivity {
     };
 
 
+    /**
+     * On Creation of TeamList Activity
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_list);
 
 
-
-
         teams = TeamList.getInstance().getTeams();
 
         if (!WelcomeActivity.teamDB.getAllTeams().isEmpty())
-            for(Team t : teams)
-            for (Player p : WelcomeActivity.teamDB.getAllPlayers(t.getTeamName()))
-                t.addPlayer(p);
-
+            for (Team t : teams)
+                for (Player p : WelcomeActivity.teamDB.getAllPlayers(t.getTeamName()))
+                    t.addPlayer(p);
 
 
         teamArrayAdapter = new ArrayAdapter<Team>(this, android.R.layout.simple_expandable_list_item_1, teams);
@@ -78,7 +86,11 @@ public class TeamListActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Displays the team detail going to the Roster Activity
+     *
+     * @param team
+     */
     public void displayTeamDetail(Team team) {
         Log.d("TeamListActivity", "Displaying Team: " + team.getTeamName());
 
@@ -89,6 +101,11 @@ public class TeamListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Goes to Add Team Activity
+     *
+     * @param view
+     */
     public void AddTeamOnClickEventHandler(View view) {
         Intent addTeamIntent = new Intent(this, AddTeamActivity.class);
         startActivity(addTeamIntent);
@@ -97,13 +114,13 @@ public class TeamListActivity extends AppCompatActivity {
 
     /**
      * Opens a dialog box so a User can edit the Team name
+     *
      * @param team - selected team
      */
-    public void openDialogForEdit(final Team team){
+    public void openDialogForEdit(final Team team) {
 
 
-
-        AlertDialog alertDialog = new AlertDialog.Builder((TeamListActivity)this).create(); //Read Update
+        AlertDialog alertDialog = new AlertDialog.Builder((TeamListActivity) this).create(); //Read Update
         alertDialog.setTitle("Edit Team Name");
         alertDialog.setMessage("Edit your team name: ");
 
@@ -122,8 +139,7 @@ public class TeamListActivity extends AppCompatActivity {
                         team.setTeamName(name);
 
 
-                        for(Player player: team.getRoster())
-                        {
+                        for (Player player : team.getRoster()) {
                             player.setTeamName(name);
                             WelcomeActivity.teamDB.updatePlayer(player);
                         }
@@ -135,13 +151,16 @@ public class TeamListActivity extends AppCompatActivity {
         alertDialog.setCanceledOnTouchOutside(true);
 
 
-
         alertDialog.show();  //<-- See This!
     }//end OpenDialogForEdit
 
 
-    public void RemoveTeamOnClickEventHandler(View view)
-    {
+    /**
+     * Remove Team on selection
+     *
+     * @param view
+     */
+    public void RemoveTeamOnClickEventHandler(View view) {
         Context context = getApplicationContext();
         CharSequence text = "Please select a team to remove...";
         int duration = Toast.LENGTH_SHORT;
@@ -149,11 +168,9 @@ public class TeamListActivity extends AppCompatActivity {
         final Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 String item = (String) teamArrayAdapter.getItem(position).getTeamName();
                 Team team = teams.get(position);
                 teams.remove(team);

@@ -494,18 +494,35 @@ public class Player implements Comparable<Player>{
         m_ProfilePicture = image;
     }
 
+    /**
+     * Returns Player's Profile Picture
+     * @return
+     */
     public Bitmap getProfilePicture(){
         return m_ProfilePicture;
     }
 
+    /**
+     * Sets Players SPray Chart Points
+     * @param points
+     */
     public void setPoints(ArrayList<SprayChartView.Point> points){
         m_Points = points;
     }
 
+    /**
+     * Returns  Player's SprayChartPoints
+     * @return
+     */
     public ArrayList<SprayChartView.Point> getPoints(){
        return m_Points;
     }
 
+    /**
+     * Compares player by batting Average
+     * @param another
+     * @return
+     */
     @Override
     public int compareTo(Player another)
     {

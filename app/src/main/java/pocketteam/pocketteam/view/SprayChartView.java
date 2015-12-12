@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import pocketteam.pocketteam.R;
 
 /**
- * TODO: document your custom view class.
+ * The SprayChart View Class allows the user to actually interact with the user touches
+ *
+ * @author Justin Hyland
  */
 public class SprayChartView extends View {
 
@@ -53,20 +55,30 @@ public class SprayChartView extends View {
     private ArrayList<Point> sprayPoints = new ArrayList<Point>();
 
 
-
     public SprayChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Clears the Points
+     */
     public void clearPoints() {
         sprayPoints.clear();
         invalidate();
     }
 
-    public void setSprayPoints(ArrayList<SprayChartView.Point> points){
+    /**
+     * Set the SprayPoints
+     *
+     * @param points
+     */
+    public void setSprayPoints(ArrayList<SprayChartView.Point> points) {
         sprayPoints = points;
     }
 
+    /**
+     * Undo Point
+     */
     public void undoPoint() {
 
         sprayPoints.remove(sprayPoints.size() - 1);
@@ -78,11 +90,21 @@ public class SprayChartView extends View {
     }
 
 
-    public ArrayList<Point> getPoints(){
+    /**
+     * Returns SprayPoints
+     *
+     * @return
+     */
+    public ArrayList<Point> getPoints() {
         return sprayPoints;
     }
 
 
+    /**
+     * Overrides OnDraw and Paints the red dots when the user touches the screen
+     *
+     * @param canvas
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -99,6 +121,12 @@ public class SprayChartView extends View {
         }
     }
 
+    /**
+     * On Touch Event - When a user touches the screen
+     *
+     * @param e
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         switch (e.getAction()) {
@@ -111,8 +139,6 @@ public class SprayChartView extends View {
         }
         return true;
     }
-
-
 
 
 }

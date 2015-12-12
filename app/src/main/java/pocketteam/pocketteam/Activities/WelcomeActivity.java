@@ -1,5 +1,10 @@
 package pocketteam.pocketteam.Activities;
 
+/**
+ * This is the Welcome Activity Class. This is the first Screen that is displayed when the App is executed. Lists Teams and Scout Mode
+ * @author Justin Hyland
+ */
+
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -18,6 +23,10 @@ public class WelcomeActivity extends AppCompatActivity {
    public static DataHelper teamDB;
     private static ArrayList<Team> teamList;
 
+    /**
+     * On Creation of Welcome Activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +49,10 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Scout Mode Button On Click - Goes to ScoutPlayerActivity
+     * @param view
+     */
     public void ScoutModeOnClickEventHandler(View view) {
 
         Intent addPlayerIntent = new Intent(this, ScoutPlayerActivity.class);
@@ -48,6 +60,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Team Button On Click - Goes to TeamListActivity
+     * @param view
+     */
     public void TeamsOnClickEventHandler(View view) {
 
         Intent teamsIntent = new Intent(this, TeamListActivity.class);

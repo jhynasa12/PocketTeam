@@ -1,4 +1,8 @@
 package pocketteam.pocketteam.Activities;
+/**
+ * This is the ScoutPlayerActivity Class. This Class lets you add a player to a list of Scouted Players for quick adding of players
+ */
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,8 +24,7 @@ import pocketteam.pocketteam.Utilities.Utility;
 
 public class ScoutPlayerActivity extends AppCompatActivity {
 
-    EditText editFirstName, editLastName, editPosition, editNumber, editPhoneNumber, editParentContact;
-    private String teamName;
+    EditText editFirstName, editLastName, editNumber, editPhoneNumber, editParentContact;
     private Team currentTeam;
     private String playerPosition;
     private ArrayAdapter<String> positionAdapter;
@@ -30,13 +33,17 @@ public class ScoutPlayerActivity extends AppCompatActivity {
     public static final String LOG_TAG = "ScoutPlayerActivity";
 
 
-
+    /**
+     * On Creation of ScoutPlayerActivity
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scout_player_layout);
 
-        items = new String[]{"P", "C", "1B", "2B","SS", "3B", "LF", "CF", "RF"};
+        items = new String[]{"P", "C", "1B", "2B", "SS", "3B", "LF", "CF", "RF"};
 
 
         editFirstName = (EditText) findViewById(R.id.scout_first_name);
@@ -101,10 +108,20 @@ public class ScoutPlayerActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Lets user cancel the Scout Activity
+     *
+     * @param view
+     */
     public void btnScoutOnClickCancelEventHandler(View view) {
         finish();
     }
 
+    /**
+     * Add Scouted player to Scouted Player list
+     *
+     * @param view
+     */
     public void AddPlayerScoutEventClickHandler(View view) {
 
 
@@ -113,7 +130,7 @@ public class ScoutPlayerActivity extends AppCompatActivity {
             TeamList.getInstance().addTeam(new Team("Scouted_Players"));
             currentTeam = TeamList.getInstance().returnTeamByName("Scouted_Players");
 
-            
+
             WelcomeActivity.teamDB.addTeams(currentTeam);
         } else {
             currentTeam = TeamList.getInstance().returnTeamByName("Scouted_Players");
@@ -135,7 +152,7 @@ public class ScoutPlayerActivity extends AppCompatActivity {
             showToastMessage("Phone number is too short or too long");
 
             //this the number is greater than double digits
-        }else if(editNumber.getText().toString().length() > 2){
+        } else if (editNumber.getText().toString().length() > 2) {
             showToastMessage("A player number cannot be that big...");
 
 
@@ -161,8 +178,6 @@ public class ScoutPlayerActivity extends AppCompatActivity {
         }
 
         if (matchingPlayer) {      //create Player
-
-
 
 
             //create Player
@@ -197,6 +212,11 @@ public class ScoutPlayerActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Show toast messages
+     *
+     * @param message
+     */
     public void showToastMessage(String message) {
 
         Context context = getApplicationContext();

@@ -1,5 +1,10 @@
 package pocketteam.pocketteam.Activities;
 
+/**
+ * This is the Roster Activity Class - This class shows the list players on a Team
+ */
+
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,9 +27,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import pocketteam.pocketteam.Data.Player;
-import pocketteam.pocketteam.Data.Team;
 import pocketteam.pocketteam.R;
-import pocketteam.pocketteam.Data.TeamList;
+
 
 public class RosterActivity extends AppCompatActivity {
 
@@ -38,16 +42,19 @@ public class RosterActivity extends AppCompatActivity {
     private ArrayAdapter<Player> playerArrayAdapter;
     private ListView listView;
 
-    private AdapterView.OnItemClickListener defaultListener = new AdapterView.OnItemClickListener()
-    {
+    private AdapterView.OnItemClickListener defaultListener = new AdapterView.OnItemClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-        {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Player player = players.get(position);
             displayRosterDetail(player);
         }
     };
 
+    /**
+     * On Creation of RosterActivity
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,16 +67,11 @@ public class RosterActivity extends AppCompatActivity {
 
         //gets players from certain team from database
         if (!WelcomeActivity.teamDB.getAllTeams().isEmpty())
-                for (Player p : WelcomeActivity.teamDB.getAllPlayers(teamName))
+            for (Player p : WelcomeActivity.teamDB.getAllPlayers(teamName))
                 players.add(p);
 
 
-        //players = TeamList.getInstance().getTeam(teamName).getRoster();
-
-
-
         playerArrayAdapter = new ArrayAdapter<Player>(this, android.R.layout.simple_expandable_list_item_1, players);
-
 
 
         listView = (ListView) findViewById(R.id.list_players);
@@ -77,8 +79,7 @@ public class RosterActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener(defaultListener);
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Player player = players.get(position);
@@ -91,6 +92,12 @@ public class RosterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * On Create Options Menu
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -98,6 +105,12 @@ public class RosterActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * On Options Selected
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -135,8 +148,7 @@ public class RosterActivity extends AppCompatActivity {
         final EditText firstNameInput = (EditText) diagLayout.findViewById(R.id.fname);
         final EditText lastNameInput = (EditText) diagLayout.findViewById(R.id.lname);
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener()
-                {
+                new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String firstname = firstNameInput.getText().toString();
                         String lastname = lastNameInput.getText().toString();
@@ -146,8 +158,7 @@ public class RosterActivity extends AppCompatActivity {
                     }
                 });
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
-                new DialogInterface.OnClickListener()
-                {
+                new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         alertDialog.cancel();
                     }
@@ -161,16 +172,25 @@ public class RosterActivity extends AppCompatActivity {
     }//end OpenDialogForEdit
 
 
+    /**
+     * When a user clicks the add player button - Opens the AddPlayerActivity Screen
+     *
+     * @param view
+     */
     public void AddPlayerEventOnClickHandler(View view) {
 
         Intent addPlayerIntent = new Intent(this, AddPlayerActivity.class);
         addPlayerIntent.putExtra(TEAM_NAME, teamName);
         startActivityForResult(addPlayerIntent, 0x0);
-       // finishActivity(DETAIL_REQUEST_CODE)
+        // finishActivity(DETAIL_REQUEST_CODE)
     }
 
-    private void displayRosterDetail(Player player)
-    {
+    /**
+     * Displays the the Player Profile when a player is clicked
+     *
+     * @param player
+     */
+    private void displayRosterDetail(Player player) {
         Log.d("RosterActivity", "Displaying player: " + player.getLastName());
         Intent playerProfileIntent = new Intent(this, PlayerProfileActivity.class);
         playerProfileIntent.putExtra(PLAYER_NAME, player.getFirstName() + " " + player.getLastName());
@@ -180,18 +200,27 @@ public class RosterActivity extends AppCompatActivity {
         startActivity(playerProfileIntent);
 
 
-
-
     }
 
+    /**
+     * Notifies the Players List has changed
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         playerArrayAdapter.notifyDataSetChanged();
 
 
     }
 
+    /**
+     * Remove Player Button -
+     *
+     * @param view
+     */
     public void RemovePlayerOnClickEventHandler(View view) {
 
         Context context = getApplicationContext();
@@ -201,8 +230,7 @@ public class RosterActivity extends AppCompatActivity {
         final Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
@@ -228,6 +256,11 @@ public class RosterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sorts Players by Highest Batting Average
+     *
+     * @param item
+     */
     public void SortByBatAvgHighestOnClick(MenuItem item) {
 
         Collections.sort(players);
@@ -235,13 +268,17 @@ public class RosterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sort Players by Lowest Batting Average
+     *
+     * @param item
+     */
     public void SortByBatAvgLowestOnClick(MenuItem item) {
 
         Collections.sort(players);
         Collections.reverse(players);
 
         playerArrayAdapter.notifyDataSetChanged();
-
 
 
     }

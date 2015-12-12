@@ -50,13 +50,7 @@
         </activity>
         <activity android:name=".Activities.ScoutPlayerActivity" >
         </activity>
-        <activity android:name=".Activities.HitsActivity" >
-        </activity>
         <activity android:name=".Activities.SluggingActivity" >
-        </activity>
-        <activity android:name=".Activities.RbiActivity" >
-        </activity>
-        <activity android:name=".Activities.HomeRunActivity" >
         </activity>
     </application>
 

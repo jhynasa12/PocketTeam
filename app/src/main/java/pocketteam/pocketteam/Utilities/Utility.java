@@ -16,6 +16,10 @@ public class Utility {
 
     }
 
+    /**
+     * Singleton Pattern
+     * @return
+     */
 
     public static Utility getInstance(){
 
@@ -27,32 +31,25 @@ public class Utility {
     }
 
 
+    /**
+     * Checks to see if the text field is Empty
+     * @param etText
+     * @return
+     */
     public boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() == 0;
     }
 
 
+    /**
+     * Sets the phone number to correct format
+     * @param number
+     * @return
+     */
     public String setPhoneNumberFormat(String number) {
         number = "(" + number.substring(0, 3) + ")-" + number.substring(3, 6) + "-" + number.substring(6, 10);
         return number;
     }
 
-    public void callToastMessage(String message){
 
-        Context context = getApplicationContext();
-        CharSequence text = message;
-        int duration = Toast.LENGTH_SHORT;
-
-        final Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-    }
-
-
-    public Context getApplicationContext() {
-        return applicationContext;
-    }
-
-    public void setApplicationContext(Context applicationContext) {
-        this.applicationContext = applicationContext;
-    }
 }
