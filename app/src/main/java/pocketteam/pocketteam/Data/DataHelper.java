@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.BaseColumns;
+import android.widget.ImageView;
 
 
 import pocketteam.pocketteam.Activities.WelcomeActivity;
@@ -23,6 +24,8 @@ import java.util.Currency;
  * Created by Max on 11/7/2015.
  */
 public class DataHelper extends SQLiteOpenHelper {
+
+    ImageView imageView1;
     //name of database
      public static final String DATABASE_NAME = "pocketDB.db";
     //name of table that contains the team names
@@ -48,12 +51,14 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String Losses = "LOSSES";
     public static final String Hits = "HITS";
     public static final String PlayerImage = "PLAYER_IMAGE";
+    public static final String SprayChartPoints = "SPRAY_CHART_POINTS";
+
     //Team Table create statement
     private static final String CREATE_TABLE_TEAM = "CREATE TABLE " + TABLE_TEAM + "(" + teamName + " TEXT" + ");";
     //Players Table create statement
     private static final String CREATE_TABLE_PLAYERS = "CREATE TABLE " + TABLE_PLAYERS + "(" + NUMBER + " INTEGER PRIMARY KEY," + FirstName + " TEXT," + LastName + " TEXT," + Position + " TEXT," +
                                                                                                 TeamName + " TEXT," + ParentCell + " TEXT," + ParentName + " TEXT," + PlayerImage + " BLOB," + Walks + " TEXT,"
-            + Wins + " TEXT,"+ Slugging + " TEXT,"+ RBI + " TEXT,"+ BatAvrg + " TEXT,"+ ERA + " TEXT," + Losses + " TEXT," + Hits + " TEXT"+ ");";
+            + Wins + " TEXT,"+ Slugging + " TEXT,"+ RBI + " TEXT,"+ BatAvrg + " TEXT,"+ ERA + " TEXT," + Losses + " TEXT," + Hits + " TEXT" + SprayChartPoints + " TEXT" + ");";
 
     public DataHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -67,6 +72,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
             db.execSQL("CREATE TABLE " + TABLE_TEAM + "(" + teamName + " TEXT" + ");");
             //db.execSQL(CREATE_TABLE_PLAYERS);
+        //imageView1 = (ImageView) this.findViewById(R.id.imageView1);
 
 
     }
@@ -88,7 +94,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE " + team.getTeamName() + "(" + NUMBER + " INTEGER PRIMARY KEY," + FirstName + " TEXT," + LastName + " TEXT," + Position + " TEXT," +
                 TeamName + " TEXT," + ParentCell + " TEXT," + ParentName + " TEXT," + PlayerImage + " BLOB," + Walks + " TEXT,"
-                + Wins + " TEXT," + Slugging + " TEXT," + RBI + " TEXT," + BatAvrg + " TEXT," + ERA + " TEXT," + Losses + " TEXT," + Hits + " TEXT" + ");");
+                + Wins + " TEXT," + Slugging + " TEXT," + RBI + " TEXT," + BatAvrg + " TEXT," + ERA + " TEXT," + Losses + " TEXT," + Hits + " TEXT" + SprayChartPoints + " TEXT" + ");");
 
         ContentValues contentValues = new ContentValues();
 
@@ -151,7 +157,7 @@ public class DataHelper extends SQLiteOpenHelper {
         db.delete(player.getPosition(), NUMBER + " = ?", new String[]{player.getPlayerNumber()});
         db.close();
     }
-
+//adds image to db
     public void addImage (Player player, Bitmap image) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -161,16 +167,16 @@ public class DataHelper extends SQLiteOpenHelper {
         values.put(PlayerImage, getBytes(image));
 
 
-        // updating row
+//         updating row
         db.update(player.getTeamName(), values, NUMBER + " = ?",
-                new String[]{String.valueOf(player.getPlayerNumber())});
-
+               new String[] { String.valueOf(player.getPlayerNumber()) });
+       // db.insert(player.getTeamName(),null,values);
 
 
 
 
     }
-
+    //turn bitmap into byte in order to store
     public static byte[] getBytes(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
@@ -218,8 +224,9 @@ public class DataHelper extends SQLiteOpenHelper {
                 player.setTeamName(cursor.getString(4));
                 player.setPhoneNumber(cursor.getString(5));
                 player.setParentName(cursor.getString(6));
-//                byte [] imgByte = cursor.getBlob(7);
-//                player.setProfilePicture(getImage(imgByte));
+                if(cursor.getString(7) != null){
+                byte [] imgByte = cursor.getBlob(7);
+                player.setProfilePicture(getImage(imgByte));}
                 if(cursor.getString(8) != null)
                 player.setWalks(Integer.parseInt(cursor.getString(8)));
                 if(cursor.getString(9) != null)
@@ -236,6 +243,8 @@ public class DataHelper extends SQLiteOpenHelper {
                 player.setLosses(Integer.parseInt(cursor.getString(14)));
                 if(cursor.getString(15) != null)
                 player.setHits(Integer.parseInt(cursor.getString(15)));
+              //  if(cursor.getString(16) != null)
+                    //player.setPoints(Integer.parseInt(cursor.getString(16)));
 
 
 
